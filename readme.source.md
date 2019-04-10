@@ -2,6 +2,8 @@
 
 Extends [xUnit](https://xunit.net/) to simplify logging.
 
+Redirects `Trace.Write*` and `Console.Write*` to `ITestOutputHelper`.
+
 
 ## The NuGet package [![NuGet Status](http://img.shields.io/nuget/v/XunitLogger.svg?style=flat)](https://www.nuget.org/packages/XunitLogger/)
 
@@ -13,12 +15,19 @@ https://nuget.org/packages/XunitLogger/
 ## Usage
 
 
+### ClassBeingTested
+
+snippet: ClassBeingTested.cs
+
+
 ### XunitLoggingBase
 
 snippet: TestBaseSample.cs
 
 
 ### XunitLogger
+
+snippet: XunitLoggerSample.cs
 
 
 ## Icon
