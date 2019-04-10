@@ -1,0 +1,5 @@
+﻿{
+  Message: 'Logging context has been flushed.',
+  Data: {},
+  Source: 'XunitLogger'
+}

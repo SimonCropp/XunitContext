@@ -11,14 +11,14 @@ public class SkipDispose :
     {
         Write("part1");
         Write(" part2");
-        Dispose();
+        base.Dispose();
         ObjectApprover.VerifyWithJson(Logs);
     }
 
     [Fact]
     public void Write_after_dispose_should_throw()
     {
-        Dispose();
+        base.Dispose();
         var exception = Assert.Throws<Exception>(() => WriteLine());
         ObjectApprover.VerifyWithJson(exception);
     }
