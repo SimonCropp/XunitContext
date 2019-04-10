@@ -7,7 +7,8 @@ using Xunit.Abstractions;
 public static class XunitLogger
 {
     static AsyncLocal<LoggingContext> asyncLocal = new AsyncLocal<LoggingContext>();
-
+    
+    #region writRedirects
     static XunitLogger()
     {
         var listeners = Trace.Listeners;
@@ -15,6 +16,7 @@ public static class XunitLogger
         listeners.Add(new TraceListener());
         Console.SetOut(new TestWriter());
     }
+    #endregion
 
     public static void Write(string value)
     {

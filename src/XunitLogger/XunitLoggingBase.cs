@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Xunit.Abstractions;
 
-public class XunitLoggingBase : IDisposable
+public abstract class XunitLoggingBase : IDisposable
 {
     public XunitLoggingBase(ITestOutputHelper output)
     {
