@@ -55,7 +55,14 @@ public class TestBaseSample :
     [Fact]
     public void Write_lines()
     {
-        WriteLine("The log message");
+        WriteLine("From Test");
+        ClassBeingTested.Method();
+
+        var logs = XunitLogger.Logs;
+
+        Assert.Contains("From Test", logs);
+        Assert.Contains("From Trace", logs);
+        Assert.Contains("From Console", logs);
     }
 
     public TestBaseSample(ITestOutputHelper testOutput) :
@@ -64,7 +71,7 @@ public class TestBaseSample :
     }
 }
 ```
-<sup>[snippet source](/src/Tests/Snippets/TestBaseSample.cs#L1-L17)</sup>
+<sup>[snippet source](/src/Tests/Snippets/TestBaseSample.cs#L1-L24)</sup>
 <!-- endsnippet -->
 
 
