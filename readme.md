@@ -11,7 +11,7 @@ Redirects [Trace.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagn
 
 Note that [Debug.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.debug.write) is not redirected since it is not supported on dotnet core.
 
-Uses [AsyncLocal<T>](https://docs.microsoft.com/en-us/dotnet/api/system.threading.asynclocal-1) to track state.
+Uses [AsyncLocal](https://docs.microsoft.com/en-us/dotnet/api/system.threading.asynclocal-1) to track state.
 
 
 ## The NuGet package [![NuGet Status](http://img.shields.io/nuget/v/XunitLogger.svg?style=flat)](https://www.nuget.org/packages/XunitLogger/)
@@ -82,8 +82,7 @@ public class TestBaseSample :
 
 ### XunitLogger
 
-
-`XunitLogger` provides static access to the logging state for tests. It exposes logging methods for use from unit tests, however flushing of logs must be handled explicitly.
+`XunitLogger` provides static access to the logging state for tests. It exposes logging methods for use from unit tests, however registration of [ITestOutputHelper](https://xunit.net/docs/capturing-output) and flushing of logs must be handled explicitly.
 
 <!-- snippet: XunitLoggerSample.cs -->
 ```cs
