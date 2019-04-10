@@ -38,7 +38,7 @@ public static class XunitLogger
         }
     }
 
-    public static void WriteLine(string value=null)
+    public static void WriteLine(string value = null)
     {
         var context = GetContext();
         var builder = context.Builder;
@@ -51,6 +51,7 @@ public static class XunitLogger
             builder.Clear();
             context.LogMessages.Add(message);
         }
+
         context.TestOutput.WriteLine(message);
     }
 
@@ -66,6 +67,7 @@ public static class XunitLogger
             context.LogMessages.Add(message);
             context.Flushed = true;
         }
+
         testOutput.WriteLine(message);
     }
 
@@ -82,6 +84,7 @@ public static class XunitLogger
 
     public static void Register(ITestOutputHelper output)
     {
+        Guard.AgainstNull(output, nameof(output));
         asyncLocal.Value = new LoggingContext(output);
     }
 }

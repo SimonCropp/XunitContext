@@ -4,9 +4,9 @@ using Xunit.Abstractions;
 
 public class XunitLoggingBase : IDisposable
 {
-    public XunitLoggingBase(ITestOutputHelper testOutput)
+    public XunitLoggingBase(ITestOutputHelper output)
     {
-        XunitLogger.Register(testOutput);
+        XunitLogger.Register(output);
     }
 
     public void WriteLine(string value = null)
