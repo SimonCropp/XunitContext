@@ -8,13 +8,15 @@ public static class XunitLogger
 {
     static AsyncLocal<LoggingContext> asyncLocal = new AsyncLocal<LoggingContext>();
     
-    #region writRedirects
+    #region writeRedirects
     static XunitLogger()
     {
         var listeners = Trace.Listeners;
         listeners.Clear();
         listeners.Add(new TraceListener());
-        Console.SetOut(new TestWriter());
+        var writer = new TestWriter();
+        Console.SetOut(writer);
+        Console.SetError(writer);
     }
     #endregion
 

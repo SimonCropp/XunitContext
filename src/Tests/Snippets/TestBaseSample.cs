@@ -15,10 +15,11 @@ public class TestBaseSample :
         Assert.Contains("From Test", logs);
         Assert.Contains("From Trace", logs);
         Assert.Contains("From Console", logs);
+        Assert.Contains("From Console Error", logs);
     }
 
-    public TestBaseSample(ITestOutputHelper testOutput) :
-        base(testOutput)
+    public TestBaseSample(ITestOutputHelper output) :
+        base(output)
     {
     }
 }
