@@ -26,7 +26,7 @@ public static class XunitLogger
         }
     }
 
-    public static IReadOnlyCollection<string> Logs => GetContext().LogMessages;
+    public static IReadOnlyList<string> Logs => GetContext().LogMessages;
 
     public static void Write(char value)
     {

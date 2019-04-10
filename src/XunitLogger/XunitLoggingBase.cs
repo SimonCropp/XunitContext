@@ -19,7 +19,7 @@ public class XunitLoggingBase : IDisposable
         XunitLogger.Write(value);
     }
 
-    public static IReadOnlyCollection<string> Logs => XunitLogger.Logs;
+    public static IReadOnlyList<string> Logs => XunitLogger.Logs;
 
     public virtual void Dispose()
     {
