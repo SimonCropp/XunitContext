@@ -4,6 +4,8 @@ Extends [xUnit](https://xunit.net/) to simplify logging.
 
 Redirects `Trace.Write*` and `Console.Write*` to `ITestOutputHelper`.
 
+Uses [AsyncLocal<T>](https://docs.microsoft.com/en-us/dotnet/api/system.threading.asynclocal-1) to track state.
+
 
 ## The NuGet package [![NuGet Status](http://img.shields.io/nuget/v/XunitLogger.svg?style=flat)](https://www.nuget.org/packages/XunitLogger/)
 
