@@ -1,8 +1,3 @@
-<!--
-This file was generate by MarkdownSnippets.
-Source File: /readme.source.md
-To change this file edit the source file and then re-run the generation using either the dotnet global tool (https://github.com/SimonCropp/MarkdownSnippets#githubmarkdownsnippets) or using the api (https://github.com/SimonCropp/MarkdownSnippets#running-as-a-unit-test).
--->
 # <img src="https://raw.github.com/SimonCropp/ObjectApproval/master/icon.png" height="40px"> ObjectApproval
 
 Extends [ApprovalTests](https://github.com/approvals/ApprovalTests.Net) to allow simple approval of complex models using [Json.net](https://www.newtonsoft.com/json).
@@ -19,13 +14,11 @@ https://nuget.org/packages/ObjectApproval/
 
 Assuming you have previously verified and approved using this. 
 
-<!-- snippet: before -->
-** Could not find snippet 'before' **
+snippet: before
 
 Then you attempt to verify this 
 
-<!-- snippet: after -->
-** Could not find snippet 'after' **
+snippet: after
 
 The serialized json version of these will then be compared and you will be displayed the differences in the diff tool you have asked ApprovalTests to use. For example:
 
@@ -38,8 +31,7 @@ Note that the output is technically not valid json. [Single quotes are used](#si
 
 When validating multiple instances, an [anonymous type](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/anonymous-types) can be used for verification
 
-<!-- snippet: anon -->
-** Could not find snippet 'anon' **
+snippet: anon
 
 Results in the following:
 
@@ -68,8 +60,7 @@ All modifications of `SerializerBuilder` behavior is global for all verification
 
 The default serialization settings are:
 
-<!-- snippet: defaultSerialization -->
-** Could not find snippet 'defaultSerialization' **
+snippet: defaultSerialization
 
 
 ### Single quotes used
@@ -109,8 +100,7 @@ SerializerBuilder.IgnoreEmptyCollections = false;
 
 By default guids are sanitized during verification. This is done by finding each guid and taking a counter based that that specific guid. That counter is then used replace the guid values. This allows for repeatable tests when guid values are changing.
 
-<!-- snippet: guid -->
-** Could not find snippet 'guid' **
+snippet: guid
 
 Results in the following:
 
@@ -134,8 +124,7 @@ SerializerBuilder.ScrubGuids = false;
 
 By default dates (`DateTime` and `DateTimeOffset`) are sanitized during verification. This is done by finding each date and taking a counter based that that specific date. That counter is then used replace the date values. This allows for repeatable tests when date values are changing.
 
-<!-- snippet: Date -->
-** Could not find snippet 'Date' **
+snippet: Date
 
 Results in the following:
 
@@ -172,40 +161,35 @@ SerializerBuilder.IgnoreFalse = false;
 
 `DateTime`, `DateTimeOffset`, `Guid`, `bool`, and empty collection behavior can also be controlled at the verification level: 
 
-<!-- snippet: ChangeDefaultsPerVerification -->
-** Could not find snippet 'ChangeDefaultsPerVerification' **
+snippet: ChangeDefaultsPerVerification
 
 
 ### Changing settings globally
 
 To change the serialization settings for all verifications use `SerializerBuilder.ExtraSettings`:
 
-<!-- snippet: ExtraSettings -->
-** Could not find snippet 'ExtraSettings' **
+snippet: ExtraSettings
 
 
 ### Ignoring a type
 
 To ignore all members that match a certain type:
 
-<!-- snippet: AddIgnore -->
-** Could not find snippet 'AddIgnore' **
+snippet: AddIgnore
 
 
 ### Ignore member by expressions
 
 To ignore members of a certain type using an expression:
 
-<!-- snippet: IgnoreMemberByExpression -->
-** Could not find snippet 'IgnoreMemberByExpression' **
+snippet: IgnoreMemberByExpression
 
 
 ### Ignore member by name
 
 To ignore members of a certain type using type and name:
 
-<!-- snippet: IgnoreMemberByName -->
-** Could not find snippet 'IgnoreMemberByName' **
+snippet: IgnoreMemberByName
 
 
 ### Members that throw
@@ -218,22 +202,19 @@ Note that this is global for all members on all types.
 
 Ignore by exception type:
 
-<!-- snippet: IgnoreMembersThatThrow -->
-** Could not find snippet 'IgnoreMembersThatThrow' **
+snippet: IgnoreMembersThatThrow
 
 
 Ignore by exception type and expression:
 
-<!-- snippet: IgnoreMembersThatThrowExpression -->
-** Could not find snippet 'IgnoreMembersThatThrowExpression' **
+snippet: IgnoreMembersThatThrowExpression
 
 
 ### Scrubber
 
 A scrubber can be used to cleanup or sanitize the resultant serialized string prior to verification.
 
-<!-- snippet: Scrubber -->
-** Could not find snippet 'Scrubber' **
+snippet: Scrubber
 
 Results in the following:
 
