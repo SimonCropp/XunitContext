@@ -78,12 +78,11 @@ public static class XunitLogger
     static LoggingContext GetContext()
     {
         var context = asyncLocal.Value;
-        if (context == null)
+        if (context != null)
         {
-            throw new Exception("No logging context found. XunitLogger.Register(ITestOutputHelper) needs to be called at test startup.");
+            return context;
         }
-
-        return context;
+        throw new Exception("An attempt was made to write to Trace or Console, however no logging context found. Either XunitLogger.Register(ITestOutputHelper) needs to be called at test startup, or have the test inherit from XunitLoggingBase.");
     }
 
     public static void Register(ITestOutputHelper output)
