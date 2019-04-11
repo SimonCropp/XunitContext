@@ -1,7 +1,7 @@
 ﻿using Xunit;
 using Xunit.Abstractions;
 
-public class TestBaseSample :
+public class TestBaseSample  :
     XunitLoggingBase
 {
     [Fact]

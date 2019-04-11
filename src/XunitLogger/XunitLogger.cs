@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
@@ -7,6 +8,8 @@ using Xunit.Abstractions;
 public static class XunitLogger
 {
     static AsyncLocal<LoggingContext> asyncLocal = new AsyncLocal<LoggingContext>();
+
+    public static ConcurrentBag<Func<string,bool>> Filters = new ConcurrentBag<Func<string, bool>>();
     
     #region writeRedirects
     static XunitLogger()
@@ -53,10 +56,27 @@ public static class XunitLogger
             builder.Append(value);
             message = builder.ToString();
             builder.Clear();
+            if (ShouldFilterOut(message))
+            {
+                return;
+            }
             context.LogMessages.Add(message);
         }
 
         context.TestOutput.WriteLine(message);
+    }
+
+    static bool ShouldFilterOut(string message)
+    {
+        foreach (var filter in Filters)
+        {
+            if (!filter(message))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public static void Flush()
@@ -68,6 +88,12 @@ public static class XunitLogger
         lock (builder)
         {
             message = builder.ToString();
+            builder.Clear();
+            if (ShouldFilterOut(message))
+            {
+                context.Flushed = true;
+                return;
+            }
             context.LogMessages.Add(message);
             context.Flushed = true;
         }

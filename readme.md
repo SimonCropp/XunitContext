@@ -49,13 +49,12 @@ static class ClassBeingTested
 
 `XunitLoggingBase` is an abstract base class for tests. It exposes logging methods for use from unit tests, and handle the flushing of longs in its `Dispose` method. `XunitLoggingBase` is actually a thin wrapper over `XunitLogger`. `XunitLogger`s `Write*` methods can also be use inside a test inheriting from `XunitLoggingBase`.
 
-
 <!-- snippet: TestBaseSample.cs -->
 ```cs
 using Xunit;
 using Xunit.Abstractions;
 
-public class TestBaseSample :
+public class TestBaseSample  :
     XunitLoggingBase
 {
     [Fact]
@@ -138,7 +137,47 @@ static XunitLogger()
     Console.SetError(writer);
 }
 ```
-<sup>[snippet source](/src/XunitLogger/XunitLogger.cs#L11-L21)</sup>
+<sup>[snippet source](/src/XunitLogger/XunitLogger.cs#L14-L24)</sup>
+<!-- endsnippet -->
+
+
+### Filters
+
+`XunitLogger.Filters` can be used to filter out unwanted lines:
+
+<!-- snippet: FilterSample.cs -->
+```cs
+using Xunit;
+using Xunit.Abstractions;
+
+public class FilterSample :
+    XunitLoggingBase
+{
+    static FilterSample()
+    {
+        XunitLogger.Filters.Add(x => !x.Contains("ignored"));
+    }
+
+    [Fact]
+    public void Write_lines()
+    {
+        WriteLine("first");
+        WriteLine("with ignored string");
+        WriteLine("last");
+        var logs = XunitLogger.Logs;
+
+        Assert.Contains("first", logs);
+        Assert.DoesNotContain("with ignored string", logs);
+        Assert.Contains("last", logs);
+    }
+
+    public FilterSample(ITestOutputHelper output) :
+        base(output)
+    {
+    }
+}
+```
+<sup>[snippet source](/src/Tests/Snippets/FilterSample.cs#L1-L29)</sup>
 <!-- endsnippet -->
 
 

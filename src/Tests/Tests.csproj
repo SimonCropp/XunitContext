@@ -9,7 +9,8 @@
     <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
     <PackageReference Include="MarkdownSnippets" Version="9.1.1" />
     <PackageReference Include="ObjectApproval" Version="8.0.3" />
-    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="Xunit" Version="2.4.1" />
+    <PackageReference Include="XunitLogger" Version="1.0.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
     <ProjectReference Include="..\XunitLogger\XunitLogger.csproj" />
   </ItemGroup>
