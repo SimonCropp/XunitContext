@@ -48,6 +48,8 @@ snippet: writeRedirects
 
 snippet: FilterSample.cs
 
+Note that filters are static and shared for all tests.
+
 
 ## Icon
 

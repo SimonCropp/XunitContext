@@ -180,6 +180,8 @@ public class FilterSample :
 <sup>[snippet source](/src/Tests/Snippets/FilterSample.cs#L1-L29)</sup>
 <!-- endsnippet -->
 
+Note that filters are static and shared for all tests.
+
 
 ## Icon
 
