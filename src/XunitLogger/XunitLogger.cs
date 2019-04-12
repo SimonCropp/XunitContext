@@ -108,7 +108,7 @@ public static class XunitLogger
         {
             return context;
         }
-        throw new Exception("An attempt was made to write to Trace or Console, however no logging context found. Either XunitLogger.Register(ITestOutputHelper) needs to be called at test startup, or have the test inherit from XunitLoggingBase.");
+        throw new Exception("An attempt was made to write to Trace or Console, however no logging context was found. Either XunitLogger.Register(ITestOutputHelper) needs to be called at test startup, or have the test inherit from XunitLoggingBase.");
     }
 
     public static void Register(ITestOutputHelper output)
