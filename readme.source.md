@@ -37,9 +37,11 @@ snippet: TestBaseSample.cs
 
 snippet: XunitLoggerSample.cs
 
-`XunitLogger` redirects [Trace.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.trace.write) and [Console.Write](https://docs.microsoft.com/en-us/dotnet/api/system.console.write) in its static constructor. These API calls are then routed to the correct xUnit [ITestOutputHelper](https://xunit.net/docs/capturing-output) via a static [AsyncLocal<T>](https://docs.microsoft.com/en-us/dotnet/api/system.threading.asynclocal-1).
+`XunitLogger` redirects [Trace.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.trace.write) and [Console.Write](https://docs.microsoft.com/en-us/dotnet/api/system.console.write) in its static constructor.
 
 snippet: writeRedirects
+
+These API calls are then routed to the correct xUnit [ITestOutputHelper](https://xunit.net/docs/capturing-output) via a static [AsyncLocal<T>](https://docs.microsoft.com/en-us/dotnet/api/system.threading.asynclocal-1).
 
 
 ### Filters
