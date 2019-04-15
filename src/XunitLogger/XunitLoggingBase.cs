@@ -8,6 +8,7 @@ public abstract class XunitLoggingBase : IDisposable
 
     public XunitLoggingBase(ITestOutputHelper output)
     {
+        Guard.AgainstNull(output, nameof(output));
         Output = output;
         XunitLogger.Register(output);
     }
