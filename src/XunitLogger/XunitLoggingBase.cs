@@ -4,8 +4,11 @@ using Xunit.Abstractions;
 
 public abstract class XunitLoggingBase : IDisposable
 {
+    public ITestOutputHelper Output { get; }
+
     public XunitLoggingBase(ITestOutputHelper output)
     {
+        Output = output;
         XunitLogger.Register(output);
     }
 
