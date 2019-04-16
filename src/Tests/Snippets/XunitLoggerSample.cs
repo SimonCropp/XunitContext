@@ -16,6 +16,7 @@ public class XunitLoggerSample :
 
         Assert.Contains("From Test", logs);
         Assert.Contains("From Trace", logs);
+        Assert.Contains("From Debug", logs);
         Assert.Contains("From Console", logs);
         Assert.Contains("From Console Error", logs);
     }
