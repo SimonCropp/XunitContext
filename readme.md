@@ -124,7 +124,7 @@ public class XunitLoggerSample :
 <sup>[snippet source](/src/Tests/Snippets/XunitLoggerSample.cs#L1-L33)</sup>
 <!-- endsnippet -->
 
-`XunitLogger` redirects [Trace.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.trace.write) and [Console.Write](https://docs.microsoft.com/en-us/dotnet/api/system.console.write) in its static constructor.
+`XunitLogger` redirects [Trace.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.trace.write), [Console.Write](https://docs.microsoft.com/en-us/dotnet/api/system.console.write), and [Debug.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.debug.write) in its static constructor.
 
 <!-- snippet: writeRedirects -->
 ```cs
