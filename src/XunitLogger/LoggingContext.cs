@@ -5,25 +5,11 @@ using Xunit.Abstractions;
 
 class LoggingContext
 {
-    public ITestOutputHelper TestOutput
-    {
-        get
-        {
-            ThrowIfFlushed();
-            return testOutput;
-        }
-    }
+    public readonly ITestOutputHelper TestOutput;
 
-    public StringBuilder Builder
-    {
-        get
-        {
-            ThrowIfFlushed();
-            return builder;
-        }
-    }
-    
-    void ThrowIfFlushed()
+    public StringBuilder Builder;
+
+    public void ThrowIfFlushed()
     {
         if (Flushed)
         {
@@ -33,11 +19,17 @@ class LoggingContext
 
     public bool Flushed;
     public List<string> LogMessages = new List<string>();
-    StringBuilder builder = new StringBuilder();
-    ITestOutputHelper testOutput;
 
     public LoggingContext(ITestOutputHelper testOutput)
     {
-        this.testOutput = testOutput;
+        TestOutput = testOutput;
+    }
+
+    public void InitBuilder()
+    {
+        if (Builder == null)
+        {
+            Builder = new StringBuilder();
+        }
     }
 }

@@ -13,9 +13,13 @@ public abstract class XunitLoggingBase : IDisposable
         XunitLogger.Register(output);
     }
 
-    public void WriteLine(string value = null)
+    public void WriteLine(string value)
     {
         XunitLogger.WriteLine(value);
+    }
+    public void WriteLine()
+    {
+        XunitLogger.WriteLine();
     }
 
     public void Write(string value)

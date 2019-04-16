@@ -41,7 +41,7 @@ snippet: XunitLoggerSample.cs
 
 snippet: writeRedirects
 
-These API calls are then routed to the correct xUnit [ITestOutputHelper](https://xunit.net/docs/capturing-output) via a static [AsyncLocal<T>](https://docs.microsoft.com/en-us/dotnet/api/system.threading.asynclocal-1).
+These API calls are then routed to the correct xUnit [ITestOutputHelper](https://xunit.net/docs/capturing-output) via a static [AsyncLocal](https://docs.microsoft.com/en-us/dotnet/api/system.threading.asynclocal-1).
 
 
 ### Filters
@@ -50,7 +50,7 @@ These API calls are then routed to the correct xUnit [ITestOutputHelper](https:/
 
 snippet: FilterSample.cs
 
-Note that filters are static and shared for all tests.
+Filters are static and shared for all tests.
 
 
 ## Icon

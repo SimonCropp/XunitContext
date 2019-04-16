@@ -18,12 +18,19 @@ class TestWriter : TextWriter
 
     public override void WriteLine()
     {
-        XunitLogger.WriteLine(null);
+        XunitLogger.WriteLine();
     }
 
     public override void WriteLine(string value)
     {
-        XunitLogger.WriteLine(value);
+        if (value == null)
+        {
+            XunitLogger.WriteLine();
+        }
+        else
+        {
+            XunitLogger.WriteLine(value);
+        }
     }
 
     public override Task WriteAsync(char value)
@@ -34,13 +41,13 @@ class TestWriter : TextWriter
 
     public override Task WriteAsync(string value)
     {
-        XunitLogger.Write(value);
+        Write(value);
         return Task.CompletedTask;
     }
 
     public override Task WriteLineAsync(string value)
     {
-        XunitLogger.WriteLine(value);
+        WriteLine(value);
         return Task.CompletedTask;
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using ObjectApproval;
+﻿using ObjectApproval;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -8,8 +7,9 @@ public class UsingTestBase :
 {
     static UsingTestBase()
     {
-        XunitLogger.Filters.Add(x=>x != "ignored");
+        XunitLogger.Filters.Add(x => x != "ignored");
     }
+
     [Fact]
     public void Write_lines()
     {
