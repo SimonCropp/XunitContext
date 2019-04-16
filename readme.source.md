@@ -2,9 +2,7 @@
 
 Extends [xUnit](https://xunit.net/) to simplify logging.
 
-Redirects [Trace.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.trace.write) and [Console.Write and Console.Error.Write](https://docs.microsoft.com/en-us/dotnet/api/system.console.write) to [ITestOutputHelper](https://xunit.net/docs/capturing-output). Also provides static access to the current [ITestOutputHelper](https://xunit.net/docs/capturing-output) for use within testing utility methods.
-
-Note that [Debug.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.debug.write) is not redirected since it is not supported on dotnet core.
+Redirects [Trace.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.trace.write), [Debug.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.debug.write), and [Console.Write and Console.Error.Write](https://docs.microsoft.com/en-us/dotnet/api/system.console.write) to [ITestOutputHelper](https://xunit.net/docs/capturing-output). Also provides static access to the current [ITestOutputHelper](https://xunit.net/docs/capturing-output) for use within testing utility methods.
 
 Uses [AsyncLocal](https://docs.microsoft.com/en-us/dotnet/api/system.threading.asynclocal-1) to track state.
 
@@ -41,7 +39,7 @@ snippet: XunitLoggerSample.cs
 
 snippet: writeRedirects
 
-These API calls are then routed to the correct xUnit [ITestOutputHelper](https://xunit.net/docs/capturing-output) via a static [AsyncLocal<T>](https://docs.microsoft.com/en-us/dotnet/api/system.threading.asynclocal-1).
+These API calls are then routed to the correct xUnit [ITestOutputHelper](https://xunit.net/docs/capturing-output) via a static [AsyncLocal](https://docs.microsoft.com/en-us/dotnet/api/system.threading.asynclocal-1).
 
 
 ### Filters
@@ -50,7 +48,7 @@ These API calls are then routed to the correct xUnit [ITestOutputHelper](https:/
 
 snippet: FilterSample.cs
 
-Note that filters are static and shared for all tests.
+Filters are static and shared for all tests.
 
 
 ## Icon

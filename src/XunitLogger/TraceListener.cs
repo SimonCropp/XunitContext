@@ -1,14 +1,22 @@
-﻿using System.Diagnostics;
-
-class TraceListener : System.Diagnostics.TraceListener
+﻿class TraceListener : System.Diagnostics.TraceListener
 {
-    public override void Write(string message)
+    public override void Write(string value)
     {
-        XunitLogger.Write(message);
+        if (value != null)
+        {
+            XunitLogger.Write(value);
+        }
     }
 
-    public override void WriteLine(string message)
+    public override void WriteLine(string value)
     {
-        XunitLogger.WriteLine(message);
+        if (value == null)
+        {
+            XunitLogger.WriteLine();
+        }
+        else
+        {
+            XunitLogger.WriteLine(value);
+        }
     }
 }

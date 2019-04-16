@@ -7,9 +7,7 @@ To change this file edit the source file and then re-run the generation using ei
 
 Extends [xUnit](https://xunit.net/) to simplify logging.
 
-Redirects [Trace.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.trace.write) and [Console.Write and Console.Error.Write](https://docs.microsoft.com/en-us/dotnet/api/system.console.write) to [ITestOutputHelper](https://xunit.net/docs/capturing-output). Also provides static access to the current [ITestOutputHelper](https://xunit.net/docs/capturing-output) for use within testing utility methods.
-
-Note that [Debug.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.debug.write) is not redirected since it is not supported on dotnet core.
+Redirects [Trace.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.trace.write), [Debug.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.debug.write), and [Console.Write and Console.Error.Write](https://docs.microsoft.com/en-us/dotnet/api/system.console.write) to [ITestOutputHelper](https://xunit.net/docs/capturing-output). Also provides static access to the current [ITestOutputHelper](https://xunit.net/docs/capturing-output) for use within testing utility methods.
 
 Uses [AsyncLocal](https://docs.microsoft.com/en-us/dotnet/api/system.threading.asynclocal-1) to track state.
 
@@ -37,11 +35,12 @@ static class ClassBeingTested
     {
         Trace.WriteLine("From Trace");
         Console.WriteLine("From Console");
+        Debug.WriteLine("From Debug");
         Console.Error.WriteLine("From Console Error");
     }
 }
 ```
-<sup>[snippet source](/src/Tests/Snippets/ClassBeingTested.cs#L1-L12)</sup>
+<sup>[snippet source](/src/Tests/Snippets/ClassBeingTested.cs#L1-L13)</sup>
 <!-- endsnippet -->
 
 
@@ -67,6 +66,7 @@ public class TestBaseSample  :
 
         Assert.Contains("From Test", logs);
         Assert.Contains("From Trace", logs);
+        Assert.Contains("From Debug", logs);
         Assert.Contains("From Console", logs);
         Assert.Contains("From Console Error", logs);
     }
@@ -77,7 +77,7 @@ public class TestBaseSample  :
     }
 }
 ```
-<sup>[snippet source](/src/Tests/Snippets/TestBaseSample.cs#L1-L25)</sup>
+<sup>[snippet source](/src/Tests/Snippets/TestBaseSample.cs#L1-L26)</sup>
 <!-- endsnippet -->
 
 
@@ -91,7 +91,7 @@ using System;
 using Xunit;
 using Xunit.Abstractions;
 
-public class XunitLoggerSample : 
+public class XunitLoggerSample :
     IDisposable
 {
     [Fact]
@@ -105,6 +105,7 @@ public class XunitLoggerSample :
 
         Assert.Contains("From Test", logs);
         Assert.Contains("From Trace", logs);
+        Assert.Contains("From Debug", logs);
         Assert.Contains("From Console", logs);
         Assert.Contains("From Console Error", logs);
     }
@@ -120,7 +121,7 @@ public class XunitLoggerSample :
     }
 }
 ```
-<sup>[snippet source](/src/Tests/Snippets/XunitLoggerSample.cs#L1-L32)</sup>
+<sup>[snippet source](/src/Tests/Snippets/XunitLoggerSample.cs#L1-L33)</sup>
 <!-- endsnippet -->
 
 `XunitLogger` redirects [Trace.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.trace.write) and [Console.Write](https://docs.microsoft.com/en-us/dotnet/api/system.console.write) in its static constructor.
@@ -129,18 +130,38 @@ public class XunitLoggerSample :
 ```cs
 static XunitLogger()
 {
-    var listeners = Trace.Listeners;
-    listeners.Clear();
-    listeners.Add(new TraceListener());
+    Trace.Listeners.Clear();
+    Trace.Listeners.Add(new TraceListener());
+#if (NETSTANDARD)
+    DebugPoker.Overwrite(
+        text =>
+        {
+            if (string.IsNullOrEmpty(text))
+            {
+                return;
+            }
+
+            if (text.EndsWith(Environment.NewLine))
+            {
+                WriteLine(text.TrimTrailingNewline());
+                return;
+            }
+
+            Write(text);
+        });
+#else
+    Debug.Listeners.Clear();
+    Debug.Listeners.Add(new TraceListener());
+#endif
     var writer = new TestWriter();
     Console.SetOut(writer);
     Console.SetError(writer);
 }
 ```
-<sup>[snippet source](/src/XunitLogger/XunitLogger.cs#L14-L24)</sup>
+<sup>[snippet source](/src/XunitLogger/XunitLogger.cs#L14-L46)</sup>
 <!-- endsnippet -->
 
-These API calls are then routed to the correct xUnit [ITestOutputHelper](https://xunit.net/docs/capturing-output) via a static [AsyncLocal<T>](https://docs.microsoft.com/en-us/dotnet/api/system.threading.asynclocal-1).
+These API calls are then routed to the correct xUnit [ITestOutputHelper](https://xunit.net/docs/capturing-output) via a static [AsyncLocal](https://docs.microsoft.com/en-us/dotnet/api/system.threading.asynclocal-1).
 
 
 ### Filters
@@ -157,7 +178,7 @@ public class FilterSample :
 {
     static FilterSample()
     {
-        XunitLogger.Filters.Add(x => !x.Contains("ignored"));
+        XunitLogger.Filters.Add(x => x != null && !x.Contains("ignored"));
     }
 
     [Fact]
@@ -182,7 +203,7 @@ public class FilterSample :
 <sup>[snippet source](/src/Tests/Snippets/FilterSample.cs#L1-L29)</sup>
 <!-- endsnippet -->
 
-Note that filters are static and shared for all tests.
+Filters are static and shared for all tests.
 
 
 ## Icon

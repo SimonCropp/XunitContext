@@ -6,7 +6,7 @@ public class FilterSample :
 {
     static FilterSample()
     {
-        XunitLogger.Filters.Add(x => !x.Contains("ignored"));
+        XunitLogger.Filters.Add(x => x != null && !x.Contains("ignored"));
     }
 
     [Fact]

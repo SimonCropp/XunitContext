@@ -9,27 +9,51 @@ public static class XunitLogger
 {
     static AsyncLocal<LoggingContext> asyncLocal = new AsyncLocal<LoggingContext>();
 
-    public static ConcurrentBag<Func<string,bool>> Filters = new ConcurrentBag<Func<string, bool>>();
-    
+    public static ConcurrentBag<Func<string, bool>> Filters = new ConcurrentBag<Func<string, bool>>();
+
     #region writeRedirects
+
     static XunitLogger()
     {
-        var listeners = Trace.Listeners;
-        listeners.Clear();
-        listeners.Add(new TraceListener());
+        Trace.Listeners.Clear();
+        Trace.Listeners.Add(new TraceListener());
+#if (NETSTANDARD)
+        DebugPoker.Overwrite(
+            text =>
+            {
+                if (string.IsNullOrEmpty(text))
+                {
+                    return;
+                }
+
+                if (text.EndsWith(Environment.NewLine))
+                {
+                    WriteLine(text.TrimTrailingNewline());
+                    return;
+                }
+
+                Write(text);
+            });
+#else
+        Debug.Listeners.Clear();
+        Debug.Listeners.Add(new TraceListener());
+#endif
         var writer = new TestWriter();
         Console.SetOut(writer);
         Console.SetError(writer);
     }
+
     #endregion
 
     public static void Write(string value)
     {
+        Guard.AgainstNull(value, nameof(value));
         var context = GetContext();
-        var builder = context.Builder;
-        lock (builder)
+        lock (context)
         {
-            builder.Append(value);
+            context.ThrowIfFlushed();
+            context.InitBuilder();
+            context.Builder.Append(value);
         }
     }
 
@@ -38,32 +62,72 @@ public static class XunitLogger
     public static void Write(char value)
     {
         var context = GetContext();
-        var builder = context.Builder;
-        lock (builder)
+        lock (context)
         {
-            builder.Append(value);
+            context.ThrowIfFlushed();
+            context.InitBuilder();
+            context.Builder.Append(value);
         }
     }
 
-    public static void WriteLine(string value = null)
+    public static void WriteLine()
     {
         var context = GetContext();
-        var builder = context.Builder;
 
-        string message;
-        lock (builder)
+        lock (context)
         {
-            builder.Append(value);
-            message = builder.ToString();
-            builder.Clear();
+            context.ThrowIfFlushed();
+            var builder = context.Builder;
+            if (context.Builder == null)
+            {
+                context.LogMessages.Add("");
+                context.TestOutput.WriteLine("");
+                return;
+            }
+
+            var message = builder.ToString();
+            context.Builder = null;
             if (ShouldFilterOut(message))
             {
                 return;
             }
-            context.LogMessages.Add(message);
-        }
 
-        context.TestOutput.WriteLine(message);
+            context.LogMessages.Add(message);
+            context.TestOutput.WriteLine(message);
+        }
+    }
+    public static void WriteLine(string value)
+    {
+        Guard.AgainstNull(value, nameof(value));
+        var context = GetContext();
+
+        lock (context)
+        {
+            context.ThrowIfFlushed();
+            var builder = context.Builder;
+            if (context.Builder == null)
+            {
+                if (ShouldFilterOut(value))
+                {
+                    return;
+                }
+
+                context.LogMessages.Add(value);
+                context.TestOutput.WriteLine(value);
+                return;
+            }
+
+            builder.Append(value);
+            var message = builder.ToString();
+            context.Builder = null;
+            if (ShouldFilterOut(message))
+            {
+                return;
+            }
+
+            context.LogMessages.Add(message);
+            context.TestOutput.WriteLine(message);
+        }
     }
 
     static bool ShouldFilterOut(string message)
@@ -82,23 +146,30 @@ public static class XunitLogger
     public static void Flush()
     {
         var context = GetContext();
-        var builder = context.Builder;
-        var testOutput = context.TestOutput;
-        string message;
-        lock (builder)
+        lock (context)
         {
-            message = builder.ToString();
-            builder.Clear();
-            if (ShouldFilterOut(message))
+            if (context.Flushed)
             {
-                context.Flushed = true;
                 return;
             }
-            context.LogMessages.Add(message);
-            context.Flushed = true;
-        }
 
-        testOutput.WriteLine(message);
+            context.Flushed = true;
+            var builder = context.Builder;
+            if (builder == null)
+            {
+                return;
+            }
+
+            var message = builder.ToString();
+            context.Builder = null;
+            if (ShouldFilterOut(message))
+            {
+                return;
+            }
+
+            context.LogMessages.Add(message);
+            context.TestOutput.WriteLine(message);
+        }
     }
 
     static LoggingContext GetContext()
@@ -108,6 +179,7 @@ public static class XunitLogger
         {
             return context;
         }
+
         throw new Exception("An attempt was made to write to Trace or Console, however no logging context was found. Either XunitLogger.Register(ITestOutputHelper) needs to be called at test startup, or have the test inherit from XunitLoggingBase.");
     }
 
