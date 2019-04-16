@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>net472;netcoreapp2.2</TargetFrameworks>
     <Optimize>False</Optimize>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="ApprovalTests" Version="3.0.22" />
