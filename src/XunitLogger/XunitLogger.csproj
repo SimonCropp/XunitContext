@@ -6,17 +6,11 @@
     <GenerateDocumentationFile Condition="$(Configuration)=='Release'">true</GenerateDocumentationFile>
   </PropertyGroup>
 
+
   <ItemGroup>
-    <PackageReference Condition="$(Configuration)=='Release'"
-                      Include="Microsoft.SourceLink.GitHub"
-                      Version="1.0.0-beta2-18618-05"
-                      PrivateAssets="All" />
-    <PackageReference Include="xunit.abstractions"
-                      Version="2.0.3" />
-    <None Update="Require472.targets"
-          CopyToOutputDirectory="IfNewer"
-          Pack="true"
-          PackagePath="build\XunitLogger.targets" />
+    <Content Include="build\XunitLogger.targets"  PackagePath="build\XunitLogger.targets" />
+    <PackageReference Condition="$(Configuration)=='Release'" Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-18618-05" PrivateAssets="All" />
+    <PackageReference Include="xunit.abstractions" Version="2.0.3" />
   </ItemGroup>
 
 </Project>
