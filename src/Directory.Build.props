@@ -8,7 +8,7 @@
     <Copyright>Copyright $([System.DateTime]::UtcNow.ToString(yyyy)). All rights reserved</Copyright>
     <PackageTags>Logging, xUnit</PackageTags>
     <PackageIconUrl>https://raw.github.com/SimonCropp/XunitLogger/master/icon.png</PackageIconUrl>
-    <PackageProjectUrl>http://github.com/SimonCropp/XunitLogger</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/SimonCropp/XunitLogger</PackageProjectUrl>
     <PackageOutputPath>..\..\nugets</PackageOutputPath>
     <Description>Extends xUnit to simplify logging.</Description>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
