@@ -8,7 +8,7 @@ public class UsingTestBase :
 {
     static UsingTestBase()
     {
-        Filters.Items.Add(x => x != "ignored");
+        Filters.Add(x => x != "ignored");
     }
 
     [Fact]

@@ -5,12 +5,26 @@ namespace XunitLogger
 {
     public static class Filters
     {
-        //TODO: wrap in add method and guards
-        public static ConcurrentBag<Func<string, bool>> Items = new ConcurrentBag<Func<string, bool>>();
+        static ConcurrentBag<Func<string, bool>> items = new ConcurrentBag<Func<string, bool>>();
+
+        public static void Add(Func<string, bool> filter)
+        {
+            Guard.AgainstNull(filter, nameof(filter));
+            items.Add(filter);
+        }
+
+        public static void Clear()
+        {
+            Func<string, bool> someItem;
+            while (!items.IsEmpty)
+            {
+                items.TryTake(out someItem);
+            }
+        }
 
         internal static bool ShouldFilterOut(string message)
         {
-            foreach (var filter in Items)
+            foreach (var filter in items)
             {
                 if (!filter(message))
                 {

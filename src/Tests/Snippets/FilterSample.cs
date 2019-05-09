@@ -7,7 +7,7 @@ public class FilterSample :
 {
     static FilterSample()
     {
-        Filters.Items.Add(x => x != null && !x.Contains("ignored"));
+        Filters.Add(x => x != null && !x.Contains("ignored"));
     }
 
     [Fact]
