@@ -7,7 +7,7 @@ using XunitLogger;
 
 public static class XunitLogging
 {
-    static AsyncLocal<LoggingContext> loggingContext = new AsyncLocal<LoggingContext>();
+    static AsyncLocal<Context> loggingContext = new AsyncLocal<Context>();
 
     #region writeRedirects
 
@@ -46,157 +46,50 @@ public static class XunitLogging
     public static void Write(string value)
     {
         Guard.AgainstNull(value, nameof(value));
-        var context = GetContext();
-        lock (context)
-        {
-            context.ThrowIfFlushed();
-            context.InitBuilder();
-            context.Builder.Append(value);
-        }
+        Context.Write(value);
     }
 
-    public static uint NextUInt()
-    {
-        return GetContext().NextUInt();
-    }
-
-    public static int NextInt()
-    {
-        return GetContext().NextInt();
-    }
-
-    public static long NextLong()
-    {
-        return GetContext().NextLong();
-    }
-
-    public static ulong NextULong()
-    {
-        return GetContext().NextULong();
-    }
-
-    public static Guid NextGuid()
-    {
-        return GetContext().NextGuid();
-    }
-
-    public static IReadOnlyList<string> Logs => GetContext().LogMessages;
+    public static IReadOnlyList<string> Logs => Context.LogMessages;
 
     public static void Write(char value)
     {
-        var context = GetContext();
-        lock (context)
-        {
-            context.ThrowIfFlushed();
-            context.InitBuilder();
-            context.Builder.Append(value);
-        }
+        Context.Write(value);
     }
 
     public static void WriteLine()
     {
-        var context = GetContext();
-
-        lock (context)
-        {
-            context.ThrowIfFlushed();
-            var builder = context.Builder;
-            if (context.Builder == null)
-            {
-                context.LogMessages.Add("");
-                context.TestOutput.WriteLine("");
-                return;
-            }
-
-            var message = builder.ToString();
-            context.Builder = null;
-            if (Filters.ShouldFilterOut(message))
-            {
-                return;
-            }
-
-            context.LogMessages.Add(message);
-            context.TestOutput.WriteLine(message);
-        }
+        Context.WriteLine();
     }
 
     public static void WriteLine(string value)
     {
-        Guard.AgainstNull(value, nameof(value));
-        var context = GetContext();
-
-        lock (context)
-        {
-            context.ThrowIfFlushed();
-            var builder = context.Builder;
-            if (context.Builder == null)
-            {
-                if (Filters.ShouldFilterOut(value))
-                {
-                    return;
-                }
-
-                context.LogMessages.Add(value);
-                context.TestOutput.WriteLine(value);
-                return;
-            }
-
-            builder.Append(value);
-            var message = builder.ToString();
-            context.Builder = null;
-            if (Filters.ShouldFilterOut(message))
-            {
-                return;
-            }
-
-            context.LogMessages.Add(message);
-            context.TestOutput.WriteLine(message);
-        }
+        Context.WriteLine(value);
     }
 
     public static void Flush()
     {
-        var context = GetContext();
-        lock (context)
-        {
-            if (context.Flushed)
-            {
-                return;
-            }
-
-            context.Flushed = true;
-            var builder = context.Builder;
-            if (builder == null)
-            {
-                return;
-            }
-
-            var message = builder.ToString();
-            context.Builder = null;
-            if (Filters.ShouldFilterOut(message))
-            {
-                return;
-            }
-
-            context.LogMessages.Add(message);
-            context.TestOutput.WriteLine(message);
-        }
+        Context.Flush();
     }
 
-    static LoggingContext GetContext()
+   public static Context Context
     {
-        var context = loggingContext.Value;
-        if (context != null)
+        get
         {
-            return context;
-        }
+            var context = loggingContext.Value;
+            if (context != null)
+            {
+                return context;
+            }
 
-        throw new Exception("An attempt was made to write to Trace or Console, however no logging context was found. Either XunitLogger.Register(ITestOutputHelper) needs to be called at test startup, or have the test inherit from XunitLoggingBase.");
+            throw new Exception("An attempt was made to write to Trace or Console, however no logging context was found. Either XunitLogger.Register(ITestOutputHelper) needs to be called at test startup, or have the test inherit from XunitLoggingBase.");
+        }
     }
 
-    public static void Register(ITestOutputHelper output)
+    public static Context Register(ITestOutputHelper output)
     {
         Guard.AgainstNull(output, nameof(output));
-        loggingContext.Value = new LoggingContext(output);
+        var context = new Context(output);
+        loggingContext.Value = context;
+        return context;
     }
 }

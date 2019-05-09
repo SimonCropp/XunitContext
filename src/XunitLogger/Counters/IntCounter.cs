@@ -4,11 +4,16 @@ namespace XunitLogger
 {
     public class IntCounter
     {
-        int seed;
+        int current;
+
+        public int Current
+        {
+            get => current;
+        }
 
         public int Next()
         {
-            return Interlocked.Increment(ref seed);
+            return Interlocked.Increment(ref current);
         }
     }
 }

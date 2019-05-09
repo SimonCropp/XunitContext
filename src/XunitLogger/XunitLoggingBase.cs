@@ -1,63 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
 using Xunit.Abstractions;
+using XunitLogger;
 
 public abstract class XunitLoggingBase :
     IDisposable
 {
     public ITestOutputHelper Output { get; }
+    public Context Context { get; }
 
     public XunitLoggingBase(ITestOutputHelper output)
     {
         Guard.AgainstNull(output, nameof(output));
         Output = output;
-        XunitLogging.Register(output);
+        Context = XunitLogging.Register(output);
     }
 
     public void WriteLine(string value)
     {
-        XunitLogging.WriteLine(value);
+        Context.WriteLine(value);
     }
+
     public void WriteLine()
     {
-        XunitLogging.WriteLine();
+        Context.WriteLine();
     }
 
     public void Write(string value)
     {
-        XunitLogging.Write(value);
+        Context.Write(value);
     }
 
-    public uint NextUInt()
-    {
-        return XunitLogging.NextUInt();
-    }
-
-    public int NextInt()
-    {
-        return XunitLogging.NextInt();
-    }
-
-    public long NextLong()
-    {
-        return XunitLogging.NextLong();
-    }
-
-    public ulong NextULong()
-    {
-        return XunitLogging.NextULong();
-    }
-
-    public Guid NextGuid()
-    {
-        return XunitLogging.NextGuid();
-    }
-
-
-    public static IReadOnlyList<string> Logs => XunitLogging.Logs;
+    public IReadOnlyList<string> Logs => Context.LogMessages;
 
     public virtual void Dispose()
     {
-        XunitLogging.Flush();
+        Context.Flush();
     }
 }

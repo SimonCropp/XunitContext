@@ -10,18 +10,19 @@ public class UsingStatic
     [Fact]
     public void Counters()
     {
+        var context = XunitLogging.Context;
         var foo = new
         {
-            int1 = XunitLogging.NextInt(),
-            int2 = XunitLogging.NextInt(),
-            uint1 = XunitLogging.NextUInt(),
-            uint2 = XunitLogging.NextUInt(),
-            long1 = XunitLogging.NextLong(),
-            long2 = XunitLogging.NextLong(),
-            ulong1 = XunitLogging.NextULong(),
-            ulong2 = XunitLogging.NextULong(),
-            guid1 = XunitLogging.NextGuid(),
-            guid2 = XunitLogging.NextGuid(),
+            int1 = context.NextInt(),
+            int2 = context.NextInt(),
+            uint1 = context.NextUInt(),
+            uint2 = context.NextUInt(),
+            long1 = context.NextLong(),
+            long2 = context.NextLong(),
+            ulong1 = context.NextULong(),
+            ulong2 = context.NextULong(),
+            guid1 = context.NextGuid(),
+            guid2 = context.NextGuid(),
         };
         ObjectApprover.VerifyWithJson(foo);
     }
