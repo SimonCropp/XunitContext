@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using Xunit.Abstractions;
+using XunitLogger;
 
 public static class XunitLogging
 {
     static AsyncLocal<LoggingContext> loggingContext = new AsyncLocal<LoggingContext>();
-
-    public static ConcurrentBag<Func<string, bool>> Filters = new ConcurrentBag<Func<string, bool>>();
 
     #region writeRedirects
 
@@ -112,7 +110,7 @@ public static class XunitLogging
 
             var message = builder.ToString();
             context.Builder = null;
-            if (ShouldFilterOut(message))
+            if (Filters.ShouldFilterOut(message))
             {
                 return;
             }
@@ -133,7 +131,7 @@ public static class XunitLogging
             var builder = context.Builder;
             if (context.Builder == null)
             {
-                if (ShouldFilterOut(value))
+                if (Filters.ShouldFilterOut(value))
                 {
                     return;
                 }
@@ -146,7 +144,7 @@ public static class XunitLogging
             builder.Append(value);
             var message = builder.ToString();
             context.Builder = null;
-            if (ShouldFilterOut(message))
+            if (Filters.ShouldFilterOut(message))
             {
                 return;
             }
@@ -154,19 +152,6 @@ public static class XunitLogging
             context.LogMessages.Add(message);
             context.TestOutput.WriteLine(message);
         }
-    }
-
-    static bool ShouldFilterOut(string message)
-    {
-        foreach (var filter in Filters)
-        {
-            if (!filter(message))
-            {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     public static void Flush()
@@ -188,7 +173,7 @@ public static class XunitLogging
 
             var message = builder.ToString();
             context.Builder = null;
-            if (ShouldFilterOut(message))
+            if (Filters.ShouldFilterOut(message))
             {
                 return;
             }

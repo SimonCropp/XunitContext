@@ -1,12 +1,13 @@
 ﻿using Xunit;
 using Xunit.Abstractions;
+using XunitLogger;
 
 public class FilterSample :
     XunitLoggingBase
 {
     static FilterSample()
     {
-        XunitLogging.Filters.Add(x => x != null && !x.Contains("ignored"));
+        Filters.Items.Add(x => x != null && !x.Contains("ignored"));
     }
 
     [Fact]

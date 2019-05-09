@@ -158,7 +158,7 @@ static XunitLogging()
     Console.SetError(writer);
 }
 ```
-<sup>[snippet source](/src/XunitLogger/XunitLogging.cs#L14-L46)</sup>
+<sup>[snippet source](/src/XunitLogger/XunitLogging.cs#L12-L44)</sup>
 <!-- endsnippet -->
 
 These API calls are then routed to the correct xUnit [ITestOutputHelper](https://xunit.net/docs/capturing-output) via a static [AsyncLocal](https://docs.microsoft.com/en-us/dotnet/api/system.threading.asynclocal-1).
@@ -172,13 +172,14 @@ These API calls are then routed to the correct xUnit [ITestOutputHelper](https:/
 ```cs
 using Xunit;
 using Xunit.Abstractions;
+using XunitLogger;
 
 public class FilterSample :
     XunitLoggingBase
 {
     static FilterSample()
     {
-        XunitLogging.Filters.Add(x => x != null && !x.Contains("ignored"));
+        Filters.Items.Add(x => x != null && !x.Contains("ignored"));
     }
 
     [Fact]
@@ -200,7 +201,7 @@ public class FilterSample :
     }
 }
 ```
-<sup>[snippet source](/src/Tests/Snippets/FilterSample.cs#L1-L29)</sup>
+<sup>[snippet source](/src/Tests/Snippets/FilterSample.cs#L1-L30)</sup>
 <!-- endsnippet -->
 
 Filters are static and shared for all tests.

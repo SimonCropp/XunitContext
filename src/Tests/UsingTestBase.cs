@@ -1,13 +1,14 @@
 ﻿using ObjectApproval;
 using Xunit;
 using Xunit.Abstractions;
+using XunitLogger;
 
 public class UsingTestBase :
     XunitLoggingBase
 {
     static UsingTestBase()
     {
-        XunitLogging.Filters.Add(x => x != "ignored");
+        Filters.Items.Add(x => x != "ignored");
     }
 
     [Fact]
