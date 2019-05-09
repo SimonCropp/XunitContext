@@ -6,7 +6,7 @@ public class FilterSample :
 {
     static FilterSample()
     {
-        XunitLogger.Filters.Add(x => x != null && !x.Contains("ignored"));
+        XunitLogging.Filters.Add(x => x != null && !x.Contains("ignored"));
     }
 
     [Fact]
@@ -15,7 +15,7 @@ public class FilterSample :
         WriteLine("first");
         WriteLine("with ignored string");
         WriteLine("last");
-        var logs = XunitLogger.Logs;
+        var logs = XunitLogging.Logs;
 
         Assert.Contains("first", logs);
         Assert.DoesNotContain("with ignored string", logs);

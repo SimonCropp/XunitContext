@@ -1,0 +1,12 @@
+﻿{
+  int1: 1,
+  int2: 2,
+  uint1: 1,
+  uint2: 2,
+  long1: 1,
+  long2: 2,
+  ulong1: 1,
+  ulong2: 2,
+  guid1: 'Guid 1',
+  guid2: 'Guid 2'
+}

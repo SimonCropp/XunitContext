@@ -5,15 +5,15 @@ using System.Diagnostics;
 using System.Threading;
 using Xunit.Abstractions;
 
-public static class XunitLogger
+public static class XunitLogging
 {
-    static AsyncLocal<LoggingContext> asyncLocal = new AsyncLocal<LoggingContext>();
+    static AsyncLocal<LoggingContext> loggingContext = new AsyncLocal<LoggingContext>();
 
     public static ConcurrentBag<Func<string, bool>> Filters = new ConcurrentBag<Func<string, bool>>();
 
     #region writeRedirects
 
-    static XunitLogger()
+    static XunitLogging()
     {
         Trace.Listeners.Clear();
         Trace.Listeners.Add(new TraceListener());
@@ -57,6 +57,31 @@ public static class XunitLogger
         }
     }
 
+    public static uint NextUInt()
+    {
+        return GetContext().UIntCounter.Next();
+    }
+
+    public static int NextInt()
+    {
+        return GetContext().IntCounter.Next();
+    }
+
+    public static long NextLong()
+    {
+        return GetContext().LongCounter.Next();
+    }
+
+    public static ulong NextULong()
+    {
+        return GetContext().ULongCounter.Next();
+    }
+
+    public static Guid NextGuid()
+    {
+        return GetContext().GuidCounter.Next();
+    }
+
     public static IReadOnlyList<string> Logs => GetContext().LogMessages;
 
     public static void Write(char value)
@@ -96,6 +121,7 @@ public static class XunitLogger
             context.TestOutput.WriteLine(message);
         }
     }
+
     public static void WriteLine(string value)
     {
         Guard.AgainstNull(value, nameof(value));
@@ -174,7 +200,7 @@ public static class XunitLogger
 
     static LoggingContext GetContext()
     {
-        var context = asyncLocal.Value;
+        var context = loggingContext.Value;
         if (context != null)
         {
             return context;
@@ -186,6 +212,6 @@ public static class XunitLogger
     public static void Register(ITestOutputHelper output)
     {
         Guard.AgainstNull(output, nameof(output));
-        asyncLocal.Value = new LoggingContext(output);
+        loggingContext.Value = new LoggingContext(output);
     }
 }

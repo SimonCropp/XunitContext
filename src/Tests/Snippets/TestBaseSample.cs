@@ -10,7 +10,7 @@ public class TestBaseSample  :
         WriteLine("From Test");
         ClassBeingTested.Method();
 
-        var logs = XunitLogger.Logs;
+        var logs = XunitLogging.Logs;
 
         Assert.Contains("From Test", logs);
         Assert.Contains("From Trace", logs);

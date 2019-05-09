@@ -8,11 +8,11 @@ public class XunitLoggerSample :
     [Fact]
     public void Usage()
     {
-        XunitLogger.WriteLine("From Test");
+        XunitLogging.WriteLine("From Test");
 
         ClassBeingTested.Method();
 
-        var logs = XunitLogger.Logs;
+        var logs = XunitLogging.Logs;
 
         Assert.Contains("From Test", logs);
         Assert.Contains("From Trace", logs);
@@ -23,11 +23,11 @@ public class XunitLoggerSample :
 
     public XunitLoggerSample(ITestOutputHelper testOutput)
     {
-        XunitLogger.Register(testOutput);
+        XunitLogging.Register(testOutput);
     }
 
     public void Dispose()
     {
-        XunitLogger.Flush();
+        XunitLogging.Flush();
     }
 }

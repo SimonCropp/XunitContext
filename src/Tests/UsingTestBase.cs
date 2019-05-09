@@ -7,7 +7,7 @@ public class UsingTestBase :
 {
     static UsingTestBase()
     {
-        XunitLogger.Filters.Add(x => x != "ignored");
+        XunitLogging.Filters.Add(x => x != "ignored");
     }
 
     [Fact]

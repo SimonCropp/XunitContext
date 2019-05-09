@@ -8,28 +8,28 @@ class TestWriter : TextWriter
 
     public override void Write(char value)
     {
-        XunitLogger.Write(value);
+        XunitLogging.Write(value);
     }
 
     public override void Write(string value)
     {
-        XunitLogger.Write(value);
+        XunitLogging.Write(value);
     }
 
     public override void WriteLine()
     {
-        XunitLogger.WriteLine();
+        XunitLogging.WriteLine();
     }
 
     public override void WriteLine(string value)
     {
         if (value == null)
         {
-            XunitLogger.WriteLine();
+            XunitLogging.WriteLine();
         }
         else
         {
-            XunitLogger.WriteLine(value);
+            XunitLogging.WriteLine(value);
         }
     }
 

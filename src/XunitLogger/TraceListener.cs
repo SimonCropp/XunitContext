@@ -4,7 +4,7 @@
     {
         if (value != null)
         {
-            XunitLogger.Write(value);
+            XunitLogging.Write(value);
         }
     }
 
@@ -12,11 +12,11 @@
     {
         if (value == null)
         {
-            XunitLogger.WriteLine();
+            XunitLogging.WriteLine();
         }
         else
         {
-            XunitLogger.WriteLine(value);
+            XunitLogging.WriteLine(value);
         }
     }
 }

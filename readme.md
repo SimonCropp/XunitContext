@@ -62,7 +62,7 @@ public class TestBaseSample  :
         WriteLine("From Test");
         ClassBeingTested.Method();
 
-        var logs = XunitLogger.Logs;
+        var logs = XunitLogging.Logs;
 
         Assert.Contains("From Test", logs);
         Assert.Contains("From Trace", logs);
@@ -97,11 +97,11 @@ public class XunitLoggerSample :
     [Fact]
     public void Usage()
     {
-        XunitLogger.WriteLine("From Test");
+        XunitLogging.WriteLine("From Test");
 
         ClassBeingTested.Method();
 
-        var logs = XunitLogger.Logs;
+        var logs = XunitLogging.Logs;
 
         Assert.Contains("From Test", logs);
         Assert.Contains("From Trace", logs);
@@ -112,12 +112,12 @@ public class XunitLoggerSample :
 
     public XunitLoggerSample(ITestOutputHelper testOutput)
     {
-        XunitLogger.Register(testOutput);
+        XunitLogging.Register(testOutput);
     }
 
     public void Dispose()
     {
-        XunitLogger.Flush();
+        XunitLogging.Flush();
     }
 }
 ```
@@ -128,7 +128,7 @@ public class XunitLoggerSample :
 
 <!-- snippet: writeRedirects -->
 ```cs
-static XunitLogger()
+static XunitLogging()
 {
     Trace.Listeners.Clear();
     Trace.Listeners.Add(new TraceListener());
@@ -158,7 +158,7 @@ static XunitLogger()
     Console.SetError(writer);
 }
 ```
-<sup>[snippet source](/src/XunitLogger/XunitLogger.cs#L14-L46)</sup>
+<sup>[snippet source](/src/XunitLogger/XunitLogging.cs#L14-L46)</sup>
 <!-- endsnippet -->
 
 These API calls are then routed to the correct xUnit [ITestOutputHelper](https://xunit.net/docs/capturing-output) via a static [AsyncLocal](https://docs.microsoft.com/en-us/dotnet/api/system.threading.asynclocal-1).
@@ -178,7 +178,7 @@ public class FilterSample :
 {
     static FilterSample()
     {
-        XunitLogger.Filters.Add(x => x != null && !x.Contains("ignored"));
+        XunitLogging.Filters.Add(x => x != null && !x.Contains("ignored"));
     }
 
     [Fact]
@@ -187,7 +187,7 @@ public class FilterSample :
         WriteLine("first");
         WriteLine("with ignored string");
         WriteLine("last");
-        var logs = XunitLogger.Logs;
+        var logs = XunitLogging.Logs;
 
         Assert.Contains("first", logs);
         Assert.DoesNotContain("with ignored string", logs);

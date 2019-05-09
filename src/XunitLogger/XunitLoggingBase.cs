@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using Xunit.Abstractions;
 
-public abstract class XunitLoggingBase : IDisposable
+public abstract class XunitLoggingBase :
+    IDisposable
 {
     public ITestOutputHelper Output { get; }
 
@@ -10,27 +11,53 @@ public abstract class XunitLoggingBase : IDisposable
     {
         Guard.AgainstNull(output, nameof(output));
         Output = output;
-        XunitLogger.Register(output);
+        XunitLogging.Register(output);
     }
 
     public void WriteLine(string value)
     {
-        XunitLogger.WriteLine(value);
+        XunitLogging.WriteLine(value);
     }
     public void WriteLine()
     {
-        XunitLogger.WriteLine();
+        XunitLogging.WriteLine();
     }
 
     public void Write(string value)
     {
-        XunitLogger.Write(value);
+        XunitLogging.Write(value);
     }
 
-    public static IReadOnlyList<string> Logs => XunitLogger.Logs;
+    public uint NextUInt()
+    {
+        return XunitLogging.NextUInt();
+    }
+
+    public int NextInt()
+    {
+        return XunitLogging.NextInt();
+    }
+
+    public long NextLong()
+    {
+        return XunitLogging.NextLong();
+    }
+
+    public ulong NextULong()
+    {
+        return XunitLogging.NextULong();
+    }
+
+    public Guid NextGuid()
+    {
+        return XunitLogging.NextGuid();
+    }
+
+
+    public static IReadOnlyList<string> Logs => XunitLogging.Logs;
 
     public virtual void Dispose()
     {
-        XunitLogger.Flush();
+        XunitLogging.Flush();
     }
 }

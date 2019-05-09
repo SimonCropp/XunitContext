@@ -2,10 +2,16 @@
 using System.Collections.Generic;
 using System.Text;
 using Xunit.Abstractions;
+using XunitLogger;
 
 class LoggingContext
 {
     public readonly ITestOutputHelper TestOutput;
+    public readonly GuidCounter GuidCounter = new GuidCounter();
+    public readonly IntCounter IntCounter = new IntCounter();
+    public readonly   LongCounter LongCounter = new LongCounter();
+    public readonly   UIntCounter UIntCounter = new UIntCounter();
+    public readonly  ULongCounter ULongCounter = new ULongCounter();
 
     public StringBuilder Builder;
 
