@@ -6,12 +6,37 @@ using XunitLogger;
 
 class LoggingContext
 {
-    public readonly ITestOutputHelper TestOutput;
-    public readonly GuidCounter GuidCounter = new GuidCounter();
-    public readonly IntCounter IntCounter = new IntCounter();
-    public readonly   LongCounter LongCounter = new LongCounter();
-    public readonly   UIntCounter UIntCounter = new UIntCounter();
-    public readonly  ULongCounter ULongCounter = new ULongCounter();
+    public ITestOutputHelper TestOutput;
+    GuidCounter GuidCounter = new GuidCounter();
+    IntCounter IntCounter = new IntCounter();
+    LongCounter LongCounter = new LongCounter();
+    UIntCounter UIntCounter = new UIntCounter();
+    ULongCounter ULongCounter = new ULongCounter();
+
+    public uint NextUInt()
+    {
+        return UIntCounter.Next();
+    }
+
+    public int NextInt()
+    {
+        return IntCounter.Next();
+    }
+
+    public long NextLong()
+    {
+        return LongCounter.Next();
+    }
+
+    public ulong NextULong()
+    {
+        return ULongCounter.Next();
+    }
+
+    public Guid NextGuid()
+    {
+        return GuidCounter.Next();
+    }
 
     public StringBuilder Builder;
 

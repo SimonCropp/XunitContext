@@ -57,27 +57,27 @@ public static class XunitLogging
 
     public static uint NextUInt()
     {
-        return GetContext().UIntCounter.Next();
+        return GetContext().NextUInt();
     }
 
     public static int NextInt()
     {
-        return GetContext().IntCounter.Next();
+        return GetContext().NextInt();
     }
 
     public static long NextLong()
     {
-        return GetContext().LongCounter.Next();
+        return GetContext().NextLong();
     }
 
     public static ulong NextULong()
     {
-        return GetContext().ULongCounter.Next();
+        return GetContext().NextULong();
     }
 
     public static Guid NextGuid()
     {
-        return GetContext().GuidCounter.Next();
+        return GetContext().NextGuid();
     }
 
     public static IReadOnlyList<string> Logs => GetContext().LogMessages;
