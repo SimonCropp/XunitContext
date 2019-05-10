@@ -75,13 +75,13 @@ namespace XunitLogger
 
         public void ThrowIfFlushed()
         {
-            if (Flushed)
+            if (flushed)
             {
                 throw new Exception("Logging context has been flushed.");
             }
         }
 
-        public bool Flushed;
+        bool flushed;
 
         internal Context(ITestOutputHelper testOutput)
         {
@@ -178,12 +178,12 @@ namespace XunitLogger
         {
             lock (locker)
             {
-                if (Flushed)
+                if (flushed)
                 {
                     return;
                 }
 
-                Flushed = true;
+                flushed = true;
                 var builder = Builder;
                 if (builder == null)
                 {
