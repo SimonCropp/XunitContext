@@ -6,7 +6,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="build\XunitLogger.targets" PackagePath="build\XunitLogger.targets" />
+    <PackageReference Include="Fody" Version="5.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Condition="$(Configuration)=='Release'" Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-18618-05" PrivateAssets="All" />
+    <PackageReference Include="ModuleInit.Fody" Version="2.0.0" />
     <PackageReference Include="xunit.abstractions" Version="2.0.3" />
   </ItemGroup>
 </Project>

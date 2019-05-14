@@ -1,6 +1,6 @@
 <!--
 This file was generate by MarkdownSnippets.
-Source File: /readme.source.md
+Source File: /mdsource/readme.source.md
 To change this file edit the source file and then re-run the generation using either the dotnet global tool (https://github.com/SimonCropp/MarkdownSnippets#markdownsnippetstool) or using the api (https://github.com/SimonCropp/MarkdownSnippets#running-as-a-unit-test).
 -->
 # <img src="https://raw.github.com/SimonCropp/XunitLogger/master/icon.png" height="40px"> XunitLogger
@@ -128,37 +128,34 @@ public class XunitLoggerSample :
 
 <!-- snippet: writeRedirects -->
 ```cs
-static XunitLogging()
-{
-    Trace.Listeners.Clear();
-    Trace.Listeners.Add(new TraceListener());
+Trace.Listeners.Clear();
+Trace.Listeners.Add(new TraceListener());
 #if (NETSTANDARD)
-    DebugPoker.Overwrite(
-        text =>
+DebugPoker.Overwrite(
+    text =>
+    {
+        if (string.IsNullOrEmpty(text))
         {
-            if (string.IsNullOrEmpty(text))
-            {
-                return;
-            }
+            return;
+        }
 
-            if (text.EndsWith(Environment.NewLine))
-            {
-                WriteLine(text.TrimTrailingNewline());
-                return;
-            }
+        if (text.EndsWith(Environment.NewLine))
+        {
+            WriteLine(text.TrimTrailingNewline());
+            return;
+        }
 
-            Write(text);
-        });
+        Write(text);
+    });
 #else
-    Debug.Listeners.Clear();
-    Debug.Listeners.Add(new TraceListener());
+Debug.Listeners.Clear();
+Debug.Listeners.Add(new TraceListener());
 #endif
-    var writer = new TestWriter();
-    Console.SetOut(writer);
-    Console.SetError(writer);
-}
+var writer = new TestWriter();
+Console.SetOut(writer);
+Console.SetError(writer);
 ```
-<sup>[snippet source](/src/XunitLogger/XunitLogging.cs#L12-L44)</sup>
+<sup>[snippet source](/src/XunitLogger/XunitLogging.cs#L14-L43)</sup>
 <!-- endsnippet -->
 
 These API calls are then routed to the correct xUnit [ITestOutputHelper](https://xunit.net/docs/capturing-output) via a static [AsyncLocal](https://docs.microsoft.com/en-us/dotnet/api/system.threading.asynclocal-1).

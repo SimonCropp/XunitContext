@@ -33,8 +33,8 @@ public class UsingStatic
         Console.WriteLine("from Console");
         Debug.WriteLine("from Debug");
         Trace.WriteLine("from Trace");
-        XunitLogging.Flush();
-        ObjectApprover.VerifyWithJson(XunitLogging.Logs);
+        var logs = XunitLogging.Flush();
+        ObjectApprover.VerifyWithJson(logs);
     }
 
     [Fact]
@@ -52,8 +52,8 @@ public class UsingStatic
         Trace.WriteLine(null);
         XunitLogging.WriteLine("Trace.Write(null)");
         Trace.Write(null);
-        XunitLogging.Flush();
-        ObjectApprover.VerifyWithJson(XunitLogging.Logs);
+        var logs = XunitLogging.Flush();
+        ObjectApprover.VerifyWithJson(logs);
     }
 
     [Fact]
@@ -63,8 +63,8 @@ public class UsingStatic
         XunitLogging.Write(" part2");
         XunitLogging.WriteLine();
         XunitLogging.WriteLine("part3");
-        XunitLogging.Flush();
-        ObjectApprover.VerifyWithJson(XunitLogging.Logs);
+        var logs = XunitLogging.Flush();
+        ObjectApprover.VerifyWithJson(logs);
     }
 
     [Fact]
@@ -75,25 +75,8 @@ public class UsingStatic
         await Task.Delay(1).ConfigureAwait(false);
         XunitLogging.WriteLine("part2");
         await Task.Delay(1).ConfigureAwait(false);
-        XunitLogging.Flush();
-        ObjectApprover.VerifyWithJson(XunitLogging.Logs);
-    }
-
-    [Fact]
-    public void Dispose_should_flush()
-    {
-        XunitLogging.Write("part1");
-        XunitLogging.Write(" part2");
-        XunitLogging.Flush();
-        ObjectApprover.VerifyWithJson(XunitLogging.Logs);
-    }
-
-    [Fact]
-    public void Write_after_Flush_should_throw()
-    {
-        XunitLogging.Flush();
-        var exception = Assert.Throws<Exception>(() => XunitLogging.WriteLine());
-        ObjectApprover.VerifyWithJson(exception);
+        var logs = XunitLogging.Flush();
+        ObjectApprover.VerifyWithJson(logs);
     }
 
     public UsingStatic(ITestOutputHelper testOutput)

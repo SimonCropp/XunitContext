@@ -5,71 +5,13 @@ using Xunit.Abstractions;
 
 namespace XunitLogger
 {
-    public class Context
+    public partial class Context
     {
-        ITestOutputHelper TestOutput;
-        GuidCounter GuidCounter = new GuidCounter();
-        IntCounter IntCounter = new IntCounter();
-        LongCounter LongCounter = new LongCounter();
-        UIntCounter UIntCounter = new UIntCounter();
-        ULongCounter ULongCounter = new ULongCounter();
+        public ITestOutputHelper TestOutput { get; internal set; }
         List<string> logMessages = new List<string>();
         object locker = new object();
 
-        public IReadOnlyList<string> LogMessages
-        {
-            get => logMessages;
-        }
-
-        public uint CurrentUInt
-        {
-            get => UIntCounter.Current;
-        }
-
-        public int CurrentInt
-        {
-            get => IntCounter.Current;
-        }
-
-        public long CurrentLong
-        {
-            get => LongCounter.Current;
-        }
-
-        public ulong CurrentULong
-        {
-            get => ULongCounter.Current;
-        }
-
-        public Guid CurrentGuid
-        {
-            get => GuidCounter.Current;
-        }
-
-        public uint NextUInt()
-        {
-            return UIntCounter.Next();
-        }
-
-        public int NextInt()
-        {
-            return IntCounter.Next();
-        }
-
-        public long NextLong()
-        {
-            return LongCounter.Next();
-        }
-
-        public ulong NextULong()
-        {
-            return ULongCounter.Next();
-        }
-
-        public Guid NextGuid()
-        {
-            return GuidCounter.Next();
-        }
+        public IReadOnlyList<string> LogMessages => logMessages;
 
         public StringBuilder Builder;
 
@@ -86,6 +28,10 @@ namespace XunitLogger
         internal Context(ITestOutputHelper testOutput)
         {
             TestOutput = testOutput;
+        }
+
+        internal Context()
+        {
         }
 
         void InitBuilder()
@@ -122,15 +68,20 @@ namespace XunitLogger
             lock (locker)
             {
                 ThrowIfFlushed();
-                var builder = Builder;
                 if (Builder == null)
                 {
                     logMessages.Add("");
+                    if (TestOutput == null)
+                    {
+                        Builder = new StringBuilder();
+                        Builder.AppendLine();
+                        return;
+                    }
                     TestOutput.WriteLine("");
                     return;
                 }
 
-                var message = builder.ToString();
+                var message = Builder.ToString();
                 Builder = null;
                 if (Filters.ShouldFilterOut(message))
                 {
@@ -138,6 +89,13 @@ namespace XunitLogger
                 }
 
                 logMessages.Add(message);
+                
+                if (TestOutput == null)
+                {
+                    Builder = new StringBuilder(message);
+                    Builder.AppendLine();
+                    return;
+                }
                 TestOutput.WriteLine(message);
             }
         }
@@ -148,8 +106,35 @@ namespace XunitLogger
             lock (locker)
             {
                 ThrowIfFlushed();
-                var builder = Builder;
-                if (Builder == null)
+
+                if (Builder == null && TestOutput == null)
+                {
+                    if (Filters.ShouldFilterOut(value))
+                    {
+                        return;
+                    }
+                    
+                    Builder = new StringBuilder();
+                    Builder.AppendLine(value);
+                    logMessages.Add(value);
+                    return;
+                }
+
+                if (Builder != null && TestOutput != null)
+                {
+                    var message = Builder.ToString();
+                    Builder = null;
+                    if (Filters.ShouldFilterOut(message))
+                    {
+                        return;
+                    }
+                    
+                    logMessages.Add(message);
+                    TestOutput.WriteLine(message);
+                    return;
+                }
+                
+                if (Builder == null && TestOutput != null)
                 {
                     if (Filters.ShouldFilterOut(value))
                     {
@@ -160,17 +145,10 @@ namespace XunitLogger
                     TestOutput.WriteLine(value);
                     return;
                 }
-
-                builder.Append(value);
-                var message = builder.ToString();
-                Builder = null;
-                if (Filters.ShouldFilterOut(message))
+                if (Builder != null && TestOutput == null)
                 {
-                    return;
+                    Builder.AppendLine(value);
                 }
-
-                logMessages.Add(message);
-                TestOutput.WriteLine(message);
             }
         }
 
@@ -184,13 +162,12 @@ namespace XunitLogger
                 }
 
                 flushed = true;
-                var builder = Builder;
-                if (builder == null)
+                if (Builder == null)
                 {
                     return;
                 }
 
-                var message = builder.ToString();
+                var message = Builder.ToString();
                 Builder = null;
                 if (Filters.ShouldFilterOut(message))
                 {
@@ -198,6 +175,10 @@ namespace XunitLogger
                 }
 
                 logMessages.Add(message);
+                if (TestOutput == null)
+                {
+                    throw new Exception("No ITestOutputHelper to flush to.");
+                }
                 TestOutput.WriteLine(message);
             }
         }

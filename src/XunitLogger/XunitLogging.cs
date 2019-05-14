@@ -8,11 +8,11 @@ using XunitLogger;
 public static class XunitLogging
 {
     static AsyncLocal<Context> loggingContext = new AsyncLocal<Context>();
-
-    #region writeRedirects
-
-    static XunitLogging()
+    
+    internal static void Init()
     {
+        #region writeRedirects
+
         Trace.Listeners.Clear();
         Trace.Listeners.Add(new TraceListener());
 #if (NETSTANDARD)
@@ -39,9 +39,9 @@ public static class XunitLogging
         var writer = new TestWriter();
         Console.SetOut(writer);
         Console.SetError(writer);
-    }
 
-    #endregion
+        #endregion
+    }
 
     public static void Write(string value)
     {
@@ -49,7 +49,18 @@ public static class XunitLogging
         Context.Write(value);
     }
 
-    public static IReadOnlyList<string> Logs => Context.LogMessages;
+    public static IReadOnlyList<string> Logs
+    {
+        get
+        {
+            var context = loggingContext.Value;
+            if (context == null)
+            {
+                throw new Exception("No current context.");
+            }
+            return context.LogMessages;
+        }
+    }
 
     public static void Write(char value)
     {
@@ -66,9 +77,18 @@ public static class XunitLogging
         Context.WriteLine(value);
     }
 
-    public static void Flush()
+    public static IReadOnlyList<string> Flush()
     {
-        Context.Flush();
+        var context = loggingContext.Value;
+        if (context == null)
+        {
+            throw new Exception("No context to flush.");
+        }
+        
+        context.Flush();
+        var messages = context.LogMessages;
+        loggingContext.Value = null;
+        return messages;
     }
 
    public static Context Context
@@ -80,16 +100,31 @@ public static class XunitLogging
             {
                 return context;
             }
-
-            throw new Exception("An attempt was made to write to Trace or Console, however no logging context was found. Either XunitLogger.Register(ITestOutputHelper) needs to be called at test startup, or have the test inherit from XunitLoggingBase.");
+            
+            context = new Context();
+            loggingContext.Value = context;
+            return context;
         }
     }
 
     public static Context Register(ITestOutputHelper output)
     {
         Guard.AgainstNull(output, nameof(output));
-        var context = new Context(output);
-        loggingContext.Value = context;
-        return context;
+        var existingContext = loggingContext.Value;
+
+        if (existingContext == null)
+        {
+            var context = new Context(output);
+            loggingContext.Value = context;
+            return context;
+        }
+
+        if (existingContext.TestOutput != null)
+        {
+            throw new Exception("A ITestOutputHelper has already been registered.");
+        }
+
+        existingContext.TestOutput = output;
+        return existingContext;
     }
 }
