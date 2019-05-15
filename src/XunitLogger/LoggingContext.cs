@@ -68,35 +68,39 @@ namespace XunitLogger
             lock (locker)
             {
                 ThrowIfFlushed();
-                if (Builder == null)
+
+                if (Builder == null && TestOutput == null)
                 {
-                    logMessages.Add("");
-                    if (TestOutput == null)
+                    Builder = new StringBuilder();
+                    Builder.AppendLine();
+                    logMessages.Add(string.Empty);
+                    return;
+                }
+
+                if (Builder != null && TestOutput != null)
+                {
+                    var message = Builder.ToString();
+                    Builder = null;
+                    if (Filters.ShouldFilterOut(message))
                     {
-                        Builder = new StringBuilder();
-                        Builder.AppendLine();
                         return;
                     }
-                    TestOutput.WriteLine("");
+
+                    logMessages.Add(message);
+                    TestOutput.WriteLine(message);
                     return;
                 }
 
-                var message = Builder.ToString();
-                Builder = null;
-                if (Filters.ShouldFilterOut(message))
+                if (Builder == null && TestOutput != null)
                 {
+                    logMessages.Add(string.Empty);
+                    TestOutput.WriteLine(string.Empty);
                     return;
                 }
-
-                logMessages.Add(message);
-
-                if (TestOutput == null)
+                if (Builder != null && TestOutput == null)
                 {
-                    Builder = new StringBuilder(message);
                     Builder.AppendLine();
-                    return;
                 }
-                TestOutput.WriteLine(message);
             }
         }
 
