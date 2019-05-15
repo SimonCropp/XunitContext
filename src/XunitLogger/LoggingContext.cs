@@ -89,7 +89,7 @@ namespace XunitLogger
                 }
 
                 logMessages.Add(message);
-                
+
                 if (TestOutput == null)
                 {
                     Builder = new StringBuilder(message);
@@ -113,7 +113,7 @@ namespace XunitLogger
                     {
                         return;
                     }
-                    
+
                     Builder = new StringBuilder();
                     Builder.AppendLine(value);
                     logMessages.Add(value);
@@ -128,12 +128,12 @@ namespace XunitLogger
                     {
                         return;
                     }
-                    
+
                     logMessages.Add(message);
                     TestOutput.WriteLine(message);
                     return;
                 }
-                
+
                 if (Builder == null && TestOutput != null)
                 {
                     if (Filters.ShouldFilterOut(value))
