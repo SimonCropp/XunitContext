@@ -122,6 +122,7 @@ namespace XunitLogger
 
                 if (Builder != null && TestOutput != null)
                 {
+                    Builder.AppendLine(value);
                     var message = Builder.ToString();
                     Builder = null;
                     if (Filters.ShouldFilterOut(message))
