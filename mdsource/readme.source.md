@@ -7,7 +7,7 @@ Redirects [Trace.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagn
 Uses [AsyncLocal](https://docs.microsoft.com/en-us/dotnet/api/system.threading.asynclocal-1) to track state.
 
 
-## The NuGet package [![NuGet Status](http://img.shields.io/nuget/v/XunitLogger.svg?style=flat)](https://www.nuget.org/packages/XunitLogger/)
+## The NuGet package [![NuGet Status](http://img.shields.io/nuget/v/XunitLogger.svg)](https://www.nuget.org/packages/XunitLogger/)
 
 https://nuget.org/packages/XunitLogger/
 
