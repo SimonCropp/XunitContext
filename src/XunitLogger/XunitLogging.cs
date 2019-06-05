@@ -8,7 +8,7 @@ using XunitLogger;
 public static class XunitLogging
 {
     static AsyncLocal<Context> loggingContext = new AsyncLocal<Context>();
-    
+
     internal static void Init()
     {
         #region writeRedirects
@@ -84,7 +84,7 @@ public static class XunitLogging
         {
             throw new Exception("No context to flush.");
         }
-        
+
         context.Flush();
         var messages = context.LogMessages;
         loggingContext.Value = null;
@@ -100,7 +100,7 @@ public static class XunitLogging
             {
                 return context;
             }
-            
+
             context = new Context();
             loggingContext.Value = context;
             return context;
