@@ -51,6 +51,7 @@ snippet: FilterSample.cs
 Filters are static and shared for all tests.
 
 
+### Context
 
 For every tests there is a contextual API to perform several operations.
 
