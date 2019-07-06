@@ -19,7 +19,7 @@ public class SkipDispose :
     public void Write_after_dispose_should_throw()
     {
         base.Dispose();
-        var exception = Assert.Throws<Exception>(() => WriteLine());
+        var exception = Assert.Throws<Exception>(WriteLine);
         ObjectApprover.VerifyWithJson(exception);
     }
 

@@ -4,7 +4,7 @@
         $(BuildDependsOn);
         Validate_NetFx_472_Or_Higher
     </BuildDependsOn>
-  </PropertyGroup>  
+  </PropertyGroup>
   <Target Name="Validate_NetFx_472_Or_Higher"
           Condition="$(TargetFrameworkIdentifier) == '.NETFramework'">
     <Error Condition="'$(TargetFrameworkVersion)' == 'v4.6.1' OR
