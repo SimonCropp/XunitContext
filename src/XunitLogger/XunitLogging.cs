@@ -11,8 +11,15 @@ public static class XunitLogging
 
     internal static void Init()
     {
-        #region writeRedirects
+        var useGlobalLock = Trace.UseGlobalLock;
+        Trace.UseGlobalLock = true;
+        InnerInit();
+        Trace.UseGlobalLock = useGlobalLock;
+    }
 
+    private static void InnerInit()
+    {
+        #region writeRedirects
         Trace.Listeners.Clear();
         Trace.Listeners.Add(new TraceListener());
 #if (NETSTANDARD)
@@ -39,7 +46,6 @@ public static class XunitLogging
         var writer = new TestWriter();
         Console.SetOut(writer);
         Console.SetError(writer);
-
         #endregion
     }
 

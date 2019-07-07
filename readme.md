@@ -153,7 +153,7 @@ var writer = new TestWriter();
 Console.SetOut(writer);
 Console.SetError(writer);
 ```
-<sup>[snippet source](/src/XunitLogger/XunitLogging.cs#L14-L43)</sup>
+<sup>[snippet source](/src/XunitLogger/XunitLogging.cs#L22-L49)</sup>
 <!-- endsnippet -->
 
 These API calls are then routed to the correct xUnit [ITestOutputHelper](https://xunit.net/docs/capturing-output) via a static [AsyncLocal](https://docs.microsoft.com/en-us/dotnet/api/system.threading.asynclocal-1).
