@@ -9,7 +9,7 @@ public static class XunitLogging
 {
     static AsyncLocal<Context> loggingContext = new AsyncLocal<Context>();
 
-    internal static void Init()
+    public static void Init()
     {
         var useGlobalLock = Trace.UseGlobalLock;
         Trace.UseGlobalLock = true;
