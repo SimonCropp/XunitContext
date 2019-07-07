@@ -11,8 +11,6 @@ Uses [AsyncLocal](https://docs.microsoft.com/en-us/dotnet/api/system.threading.a
 
 https://nuget.org/packages/XunitLogger/
 
-    PM> Install-Package XunitLogger
-
 
 ## Usage
 
