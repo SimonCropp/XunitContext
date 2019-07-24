@@ -19,4 +19,6 @@
             XunitLogging.WriteLine(value);
         }
     }
+
+    public override bool IsThreadSafe => true;
 }
