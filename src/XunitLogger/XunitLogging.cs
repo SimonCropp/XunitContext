@@ -20,6 +20,7 @@ public static class XunitLogging
     private static void InnerInit()
     {
         #region writeRedirects
+
         Trace.Listeners.Clear();
         Trace.Listeners.Add(new TraceListener());
 #if (NETSTANDARD)
@@ -46,6 +47,7 @@ public static class XunitLogging
         var writer = new TestWriter();
         Console.SetOut(writer);
         Console.SetError(writer);
+
         #endregion
     }
 
@@ -64,6 +66,7 @@ public static class XunitLogging
             {
                 throw new Exception("No current context.");
             }
+
             return context.LogMessages;
         }
     }
@@ -97,7 +100,7 @@ public static class XunitLogging
         return messages;
     }
 
-   public static Context Context
+    public static Context Context
     {
         get
         {
