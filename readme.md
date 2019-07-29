@@ -279,7 +279,7 @@ public class ContextSample  :
 
 ### Current Test
 
-There is currently no API in xUnit to retrieve information on the current test. See [Get running test name ](https://github.com/xunit/xunit/issues/1359) and [Is it possible to get name/context of the running test?](https://github.com/xunit/xunit/issues/416).
+There is currently no API in xUnit to retrieve information on the current test. See issues [#1359](https://github.com/xunit/xunit/issues/1359), [#416](https://github.com/xunit/xunit/issues/416), and [#398](https://github.com/xunit/xunit/issues/398).
 
 To work around this, this project exposes the current instance of `ITest` via reflection.
 
