@@ -211,6 +211,7 @@ For every tests there is a contextual API to perform several operations.
  * `Context.Write` and `Context.WriteLine`: Write to the current log.
  * `Context.LogMessages`: Access to all log message for the current test.
  * Counters: Provide access in predicable and incrementing values for the following types: `Guid`, `Int`, `Long`, `UInt`, and `ULong`.
+ * `Context.Test`: Access to the current `ITest`.
 
 There is also access via a static API.
 
@@ -234,6 +235,8 @@ public class ContextSample  :
         var currentLogMessages = Context.LogMessages;
 
         var testOutputHelper = Context.TestOutput;
+
+        var currentTest = Context.Test;
     }
 
     [Fact]
@@ -248,6 +251,8 @@ public class ContextSample  :
         var currentLogMessages = XunitLogging.Context.LogMessages;
 
         var testOutputHelper = XunitLogging.Context.TestOutput;
+
+        var currentTest = XunitLogging.Context.Test;
     }
 
     public ContextSample(ITestOutputHelper output) :
@@ -256,7 +261,92 @@ public class ContextSample  :
     }
 }
 ```
-<sup>[snippet source](/src/Tests/Snippets/ContextSample.cs#L1-L39)</sup>
+<sup>[snippet source](/src/Tests/Snippets/ContextSample.cs#L1-L43)</sup>
+<!-- endsnippet -->
+
+
+#### Current Test
+
+There is current no API in xUnit to retrieve information on the current test. See [Get running test name ](https://github.com/xunit/xunit/issues/1359) and [Is it possible to get name/context of the running test?](https://github.com/xunit/xunit/issues/416).
+
+To work around this, this project exposes the current instance of `ITest` via reflection.
+
+Usage:
+
+<!-- snippet: CurrentTestSample.cs -->
+```cs
+using Xunit;
+using Xunit.Abstractions;
+
+public class CurrentTestSample :
+    XunitLoggingBase
+{
+    [Fact]
+    public void Usage()
+    {
+        var currentTest = Context.Test;
+        // DisplayName will be 'TestNameSample.Usage'
+        var displayName = currentTest.DisplayName;
+    }
+
+    [Fact]
+    public void StaticUsage()
+    {
+        var currentTest = XunitLogging.Context.Test;
+        // DisplayName will be 'TestNameSample.StaticUsage'
+        var displayName = currentTest.DisplayName;
+    }
+
+    public CurrentTestSample(ITestOutputHelper output) :
+        base(output)
+    {
+    }
+}
+```
+<sup>[snippet source](/src/Tests/Snippets/CurrentTestSample.cs#L1-L27)</sup>
+<!-- endsnippet -->
+
+Implementation:
+
+<!-- snippet: LoggingContext_CurrentTest.cs -->
+```cs
+using System;
+using System.Reflection;
+using Xunit.Abstractions;
+
+namespace XunitLogger
+{
+    public partial class Context
+    {
+        ITest test;
+
+        static FieldInfo testMember;
+        public ITest Test
+        {
+            get
+            {
+                if (test == null)
+                {
+                    if (testMember == null)
+                    {
+                        var testOutputType = TestOutput.GetType();
+                        testMember = testOutputType.GetField("test", BindingFlags.Instance | BindingFlags.NonPublic);
+                        if (testMember == null)
+                        {
+                            throw new Exception($"Unable to find 'test' field on {testOutputType.FullName}");
+                        }
+                    }
+
+                    test = (ITest) testMember.GetValue(TestOutput);
+                }
+
+                return test;
+            }
+        }
+    }
+}
+```
+<sup>[snippet source](/src/XunitLogger/LoggingContext_CurrentTest.cs#L1-L35)</sup>
 <!-- endsnippet -->
 
 

@@ -57,10 +57,26 @@ For every tests there is a contextual API to perform several operations.
  * `Context.Write` and `Context.WriteLine`: Write to the current log.
  * `Context.LogMessages`: Access to all log message for the current test.
  * Counters: Provide access in predicable and incrementing values for the following types: `Guid`, `Int`, `Long`, `UInt`, and `ULong`.
+ * `Context.Test`: Access to the current `ITest`.
 
 There is also access via a static API.
 
 snippet: ContextSample.cs
+
+
+#### Current Test
+
+There is current no API in xUnit to retrieve information on the current test. See [Get running test name ](https://github.com/xunit/xunit/issues/1359) and [Is it possible to get name/context of the running test?](https://github.com/xunit/xunit/issues/416).
+
+To work around this, this project exposes the current instance of `ITest` via reflection.
+
+Usage:
+
+snippet: CurrentTestSample.cs
+
+Implementation:
+
+snippet: LoggingContext_CurrentTest.cs
 
 
 #### Counters

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Text;
 using Xunit.Abstractions;
 
@@ -25,32 +24,6 @@ namespace XunitLogger
         }
 
         bool flushed;
-
-        ITest test;
-
-        static FieldInfo testMember;
-        public ITest Test
-        {
-            get
-            {
-                if (test == null)
-                {
-                    if (testMember == null)
-                    {
-                        var testOutputType = TestOutput.GetType();
-                        testMember = testOutputType.GetField("test", BindingFlags.Instance | BindingFlags.NonPublic);
-                        if (testMember == null)
-                        {
-                            throw new Exception($"Unable to find 'test' field on {testOutputType.FullName}");
-                        }
-                    }
-
-                    test = (ITest) testMember.GetValue(TestOutput);
-                }
-
-                return test;
-            }
-        }
 
         internal Context(ITestOutputHelper testOutput)
         {

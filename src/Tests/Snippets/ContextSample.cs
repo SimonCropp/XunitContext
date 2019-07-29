@@ -16,6 +16,8 @@ public class ContextSample  :
         var currentLogMessages = Context.LogMessages;
 
         var testOutputHelper = Context.TestOutput;
+
+        var currentTest = Context.Test;
     }
 
     [Fact]
@@ -30,6 +32,8 @@ public class ContextSample  :
         var currentLogMessages = XunitLogging.Context.LogMessages;
 
         var testOutputHelper = XunitLogging.Context.TestOutput;
+
+        var currentTest = XunitLogging.Context.Test;
     }
 
     public ContextSample(ITestOutputHelper output) :
