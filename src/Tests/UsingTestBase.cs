@@ -22,6 +22,13 @@ public class UsingTestBase :
         ObjectApprover.VerifyWithJson(Logs);
     }
 
+
+    [Fact]
+    public void CurrentTest()
+    {
+        Assert.Equal("UsingTestBase.CurrentTest", Context.Test.DisplayName);
+    }
+
     public UsingTestBase(ITestOutputHelper testOutput) :
         base(testOutput)
     {

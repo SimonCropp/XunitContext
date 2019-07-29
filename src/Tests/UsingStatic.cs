@@ -38,6 +38,12 @@ public class UsingStatic
     }
 
     [Fact]
+    public void CurrentTest()
+    {
+        Assert.Equal("UsingStatic.CurrentTest", XunitLogging.Context.Test.DisplayName);
+    }
+
+    [Fact]
     public void Null()
     {
         XunitLogging.WriteLine("XunitLogger.WriteLine");
