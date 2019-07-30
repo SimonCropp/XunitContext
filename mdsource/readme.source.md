@@ -101,6 +101,13 @@ snippet: GuidCounter.cs
 snippet: LongCounter.cs
 
 
+## Logging Libs
+
+Approaches to routing common logging libraries to Diagnostics.Trace:
+
+ * [Serilog](https://serilog.net/) use [Serilog.Sinks.Trace](https://github.com/serilog/serilog-sinks-trace).
+
+
 ## Icon
 
 [Wolverine](http://thenounproject.com/term/wolverine/18415/) designed by [Mike Rowe](https://thenounproject.com/itsmikerowe/) from [The Noun Project](https://thenounproject.com/).

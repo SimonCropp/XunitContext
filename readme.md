@@ -26,9 +26,7 @@ https://nuget.org/packages/XunitLogger/
   * [XunitLogger](#xunitlogger)
   * [Filters](#filters)
   * [Context](#context)
-    * [Current Test](#current-test)
-    * [Counters](#counters)
-  * [Icon](#icon)
+  * [Logging Libs](#logging-libs)
 <!-- endtoc -->
 
 
@@ -583,6 +581,13 @@ namespace XunitLogger
 ```
 <sup>[snippet source](/src/XunitLogger/Counters/LongCounter.cs#L1-L19)</sup>
 <!-- endsnippet -->
+
+
+## Logging Libs
+
+Approaches to routing common logging libraries to Diagnostics.Trace:
+
+ * [Serilog](https://serilog.net/) use [Serilog.Sinks.Trace](https://github.com/serilog/serilog-sinks-trace).
 
 
 ## Icon
