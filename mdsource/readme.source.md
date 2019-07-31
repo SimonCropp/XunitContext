@@ -106,6 +106,7 @@ snippet: LongCounter.cs
 Approaches to routing common logging libraries to Diagnostics.Trace:
 
  * [Serilog](https://serilog.net/) use [Serilog.Sinks.Trace](https://github.com/serilog/serilog-sinks-trace).
+ * [NLog](https://github.com/NLog/NLog) use a [Trace target](https://github.com/NLog/NLog/wiki/Trace-target).
 
 
 ## Icon
