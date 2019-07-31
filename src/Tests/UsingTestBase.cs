@@ -19,9 +19,8 @@ public class UsingTestBase :
         WriteLine();
         WriteLine("part3");
         WriteLine("ignored");
-        ObjectApprover.VerifyWithJson(Logs);
+        ObjectApprover.Verify(Logs);
     }
-
 
     [Fact]
     public void CurrentTest()

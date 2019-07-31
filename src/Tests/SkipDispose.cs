@@ -12,7 +12,7 @@ public class SkipDispose :
         Write("part1");
         Write(" part2");
         base.Dispose();
-        ObjectApprover.VerifyWithJson(Logs);
+        ObjectApprover.Verify(Logs);
     }
 
     [Fact]
@@ -20,7 +20,7 @@ public class SkipDispose :
     {
         base.Dispose();
         var exception = Assert.Throws<Exception>(WriteLine);
-        ObjectApprover.VerifyWithJson(exception);
+        ObjectApprover.Verify(exception);
     }
 
     public SkipDispose(ITestOutputHelper testOutput) :

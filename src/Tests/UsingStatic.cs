@@ -24,7 +24,7 @@ public class UsingStatic
             guid1 = context.NextGuid(),
             guid2 = context.NextGuid(),
         };
-        ObjectApprover.VerifyWithJson(foo);
+        ObjectApprover.Verify(foo);
     }
 
     [Fact]
@@ -34,7 +34,7 @@ public class UsingStatic
         Debug.WriteLine("from Debug");
         Trace.WriteLine("from Trace");
         var logs = XunitLogging.Flush();
-        ObjectApprover.VerifyWithJson(logs);
+        ObjectApprover.Verify(logs);
     }
 
     [Fact]
@@ -59,7 +59,7 @@ public class UsingStatic
         XunitLogging.WriteLine("Trace.Write(null)");
         Trace.Write(null);
         var logs = XunitLogging.Flush();
-        ObjectApprover.VerifyWithJson(logs);
+        ObjectApprover.Verify(logs);
     }
 
     [Fact]
@@ -70,7 +70,7 @@ public class UsingStatic
         XunitLogging.WriteLine();
         XunitLogging.WriteLine("part3");
         var logs = XunitLogging.Flush();
-        ObjectApprover.VerifyWithJson(logs);
+        ObjectApprover.Verify(logs);
     }
 
     [Fact]
@@ -82,7 +82,7 @@ public class UsingStatic
         XunitLogging.WriteLine("part2");
         await Task.Delay(1).ConfigureAwait(false);
         var logs = XunitLogging.Flush();
-        ObjectApprover.VerifyWithJson(logs);
+        ObjectApprover.Verify(logs);
     }
 
     public UsingStatic(ITestOutputHelper testOutput)

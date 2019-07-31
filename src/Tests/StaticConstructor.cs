@@ -16,7 +16,7 @@ public class StaticConstructor
     public void Verify()
     {
         var logs = XunitLogging.Flush();
-        ObjectApprover.VerifyWithJson(logs);
+        ObjectApprover.Verify(logs);
     }
 
     public StaticConstructor(ITestOutputHelper testOutput)
