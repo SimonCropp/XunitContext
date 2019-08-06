@@ -2,7 +2,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net472;netcoreapp2.2</TargetFrameworks>
-    <Optimize>False</Optimize>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
@@ -14,5 +13,6 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
     <ProjectReference Include="..\XunitLogger\XunitLogger.csproj" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.3" PrivateAssets="All" />
   </ItemGroup>
 </Project>
