@@ -7,6 +7,6 @@
     <PackageReference Include="Fody" Version="5.1.1" PrivateAssets="All" />
     <PackageReference Include="ModuleInit.Fody" Version="2.0.0"  PrivateAssets="All" />
     <PackageReference Include="xunit.abstractions" Version="2.0.3" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.6" PrivateAssets="All" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.8" PrivateAssets="All" />
   </ItemGroup>
 </Project>
