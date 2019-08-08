@@ -5,7 +5,7 @@ Source File: /mdsource/readme.source.md
 To change this file edit the source file and then run MarkdownSnippets.
 -->
 
-# <img src="https://raw.github.com/SimonCropp/XunitLogger/master/icon.png" height="40px"> XunitLogger
+# <img src="/icon.png" height="40px"> XunitLogger
 
 Extends [xUnit](https://xunit.net/) to simplify logging.
 
@@ -13,22 +13,25 @@ Redirects [Trace.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagn
 
 Uses [AsyncLocal](https://docs.microsoft.com/en-us/dotnet/api/system.threading.asynclocal-1) to track state.
 
-
-## The NuGet package [![NuGet Status](http://img.shields.io/nuget/v/XunitLogger.svg)](https://www.nuget.org/packages/XunitLogger/)
-
-https://nuget.org/packages/XunitLogger/
-
 <!-- toc -->
 ## Contents
 
+  * [NuGet package](#nuget-package)
   * [ClassBeingTested](#classbeingtested)
   * [XunitLoggingBase](#xunitloggingbase)
   * [XunitLogger](#xunitlogger)
   * [Filters](#filters)
   * [Context](#context)
+    * [Current Test](#current-test)
+    * [Counters](#counters)
   * [Logging Libs](#logging-libs)
 <!-- endtoc -->
 
+
+
+## NuGet package
+
+https://nuget.org/packages/XunitLogger/ [![NuGet Status](http://img.shields.io/nuget/v/XunitLogger.svg)](https://www.nuget.org/packages/XunitLogger/)
 
 
 ## ClassBeingTested
@@ -593,4 +596,4 @@ Approaches to routing common logging libraries to Diagnostics.Trace:
 
 ## Icon
 
-[Wolverine](http://thenounproject.com/term/wolverine/18415/) designed by [Mike Rowe](https://thenounproject.com/itsmikerowe/) from [The Noun Project](https://thenounproject.com/).
+[Wolverine](https://thenounproject.com/term/wolverine/18415/) designed by [Mike Rowe](https://thenounproject.com/itsmikerowe/) from [The Noun Project](https://thenounproject.com/).
