@@ -37,6 +37,7 @@ https://nuget.org/packages/XunitLogger/ [![NuGet Status](http://img.shields.io/n
 ## ClassBeingTested
 
 <!-- snippet: ClassBeingTested.cs -->
+<a id='snippet-ClassBeingTested.cs'/></a>
 ```cs
 using System;
 using System.Diagnostics;
@@ -52,7 +53,7 @@ static class ClassBeingTested
     }
 }
 ```
-<sup>[snippet source](/src/Tests/Snippets/ClassBeingTested.cs#L1-L13)</sup>
+<sup>[snippet source](/src/Tests/Snippets/ClassBeingTested.cs#L1-L13) / [anchor](#snippet-ClassBeingTested.cs)</sup>
 <!-- endsnippet -->
 
 
@@ -61,6 +62,7 @@ static class ClassBeingTested
 `XunitLoggingBase` is an abstract base class for tests. It exposes logging methods for use from unit tests, and handle the flushing of longs in its `Dispose` method. `XunitLoggingBase` is actually a thin wrapper over `XunitLogger`. `XunitLogger`s `Write*` methods can also be use inside a test inheriting from `XunitLoggingBase`.
 
 <!-- snippet: TestBaseSample.cs -->
+<a id='snippet-TestBaseSample.cs'/></a>
 ```cs
 using Xunit;
 using Xunit.Abstractions;
@@ -89,7 +91,7 @@ public class TestBaseSample  :
     }
 }
 ```
-<sup>[snippet source](/src/Tests/Snippets/TestBaseSample.cs#L1-L26)</sup>
+<sup>[snippet source](/src/Tests/Snippets/TestBaseSample.cs#L1-L26) / [anchor](#snippet-TestBaseSample.cs)</sup>
 <!-- endsnippet -->
 
 
@@ -98,6 +100,7 @@ public class TestBaseSample  :
 `XunitLogger` provides static access to the logging state for tests. It exposes logging methods for use from unit tests, however registration of [ITestOutputHelper](https://xunit.net/docs/capturing-output) and flushing of logs must be handled explicitly.
 
 <!-- snippet: XunitLoggerSample.cs -->
+<a id='snippet-XunitLoggerSample.cs'/></a>
 ```cs
 using System;
 using Xunit;
@@ -133,12 +136,13 @@ public class XunitLoggerSample :
     }
 }
 ```
-<sup>[snippet source](/src/Tests/Snippets/XunitLoggerSample.cs#L1-L33)</sup>
+<sup>[snippet source](/src/Tests/Snippets/XunitLoggerSample.cs#L1-L33) / [anchor](#snippet-XunitLoggerSample.cs)</sup>
 <!-- endsnippet -->
 
 `XunitLogger` redirects [Trace.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.trace.write), [Console.Write](https://docs.microsoft.com/en-us/dotnet/api/system.console.write), and [Debug.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.debug.write) in its static constructor.
 
 <!-- snippet: writeRedirects -->
+<a id='snippet-writeredirects'/></a>
 ```cs
 Trace.Listeners.Clear();
 Trace.Listeners.Add(new TraceListener());
@@ -167,7 +171,7 @@ var writer = new TestWriter();
 Console.SetOut(writer);
 Console.SetError(writer);
 ```
-<sup>[snippet source](/src/XunitLogger/XunitLogging.cs#L22-L51)</sup>
+<sup>[snippet source](/src/XunitLogger/XunitLogging.cs#L22-L51) / [anchor](#snippet-writeredirects)</sup>
 <!-- endsnippet -->
 
 These API calls are then routed to the correct xUnit [ITestOutputHelper](https://xunit.net/docs/capturing-output) via a static [AsyncLocal](https://docs.microsoft.com/en-us/dotnet/api/system.threading.asynclocal-1).
@@ -178,6 +182,7 @@ These API calls are then routed to the correct xUnit [ITestOutputHelper](https:/
 `XunitLogger.Filters` can be used to filter out unwanted lines:
 
 <!-- snippet: FilterSample.cs -->
+<a id='snippet-FilterSample.cs'/></a>
 ```cs
 using Xunit;
 using Xunit.Abstractions;
@@ -210,7 +215,7 @@ public class FilterSample :
     }
 }
 ```
-<sup>[snippet source](/src/Tests/Snippets/FilterSample.cs#L1-L30)</sup>
+<sup>[snippet source](/src/Tests/Snippets/FilterSample.cs#L1-L30) / [anchor](#snippet-FilterSample.cs)</sup>
 <!-- endsnippet -->
 
 Filters are static and shared for all tests.
@@ -229,6 +234,7 @@ For every tests there is a contextual API to perform several operations.
 There is also access via a static API.
 
 <!-- snippet: ContextSample.cs -->
+<a id='snippet-ContextSample.cs'/></a>
 ```cs
 using Xunit;
 using Xunit.Abstractions;
@@ -274,7 +280,7 @@ public class ContextSample  :
     }
 }
 ```
-<sup>[snippet source](/src/Tests/Snippets/ContextSample.cs#L1-L43)</sup>
+<sup>[snippet source](/src/Tests/Snippets/ContextSample.cs#L1-L43) / [anchor](#snippet-ContextSample.cs)</sup>
 <!-- endsnippet -->
 
 
@@ -287,6 +293,7 @@ To work around this, this project exposes the current instance of `ITest` via re
 Usage:
 
 <!-- snippet: CurrentTestSample.cs -->
+<a id='snippet-CurrentTestSample.cs'/></a>
 ```cs
 using Xunit;
 using Xunit.Abstractions;
@@ -316,12 +323,13 @@ public class CurrentTestSample :
     }
 }
 ```
-<sup>[snippet source](/src/Tests/Snippets/CurrentTestSample.cs#L1-L27)</sup>
+<sup>[snippet source](/src/Tests/Snippets/CurrentTestSample.cs#L1-L27) / [anchor](#snippet-CurrentTestSample.cs)</sup>
 <!-- endsnippet -->
 
 Implementation:
 
 <!-- snippet: LoggingContext_CurrentTest.cs -->
+<a id='snippet-LoggingContext_CurrentTest.cs'/></a>
 ```cs
 using System;
 using System.Reflection;
@@ -359,7 +367,7 @@ namespace XunitLogger
     }
 }
 ```
-<sup>[snippet source](/src/XunitLogger/LoggingContext_CurrentTest.cs#L1-L35)</sup>
+<sup>[snippet source](/src/XunitLogger/LoggingContext_CurrentTest.cs#L1-L35) / [anchor](#snippet-LoggingContext_CurrentTest.cs)</sup>
 <!-- endsnippet -->
 
 
@@ -373,6 +381,7 @@ Provide access to predicable and incrementing values for the following types: `G
 Counters can also be used outside of the current test context:
 
 <!-- snippet: NonTestContextUsage -->
+<a id='snippet-nontestcontextusage'/></a>
 ```cs
 var current = Counters.CurrentGuid;
 
@@ -382,13 +391,14 @@ var counter = new GuidCounter();
 var localCurrent = counter.Current;
 var localNext = counter.Next();
 ```
-<sup>[snippet source](/src/Tests/Snippets/CountersSample.cs#L9-L17)</sup>
+<sup>[snippet source](/src/Tests/Snippets/CountersSample.cs#L9-L17) / [anchor](#snippet-nontestcontextusage)</sup>
 <!-- endsnippet -->
 
 
 #### Implementation
 
 <!-- snippet: LoggingContext_Counters.cs -->
+<a id='snippet-LoggingContext_Counters.cs'/></a>
 ```cs
 using System;
 
@@ -454,10 +464,11 @@ namespace XunitLogger
     }
 }
 ```
-<sup>[snippet source](/src/XunitLogger/LoggingContext_Counters.cs#L1-L63)</sup>
+<sup>[snippet source](/src/XunitLogger/LoggingContext_Counters.cs#L1-L63) / [anchor](#snippet-LoggingContext_Counters.cs)</sup>
 <!-- endsnippet -->
 
 <!-- snippet: Counters.cs -->
+<a id='snippet-Counters.cs'/></a>
 ```cs
 using System;
 
@@ -523,10 +534,11 @@ namespace XunitLogger
     }
 }
 ```
-<sup>[snippet source](/src/XunitLogger/Counters.cs#L1-L63)</sup>
+<sup>[snippet source](/src/XunitLogger/Counters.cs#L1-L63) / [anchor](#snippet-Counters.cs)</sup>
 <!-- endsnippet -->
 
 <!-- snippet: GuidCounter.cs -->
+<a id='snippet-GuidCounter.cs'/></a>
 ```cs
 using System;
 using System.Threading;
@@ -557,10 +569,11 @@ namespace XunitLogger
     }
 }
 ```
-<sup>[snippet source](/src/XunitLogger/Counters/GuidCounter.cs#L1-L28)</sup>
+<sup>[snippet source](/src/XunitLogger/Counters/GuidCounter.cs#L1-L28) / [anchor](#snippet-GuidCounter.cs)</sup>
 <!-- endsnippet -->
 
 <!-- snippet: LongCounter.cs -->
+<a id='snippet-LongCounter.cs'/></a>
 ```cs
 using System.Threading;
 
@@ -582,7 +595,7 @@ namespace XunitLogger
     }
 }
 ```
-<sup>[snippet source](/src/XunitLogger/Counters/LongCounter.cs#L1-L19)</sup>
+<sup>[snippet source](/src/XunitLogger/Counters/LongCounter.cs#L1-L19) / [anchor](#snippet-LongCounter.cs)</sup>
 <!-- endsnippet -->
 
 

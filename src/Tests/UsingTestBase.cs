@@ -1,5 +1,4 @@
-﻿using ObjectApproval;
-using Xunit;
+﻿using Xunit;
 using Xunit.Abstractions;
 using XunitLogger;
 

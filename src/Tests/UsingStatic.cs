@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using ObjectApproval;
 using Xunit;
 using Xunit.Abstractions;
 
