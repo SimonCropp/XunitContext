@@ -15,10 +15,9 @@ namespace XunitLogger
 
         public static void Clear()
         {
-            Func<string, bool> someItem;
             while (!items.IsEmpty)
             {
-                items.TryTake(out someItem);
+                items.TryTake(out _);
             }
         }
 
