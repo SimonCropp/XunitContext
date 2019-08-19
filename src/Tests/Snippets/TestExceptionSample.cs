@@ -10,7 +10,7 @@ public class TestExceptionSample :
 {
     static TestExceptionSample()
     {
-        //Called once at startup
+        //Should be called once at appdomain startup
         XunitLogging.EnableExceptionCapture();
     }
 
