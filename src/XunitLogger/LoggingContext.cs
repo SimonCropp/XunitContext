@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Reflection;
 using System.Text;
 using Xunit.Abstractions;
 
@@ -12,6 +14,32 @@ namespace XunitLogger
         object locker = new object();
 
         public IReadOnlyList<string> LogMessages => logMessages;
+        internal Exception Exception;
+
+        public Exception TestException
+        {
+            get
+            {
+                if (Exception?.InnerException == null)
+                {
+                    return null;
+                }
+                var stackTrace = new StackTrace(Exception?.InnerException,false);
+                var stackFrame = stackTrace.GetFrame(stackTrace.FrameCount-1);
+                var methodBase = stackFrame.GetMethod();
+                var declaringType = methodBase.DeclaringType;
+                var testMethod = Test.TestCase.TestMethod;
+                if (testMethod.Method.Name != methodBase.Name)
+                {
+                    return null;
+                }
+                if (testMethod.TestClass.Class.Name != declaringType.FullName)
+                {
+                    return null;
+                }
+                return Exception.InnerException;
+            }
+        }
 
         public StringBuilder Builder;
 
@@ -23,7 +51,7 @@ namespace XunitLogger
             }
         }
 
-        bool flushed;
+        internal bool flushed;
 
         internal Context(ITestOutputHelper testOutput)
         {

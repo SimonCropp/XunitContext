@@ -23,6 +23,7 @@ Uses [AsyncLocal](https://docs.microsoft.com/en-us/dotnet/api/system.threading.a
   * [Filters](#filters)
   * [Context](#context)
     * [Current Test](#current-test)
+    * [Test Failure](#test-failure)
     * [Counters](#counters)
   * [Logging Libs](#logging-libs)
 <!-- endtoc -->
@@ -171,7 +172,7 @@ var writer = new TestWriter();
 Console.SetOut(writer);
 Console.SetError(writer);
 ```
-<sup>[snippet source](/src/XunitLogger/XunitLogging.cs#L22-L51) / [anchor](#snippet-writeredirects)</sup>
+<sup>[snippet source](/src/XunitLogger/XunitLogging.cs#L48-L77) / [anchor](#snippet-writeredirects)</sup>
 <!-- endsnippet -->
 
 These API calls are then routed to the correct xUnit [ITestOutputHelper](https://xunit.net/docs/capturing-output) via a static [AsyncLocal](https://docs.microsoft.com/en-us/dotnet/api/system.threading.asynclocal-1).
@@ -368,6 +369,51 @@ namespace XunitLogger
 }
 ```
 <sup>[snippet source](/src/XunitLogger/LoggingContext_CurrentTest.cs#L1-L35) / [anchor](#snippet-LoggingContext_CurrentTest.cs)</sup>
+<!-- endsnippet -->
+
+### Test Failure
+
+When a test fails it is expressed as an exception. The exception can be viewed by enabling exception capture, and then accessing `Context.TestException`. The `TestException` will be null if the test has passed.
+
+One common case is to perform some logic, based on the existence of the exception, in the `Dispose` of a test.
+
+<!-- snippet: TestExceptionSample.cs -->
+<a id='snippet-TestExceptionSample.cs'/></a>
+```cs
+using Xunit;
+using Xunit.Abstractions;
+
+public class TestExceptionSample :
+    XunitLoggingBase
+{
+    static TestExceptionSample()
+    {
+        //Called once at startup
+        XunitLogging.EnableExceptionCapture();
+    }
+
+    [Fact]
+    [Trait("Category", "Integration")]
+    public void Usage()
+    {
+        //This tests will fail
+        Assert.False(true);
+    }
+
+    public TestExceptionSample(ITestOutputHelper output) :
+        base(output)
+    {
+    }
+
+    public override void Dispose()
+    {
+        var theExceptionThrownByTest = Context.TestException;
+
+        base.Dispose();
+    }
+}
+```
+<sup>[snippet source](/src/Tests/Snippets/TestExceptionSample.cs#L1-L32) / [anchor](#snippet-TestExceptionSample.cs)</sup>
 <!-- endsnippet -->
 
 

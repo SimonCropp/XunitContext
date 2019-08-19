@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Runtime.ExceptionServices;
 using System.Threading;
 using Xunit.Abstractions;
 using XunitLogger;
@@ -8,6 +9,31 @@ using XunitLogger;
 public static class XunitLogging
 {
     static AsyncLocal<Context> loggingContext = new AsyncLocal<Context>();
+    static bool enableExceptionCapture;
+
+    public static void EnableExceptionCapture()
+    {
+        if (enableExceptionCapture)
+        {
+            return;
+        }
+
+        enableExceptionCapture = true;
+        AppDomain.CurrentDomain.FirstChanceException += (sender, e) =>
+        {
+            if (loggingContext.Value == null)
+            {
+                return;
+            }
+
+            if (loggingContext.Value.flushed)
+            {
+                return;
+            }
+            loggingContext.Value.Exception = e.Exception;
+        };
+    }
+
 
     public static void Init()
     {
