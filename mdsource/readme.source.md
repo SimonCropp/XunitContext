@@ -77,13 +77,14 @@ Implementation:
 
 snippet: LoggingContext_CurrentTest.cs
 
+
 ### Test Failure
 
 When a test fails it is expressed as an exception. The exception can be viewed by enabling exception capture, and then accessing `Context.TestException`. The `TestException` will be null if the test has passed.
 
 One common case is to perform some logic, based on the existence of the exception, in the `Dispose` of a test.
 
-snippet: TestExceptionSample.cs
+snippet: TestExceptionSample
 
 
 ### Counters

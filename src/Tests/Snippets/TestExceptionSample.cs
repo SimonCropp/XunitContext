@@ -1,6 +1,10 @@
 ﻿using Xunit;
 using Xunit.Abstractions;
 
+[Trait("Category", "Integration")]
+
+#region TestExceptionSample
+
 public class TestExceptionSample :
     XunitLoggingBase
 {
@@ -11,7 +15,6 @@ public class TestExceptionSample :
     }
 
     [Fact]
-    [Trait("Category", "Integration")]
     public void Usage()
     {
         //This tests will fail
@@ -30,3 +33,4 @@ public class TestExceptionSample :
         base.Dispose();
     }
 }
+#endregion

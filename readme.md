@@ -371,18 +371,16 @@ namespace XunitLogger
 <sup>[snippet source](/src/XunitLogger/LoggingContext_CurrentTest.cs#L1-L35) / [anchor](#snippet-LoggingContext_CurrentTest.cs)</sup>
 <!-- endsnippet -->
 
+
 ### Test Failure
 
 When a test fails it is expressed as an exception. The exception can be viewed by enabling exception capture, and then accessing `Context.TestException`. The `TestException` will be null if the test has passed.
 
 One common case is to perform some logic, based on the existence of the exception, in the `Dispose` of a test.
 
-<!-- snippet: TestExceptionSample.cs -->
-<a id='snippet-TestExceptionSample.cs'/></a>
+<!-- snippet: TestExceptionSample -->
+<a id='snippet-testexceptionsample'/></a>
 ```cs
-using Xunit;
-using Xunit.Abstractions;
-
 public class TestExceptionSample :
     XunitLoggingBase
 {
@@ -393,7 +391,6 @@ public class TestExceptionSample :
     }
 
     [Fact]
-    [Trait("Category", "Integration")]
     public void Usage()
     {
         //This tests will fail
@@ -413,7 +410,7 @@ public class TestExceptionSample :
     }
 }
 ```
-<sup>[snippet source](/src/Tests/Snippets/TestExceptionSample.cs#L1-L32) / [anchor](#snippet-TestExceptionSample.cs)</sup>
+<sup>[snippet source](/src/Tests/Snippets/TestExceptionSample.cs#L6-L36) / [anchor](#snippet-testexceptionsample)</sup>
 <!-- endsnippet -->
 
 
