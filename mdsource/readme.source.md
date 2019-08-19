@@ -1,4 +1,4 @@
-# <img src="/icon.png" height="40px"> XunitLogger
+# <img src="/src/icon.png" height="40px"> XunitLogger
 
 Extends [xUnit](https://xunit.net/) to simplify logging.
 

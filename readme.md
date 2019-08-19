@@ -5,7 +5,7 @@ Source File: /mdsource/readme.source.md
 To change this file edit the source file and then run MarkdownSnippets.
 -->
 
-# <img src="/icon.png" height="40px"> XunitLogger
+# <img src="/src/icon.png" height="40px"> XunitLogger
 
 Extends [xUnit](https://xunit.net/) to simplify logging.
 
