@@ -405,12 +405,13 @@ public class TestExceptionSample :
     public override void Dispose()
     {
         var theExceptionThrownByTest = Context.TestException;
-
+        var testDisplayName = Context.Test.DisplayName;
+        var testCase = Context.Test.TestCase;
         base.Dispose();
     }
 }
 ```
-<sup>[snippet source](/src/Tests/Snippets/TestExceptionSample.cs#L6-L36) / [anchor](#snippet-testexceptionsample)</sup>
+<sup>[snippet source](/src/Tests/Snippets/TestExceptionSample.cs#L6-L37) / [anchor](#snippet-testexceptionsample)</sup>
 <!-- endsnippet -->
 
 
