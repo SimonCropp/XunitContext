@@ -1,4 +1,7 @@
-# <img src="/src/icon.png" height="40px"> XunitLogger
+# <img src="/src/icon.png" height="30px"> XunitLogger
+
+[![Build status](https://ci.appveyor.com/api/projects/status/sdg2ni2jhe2o33le/branch/master?svg=true)](https://ci.appveyor.com/project/SimonCropp/XunitLogger)
+[![NuGet Status](https://img.shields.io/nuget/v/XunitLogger.svg?cacheSeconds=86400)](https://www.nuget.org/packages/XunitLogger/)
 
 Extends [xUnit](https://xunit.net/) to simplify logging.
 
@@ -11,7 +14,7 @@ toc
 
 ## NuGet package
 
-https://nuget.org/packages/XunitLogger/ [![NuGet Status](http://img.shields.io/nuget/v/XunitLogger.svg)](https://www.nuget.org/packages/XunitLogger/)
+https://nuget.org/packages/XunitLogger/ [![NuGet Status](https://img.shields.io/nuget/v/XunitLogger.svg)](https://www.nuget.org/packages/XunitLogger/)
 
 
 ## ClassBeingTested
@@ -116,6 +119,11 @@ Approaches to routing common logging libraries to Diagnostics.Trace:
 
  * [Serilog](https://serilog.net/) use [Serilog.Sinks.Trace](https://github.com/serilog/serilog-sinks-trace).
  * [NLog](https://github.com/NLog/NLog) use a [Trace target](https://github.com/NLog/NLog/wiki/Trace-target).
+
+
+## Release Notes
+
+See [closed milestones](../../milestones?state=closed).
 
 
 ## Icon
