@@ -22,7 +22,7 @@ Uses [AsyncLocal](https://docs.microsoft.com/en-us/dotnet/api/system.threading.a
   * [NuGet package](#nuget-package)
   * [ClassBeingTested](#classbeingtested)
   * [XunitLoggingBase](#xunitloggingbase)
-  * [XunitLogger](#xunitlogger)
+  * [XunitLogging](#xunitlogging)
   * [Filters](#filters)
   * [Context](#context)
     * [Current Test](#current-test)
@@ -35,7 +35,7 @@ Uses [AsyncLocal](https://docs.microsoft.com/en-us/dotnet/api/system.threading.a
 
 ## NuGet package
 
-https://nuget.org/packages/XunitLogger/ [![NuGet Status](https://img.shields.io/nuget/v/XunitLogger.svg)](https://www.nuget.org/packages/XunitLogger/)
+https://nuget.org/packages/XunitLogger/
 
 
 ## ClassBeingTested
@@ -63,7 +63,7 @@ static class ClassBeingTested
 
 ## XunitLoggingBase
 
-`XunitLoggingBase` is an abstract base class for tests. It exposes logging methods for use from unit tests, and handle the flushing of longs in its `Dispose` method. `XunitLoggingBase` is actually a thin wrapper over `XunitLogger`. `XunitLogger`s `Write*` methods can also be use inside a test inheriting from `XunitLoggingBase`.
+`XunitLoggingBase` is an abstract base class for tests. It exposes logging methods for use from unit tests, and handle the flushing of longs in its `Dispose` method. `XunitLoggingBase` is actually a thin wrapper over `XunitLogging`. `XunitLogging`s `Write*` methods can also be use inside a test inheriting from `XunitLoggingBase`.
 
 <!-- snippet: TestBaseSample.cs -->
 <a id='snippet-TestBaseSample.cs'/></a>
@@ -99,9 +99,9 @@ public class TestBaseSample  :
 <!-- endsnippet -->
 
 
-## XunitLogger
+## XunitLogging
 
-`XunitLogger` provides static access to the logging state for tests. It exposes logging methods for use from unit tests, however registration of [ITestOutputHelper](https://xunit.net/docs/capturing-output) and flushing of logs must be handled explicitly.
+`XunitLogging` provides static access to the logging state for tests. It exposes logging methods for use from unit tests, however registration of [ITestOutputHelper](https://xunit.net/docs/capturing-output) and flushing of logs must be handled explicitly.
 
 <!-- snippet: XunitLoggerSample.cs -->
 <a id='snippet-XunitLoggerSample.cs'/></a>
@@ -143,7 +143,7 @@ public class XunitLoggerSample :
 <sup>[snippet source](/src/Tests/Snippets/XunitLoggerSample.cs#L1-L33) / [anchor](#snippet-XunitLoggerSample.cs)</sup>
 <!-- endsnippet -->
 
-`XunitLogger` redirects [Trace.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.trace.write), [Console.Write](https://docs.microsoft.com/en-us/dotnet/api/system.console.write), and [Debug.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.debug.write) in its static constructor.
+`XunitLogging` redirects [Trace.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.trace.write), [Console.Write](https://docs.microsoft.com/en-us/dotnet/api/system.console.write), and [Debug.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.debug.write) in its static constructor.
 
 <!-- snippet: writeRedirects -->
 <a id='snippet-writeredirects'/></a>
