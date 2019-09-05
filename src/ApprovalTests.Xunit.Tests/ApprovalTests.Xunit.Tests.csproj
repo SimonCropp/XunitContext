@@ -5,14 +5,18 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="ApprovalTests" Version="4.2.0" />
+    <PackageReference Include="ApprovalTests" Version="4.2.2" />
     <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
     <PackageReference Include="MarkdownSnippets.MsBuild" Version="16.4.2" PrivateAssets="All" />
     <PackageReference Include="ObjectApproval" Version="11.1.0" />
     <PackageReference Include="Xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
+    <ProjectReference Include="..\ApprovalTests.Xunit\ApprovalTests.Xunit.csproj" />
     <ProjectReference Include="..\XunitLogger\XunitLogger.csproj" />
     <PackageReference Include="ProjectDefaults" Version="1.0.24" PrivateAssets="All" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Snippets\" />
   </ItemGroup>
 </Project>

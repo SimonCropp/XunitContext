@@ -57,7 +57,7 @@ static class ClassBeingTested
     }
 }
 ```
-<sup>[snippet source](/src/Tests/Snippets/ClassBeingTested.cs#L1-L13) / [anchor](#snippet-ClassBeingTested.cs)</sup>
+<sup>[snippet source](/src/XunitLogger.Tests/Snippets/ClassBeingTested.cs#L1-L13) / [anchor](#snippet-ClassBeingTested.cs)</sup>
 <!-- endsnippet -->
 
 
@@ -95,7 +95,7 @@ public class TestBaseSample  :
     }
 }
 ```
-<sup>[snippet source](/src/Tests/Snippets/TestBaseSample.cs#L1-L26) / [anchor](#snippet-TestBaseSample.cs)</sup>
+<sup>[snippet source](/src/XunitLogger.Tests/Snippets/TestBaseSample.cs#L1-L26) / [anchor](#snippet-TestBaseSample.cs)</sup>
 <!-- endsnippet -->
 
 
@@ -140,7 +140,7 @@ public class XunitLoggerSample :
     }
 }
 ```
-<sup>[snippet source](/src/Tests/Snippets/XunitLoggerSample.cs#L1-L33) / [anchor](#snippet-XunitLoggerSample.cs)</sup>
+<sup>[snippet source](/src/XunitLogger.Tests/Snippets/XunitLoggerSample.cs#L1-L33) / [anchor](#snippet-XunitLoggerSample.cs)</sup>
 <!-- endsnippet -->
 
 `XunitLogging` redirects [Trace.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.trace.write), [Console.Write](https://docs.microsoft.com/en-us/dotnet/api/system.console.write), and [Debug.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.debug.write) in its static constructor.
@@ -175,7 +175,7 @@ var writer = new TestWriter();
 Console.SetOut(writer);
 Console.SetError(writer);
 ```
-<sup>[snippet source](/src/XunitLogger/XunitLogging.cs#L48-L77) / [anchor](#snippet-writeredirects)</sup>
+<sup>[snippet source](/src/XunitLogger/XunitLogging.cs#L49-L78) / [anchor](#snippet-writeredirects)</sup>
 <!-- endsnippet -->
 
 These API calls are then routed to the correct xUnit [ITestOutputHelper](https://xunit.net/docs/capturing-output) via a static [AsyncLocal](https://docs.microsoft.com/en-us/dotnet/api/system.threading.asynclocal-1).
@@ -219,7 +219,7 @@ public class FilterSample :
     }
 }
 ```
-<sup>[snippet source](/src/Tests/Snippets/FilterSample.cs#L1-L30) / [anchor](#snippet-FilterSample.cs)</sup>
+<sup>[snippet source](/src/XunitLogger.Tests/Snippets/FilterSample.cs#L1-L30) / [anchor](#snippet-FilterSample.cs)</sup>
 <!-- endsnippet -->
 
 Filters are static and shared for all tests.
@@ -284,7 +284,7 @@ public class ContextSample  :
     }
 }
 ```
-<sup>[snippet source](/src/Tests/Snippets/ContextSample.cs#L1-L43) / [anchor](#snippet-ContextSample.cs)</sup>
+<sup>[snippet source](/src/XunitLogger.Tests/Snippets/ContextSample.cs#L1-L43) / [anchor](#snippet-ContextSample.cs)</sup>
 <!-- endsnippet -->
 
 
@@ -327,7 +327,7 @@ public class CurrentTestSample :
     }
 }
 ```
-<sup>[snippet source](/src/Tests/Snippets/CurrentTestSample.cs#L1-L27) / [anchor](#snippet-CurrentTestSample.cs)</sup>
+<sup>[snippet source](/src/XunitLogger.Tests/Snippets/CurrentTestSample.cs#L1-L27) / [anchor](#snippet-CurrentTestSample.cs)</sup>
 <!-- endsnippet -->
 
 Implementation:
@@ -414,7 +414,7 @@ public class TestExceptionSample :
     }
 }
 ```
-<sup>[snippet source](/src/Tests/Snippets/TestExceptionSample.cs#L6-L37) / [anchor](#snippet-testexceptionsample)</sup>
+<sup>[snippet source](/src/XunitLogger.Tests/Snippets/TestExceptionSample.cs#L6-L37) / [anchor](#snippet-testexceptionsample)</sup>
 <!-- endsnippet -->
 
 
@@ -438,7 +438,7 @@ var counter = new GuidCounter();
 var localCurrent = counter.Current;
 var localNext = counter.Next();
 ```
-<sup>[snippet source](/src/Tests/Snippets/CountersSample.cs#L9-L17) / [anchor](#snippet-nontestcontextusage)</sup>
+<sup>[snippet source](/src/XunitLogger.Tests/Snippets/CountersSample.cs#L9-L17) / [anchor](#snippet-nontestcontextusage)</sup>
 <!-- endsnippet -->
 
 

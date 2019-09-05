@@ -2,8 +2,6 @@
 <Project>
   <PropertyGroup>
     <Version>2.5.0</Version>
-    <PackageTags>Logging, xUnit</PackageTags>
-    <Description>Extends xUnit to simplify logging.</Description>
     <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
 </Project>

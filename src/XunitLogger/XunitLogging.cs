@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Runtime.ExceptionServices;
 using System.Threading;
 using Xunit.Abstractions;
@@ -142,14 +143,16 @@ public static class XunitLogging
         }
     }
 
-    public static Context Register(ITestOutputHelper output)
+    public static Context Register(ITestOutputHelper output,
+        [CallerFilePath] string sourceFilePath = "")
     {
         Guard.AgainstNull(output, nameof(output));
+        Guard.AgainstNullOrEmpty(sourceFilePath, nameof(sourceFilePath));
         var existingContext = loggingContext.Value;
 
         if (existingContext == null)
         {
-            var context = new Context(output);
+            var context = new Context(output, sourceFilePath);
             loggingContext.Value = context;
             return context;
         }

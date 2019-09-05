@@ -10,6 +10,7 @@ namespace XunitLogger
     public partial class Context
     {
         public ITestOutputHelper TestOutput { get; internal set; }
+        public string SourceFilePath { get; }
         List<string> logMessages = new List<string>();
         object locker = new object();
 
@@ -53,9 +54,10 @@ namespace XunitLogger
 
         internal bool flushed;
 
-        internal Context(ITestOutputHelper testOutput)
+        internal Context(ITestOutputHelper testOutput, string sourceFilePath)
         {
             TestOutput = testOutput;
+            SourceFilePath = sourceFilePath;
         }
 
         internal Context()

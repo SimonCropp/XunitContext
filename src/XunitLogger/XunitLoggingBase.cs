@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Xunit.Abstractions;
 using XunitLogger;
 
@@ -9,11 +10,14 @@ public abstract class XunitLoggingBase :
     public ITestOutputHelper Output { get; }
     public Context Context { get; }
 
-    public XunitLoggingBase(ITestOutputHelper output)
+    public XunitLoggingBase(
+        ITestOutputHelper output,
+        [CallerFilePath] string sourceFilePath = "")
     {
         Guard.AgainstNull(output, nameof(output));
+        Guard.AgainstNullOrEmpty(sourceFilePath, nameof(sourceFilePath));
         Output = output;
-        Context = XunitLogging.Register(output);
+        Context = XunitLogging.Register(output, sourceFilePath);
     }
 
     public void WriteLine(string value)
