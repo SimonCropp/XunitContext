@@ -18,12 +18,13 @@ class Namer:
         get
         {
             var testCase = XunitLogging.Context.Test.TestCase;
-            var name = $"{testCase.TestMethod.TestClass.Class.Name}_{testCase.TestMethod.Method.Name}";
-            if (!testCase.TestMethodArguments.Any())
+            var arguments = testCase.TestMethodArguments;
+            var name = $"{testCase.TestMethod.TestClass.Class.Name}.{testCase.TestMethod.Method.Name}";
+            if (arguments == null || !arguments.Any())
             {
                 return name;
             }
-            var suffix = string.Join("_", testCase.TestMethodArguments);
+            var suffix = string.Join("_", arguments);
             return $"{name}_{suffix}";
         }
     }

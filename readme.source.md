@@ -1,7 +1,8 @@
 # <img src="/src/icon.png" height="30px"> XunitLogger
 
 [![Build status](https://ci.appveyor.com/api/projects/status/sdg2ni2jhe2o33le/branch/master?svg=true)](https://ci.appveyor.com/project/SimonCropp/XunitLogger)
-[![NuGet Status](https://img.shields.io/nuget/v/XunitLogger.svg?cacheSeconds=86400)](https://www.nuget.org/packages/XunitLogger/)
+[![NuGet Status](https://img.shields.io/nuget/v/XunitLogger.svg?label=ApprovalTests&cacheSeconds=86400)](https://www.nuget.org/packages/XunitLogger/)
+[![NuGet Status](https://img.shields.io/nuget/v/ApprovalTests.Xunit.svg?label=ApprovalTests.Xunit&cacheSeconds=86400)](https://www.nuget.org/packages/ApprovalTests.Xunit/)
 
 Extends [xUnit](https://xunit.net/) to simplify logging.
 
@@ -119,6 +120,23 @@ Approaches to routing common logging libraries to Diagnostics.Trace:
 
  * [Serilog](https://serilog.net/) use [Serilog.Sinks.Trace](https://github.com/serilog/serilog-sinks-trace).
  * [NLog](https://github.com/NLog/NLog) use a [Trace target](https://github.com/NLog/NLog/wiki/Trace-target).
+
+
+## ApprovalTests.Xunit
+
+The default behavior of ApprovalTests uses the [StackTrace](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.stacktrace) to derive the current test and hence compute the name of the approval file. This has several drawbacks/issues:
+
+ * Fragility: Deriving the test name from a stack trace is dependent on several things to be configured correctly. Optimization must be disabled to avoid in-lining and debug symbols enabled and parsable.
+ * Performance impact: Computing a stack trace is a relatively expensive operation. Disabling optimization also impacts performance
+
+ApprovalTests.Xunit work around these problems by using the current xUnit context to derive the approval file name.
+
+
+### Usage
+
+Usage is done via inheriting from a base class `XunitApprovalBase`
+
+snippet: ApprovalTests.Xunit.Tests/UsingTestBase.cs
 
 
 ## Release Notes
