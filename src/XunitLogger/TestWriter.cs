@@ -2,9 +2,10 @@
 using System.Text;
 using System.Threading.Tasks;
 
-class TestWriter : TextWriter
+class TestWriter :
+    TextWriter
 {
-    public override Encoding Encoding { get; }
+    public override Encoding Encoding { get; } = Encoding.UTF8;
 
     public override void Write(char value)
     {
