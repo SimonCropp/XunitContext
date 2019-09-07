@@ -163,6 +163,7 @@ public static class XunitLogging
         }
 
         existingContext.TestOutput = output;
+        existingContext.SourceFilePath = sourceFilePath;
         return existingContext;
     }
 }

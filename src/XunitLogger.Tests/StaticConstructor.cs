@@ -14,6 +14,7 @@ public class StaticConstructor
     [Fact]
     public void Verify()
     {
+        Assert.EndsWith("StaticConstructor.cs", XunitLogging.Context.SourceFilePath);
         var logs = XunitLogging.Flush();
         ObjectApprover.Verify(logs);
     }

@@ -25,6 +25,7 @@ public class UsingTestBase :
     public void CurrentTest()
     {
         Assert.Equal("UsingTestBase.CurrentTest", Context.Test.DisplayName);
+        Assert.EndsWith("UsingTestBase.cs", Context.SourceFilePath);
     }
 
     public UsingTestBase(ITestOutputHelper testOutput) :
