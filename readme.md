@@ -681,6 +681,7 @@ Usage is done via inheriting from a base class `XunitApprovalBase`
 <a id='snippet-Xunit.ApprovalTests.Tests/UsingTestBase.cs'/></a>
 ```cs
 using ApprovalTests;
+using ApprovalTests.Namers;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -693,6 +694,15 @@ public class UsingTestBase :
         Approvals.Verify("SimpleResult");
     }
 
+    [Fact]
+    public void AsEnvironmentSpecificTest()
+    {
+        using (NamerFactory.AsEnvironmentSpecificTest(() => "Foo"))
+        {
+            Approvals.Verify("Value");
+        }
+    }
+
     [Theory]
     [InlineData("Foo")]
     [InlineData(9)]
@@ -700,6 +710,16 @@ public class UsingTestBase :
     public void Theory(object value)
     {
         Approvals.Verify(value);
+    }
+
+    [Theory]
+    [InlineData("Foo")]
+    public void TheoryAsEnvironmentSpecificTest(object value)
+    {
+        using (NamerFactory.AsEnvironmentSpecificTest(() => "Bar"))
+        {
+            Approvals.Verify(value);
+        }
     }
 
     [Theory]
@@ -717,7 +737,7 @@ public class UsingTestBase :
     }
 }
 ```
-<sup>[snippet source](/src/Xunit.ApprovalTests.Tests/UsingTestBase.cs#L1-L36) / [anchor](#snippet-Xunit.ApprovalTests.Tests/UsingTestBase.cs)</sup>
+<sup>[snippet source](/src/Xunit.ApprovalTests.Tests/UsingTestBase.cs#L1-L56) / [anchor](#snippet-Xunit.ApprovalTests.Tests/UsingTestBase.cs)</sup>
 <!-- endsnippet -->
 
 

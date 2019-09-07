@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Linq;
 using ApprovalTests.Core;
+using ApprovalTests.Namers;
 
 class Namer:
     IApprovalNamer
@@ -13,6 +14,16 @@ class Namer:
         }
     }
 
+    string AdditionalInfo()
+    {
+        var additionalInformation = NamerFactory.AdditionalInformation;
+        if (additionalInformation == null)
+        {
+            return additionalInformation;
+        }
+        return $".{additionalInformation}";
+    }
+
     public string Name
     {
         get
@@ -22,10 +33,10 @@ class Namer:
             var name = $"{testCase.TestMethod.TestClass.Class.Name}.{testCase.TestMethod.Method.Name}";
             if (arguments == null || !arguments.Any())
             {
-                return name;
+                return $"{name}{AdditionalInfo()}";
             }
             var suffix = string.Join("_", arguments);
-            return $"{name}_{suffix}";
+            return $"{name}_{suffix}{AdditionalInfo()}";
         }
     }
 }
