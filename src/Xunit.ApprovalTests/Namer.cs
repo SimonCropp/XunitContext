@@ -45,6 +45,11 @@ class Namer:
             {
                 var parameterInfo = parameterInfos[index];
                 var argument = arguments[index];
+                if (argument == null)
+                {
+                    builder.Append($"{parameterInfo.Name}=null_");
+                    continue;
+                }
                 builder.Append($"{parameterInfo.Name}={argument}_");
             }
 
