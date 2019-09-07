@@ -15,20 +15,26 @@ namespace XunitLogger
             {
                 if (test == null)
                 {
-                    if (testMember == null)
-                    {
-                        var testOutputType = TestOutput.GetType();
-                        testMember = testOutputType.GetField("test", BindingFlags.Instance | BindingFlags.NonPublic);
-                        if (testMember == null)
-                        {
-                            throw new Exception($"Unable to find 'test' field on {testOutputType.FullName}");
-                        }
-                    }
+                    InitTestMethod();
 
                     test = (ITest) testMember.GetValue(TestOutput);
                 }
 
                 return test;
+            }
+        }
+
+        void InitTestMethod()
+        {
+            if (testMember != null)
+            {
+                return;
+            }
+            var testOutputType = TestOutput.GetType();
+            testMember = testOutputType.GetField("test", BindingFlags.Instance | BindingFlags.NonPublic);
+            if (testMember == null)
+            {
+                throw new Exception($"Unable to find 'test' field on {testOutputType.FullName}");
             }
         }
     }

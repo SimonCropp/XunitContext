@@ -355,15 +355,7 @@ namespace XunitLogger
             {
                 if (test == null)
                 {
-                    if (testMember == null)
-                    {
-                        var testOutputType = TestOutput.GetType();
-                        testMember = testOutputType.GetField("test", BindingFlags.Instance | BindingFlags.NonPublic);
-                        if (testMember == null)
-                        {
-                            throw new Exception($"Unable to find 'test' field on {testOutputType.FullName}");
-                        }
-                    }
+                    InitTestMethod();
 
                     test = (ITest) testMember.GetValue(TestOutput);
                 }
@@ -371,10 +363,24 @@ namespace XunitLogger
                 return test;
             }
         }
+
+        void InitTestMethod()
+        {
+            if (testMember != null)
+            {
+                return;
+            }
+            var testOutputType = TestOutput.GetType();
+            testMember = testOutputType.GetField("test", BindingFlags.Instance | BindingFlags.NonPublic);
+            if (testMember == null)
+            {
+                throw new Exception($"Unable to find 'test' field on {testOutputType.FullName}");
+            }
+        }
     }
 }
 ```
-<sup>[snippet source](/src/XunitLogger/LoggingContext_CurrentTest.cs#L1-L35) / [anchor](#snippet-LoggingContext_CurrentTest.cs)</sup>
+<sup>[snippet source](/src/XunitLogger/LoggingContext_CurrentTest.cs#L1-L41) / [anchor](#snippet-LoggingContext_CurrentTest.cs)</sup>
 <!-- endsnippet -->
 
 
