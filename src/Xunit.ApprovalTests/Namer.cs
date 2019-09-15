@@ -4,6 +4,7 @@ using System.Net;
 using System.Text;
 using ApprovalTests.Core;
 using ApprovalTests.Namers;
+using Xunit.Abstractions;
 
 class Namer:
     IApprovalNamer
@@ -12,8 +13,38 @@ class Namer:
     {
         get
         {
-            return Path.GetDirectoryName(XunitLogging.Context.SourceFilePath);
+            var context = XunitLogging.Context;
+
+            var directory = Path.GetDirectoryName(context.SourceFilePath);
+            if (TryGetSubdirectoryFromAttribute(context.Test.TestCase.TestMethod, out var subDirectory))
+            {
+                return Path.Combine(directory, subDirectory);
+            }
+
+            return directory;
         }
+    }
+    
+    static string subDirAttribute = typeof(UseApprovalSubdirectoryAttribute).AssemblyQualifiedName;
+
+    static bool TryGetSubdirectoryFromAttribute(ITestMethod method, out string subDirectory)
+    {
+        var attribute = method.Method.GetCustomAttributes(subDirAttribute).SingleOrDefault();
+        if (attribute != null)
+        {
+            subDirectory = attribute.GetNamedArgument<string>("Subdirectory");
+            return true;
+        }
+
+        attribute = method.TestClass.Class.GetCustomAttributes(subDirAttribute).SingleOrDefault();
+        if (attribute != null)
+        {
+            subDirectory = attribute.GetNamedArgument<string>("Subdirectory");
+            return true;
+        }
+
+        subDirectory = null;
+        return false;
     }
 
     string AdditionalInfo()

@@ -695,6 +695,13 @@ public class UsingTestBase :
     }
 
     [Fact]
+    [UseApprovalSubdirectory("SubDir")]
+    public void InSubDir()
+    {
+        Approvals.Verify("SimpleResult");
+    }
+
+    [Fact]
     public void AsEnvironmentSpecificTest()
     {
         using (NamerFactory.AsEnvironmentSpecificTest(() => "Foo"))
@@ -737,7 +744,7 @@ public class UsingTestBase :
     }
 }
 ```
-<sup>[snippet source](/src/Xunit.ApprovalTests.Tests/UsingTestBase.cs#L1-L56) / [anchor](#snippet-Xunit.ApprovalTests.Tests/UsingTestBase.cs)</sup>
+<sup>[snippet source](/src/Xunit.ApprovalTests.Tests/UsingTestBase.cs#L1-L63) / [anchor](#snippet-Xunit.ApprovalTests.Tests/UsingTestBase.cs)</sup>
 <!-- endsnippet -->
 
 

@@ -13,6 +13,13 @@ public class UsingTestBase :
     }
 
     [Fact]
+    [UseApprovalSubdirectory("SubDir")]
+    public void InSubDir()
+    {
+        Approvals.Verify("SimpleResult");
+    }
+
+    [Fact]
     public void AsEnvironmentSpecificTest()
     {
         using (NamerFactory.AsEnvironmentSpecificTest(() => "Foo"))
