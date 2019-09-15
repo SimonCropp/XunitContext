@@ -8,7 +8,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 # <img src="/src/icon.png" height="30px"> XunitLogger
 
 [![Build status](https://ci.appveyor.com/api/projects/status/sdg2ni2jhe2o33le/branch/master?svg=true)](https://ci.appveyor.com/project/SimonCropp/XunitLogger)
-[![NuGet Status](https://img.shields.io/nuget/v/XunitLogger.svg?label=ApprovalTests&cacheSeconds=86400)](https://www.nuget.org/packages/XunitLogger/)
+[![NuGet Status](https://img.shields.io/nuget/v/XunitLogger.svg?label=XunitLogger&cacheSeconds=86400)](https://www.nuget.org/packages/XunitLogger/)
 [![NuGet Status](https://img.shields.io/nuget/v/Xunit.ApprovalTests.svg?label=Xunit.ApprovalTests&cacheSeconds=86400)](https://www.nuget.org/packages/Xunit.ApprovalTests/)
 
 Extends [xUnit](https://xunit.net/) to simplify logging.
