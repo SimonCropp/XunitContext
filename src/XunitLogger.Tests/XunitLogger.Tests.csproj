@@ -7,7 +7,6 @@
   <ItemGroup>
     <PackageReference Include="ApprovalTests" Version="4.2.2" />
     <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
-    <PackageReference Include="MarkdownSnippets.MsBuild" Version="16.4.2" PrivateAssets="All" />
     <PackageReference Include="ObjectApproval" Version="11.1.0" />
     <PackageReference Include="Xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
