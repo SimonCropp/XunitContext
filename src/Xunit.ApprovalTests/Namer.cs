@@ -84,10 +84,9 @@ class Namer:
                 builder.Append($"{parameterInfo.Name}={argument}_");
             }
 
-            builder.Length = builder.Length - 1;
+            builder.Length -= 1;
 
-            var formattableString = $"{name}_{builder}{AdditionalInfo()}";
-            return formattableString;
+            return $"{name}_{builder}{AdditionalInfo()}";
         }
     }
 }

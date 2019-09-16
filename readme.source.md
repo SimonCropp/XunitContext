@@ -136,7 +136,7 @@ Xunit.ApprovalTests avoids these problems by using the current xUnit context to 
 
 Usage is done via inheriting from a base class `XunitApprovalBase`
 
-snippet: Xunit.ApprovalTests.Tests/UsingTestBase.cs
+snippet: Xunit.ApprovalTests.Tests/Snippets/Sample.cs
 
 
 ## Release Notes

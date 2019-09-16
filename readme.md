@@ -677,15 +677,15 @@ Xunit.ApprovalTests avoids these problems by using the current xUnit context to 
 
 Usage is done via inheriting from a base class `XunitApprovalBase`
 
-<!-- snippet: Xunit.ApprovalTests.Tests/UsingTestBase.cs -->
-<a id='snippet-Xunit.ApprovalTests.Tests/UsingTestBase.cs'/></a>
+<!-- snippet: Xunit.ApprovalTests.Tests/Snippets/Sample.cs -->
+<a id='snippet-Xunit.ApprovalTests.Tests/Snippets/Sample.cs'/></a>
 ```cs
 using ApprovalTests;
 using ApprovalTests.Namers;
 using Xunit;
 using Xunit.Abstractions;
 
-public class UsingTestBase :
+public class Sample :
     XunitApprovalBase
 {
     [Fact]
@@ -719,32 +719,13 @@ public class UsingTestBase :
         Approvals.Verify(value);
     }
 
-    [Theory]
-    [InlineData("Foo")]
-    public void TheoryAsEnvironmentSpecificTest(object value)
-    {
-        using (NamerFactory.AsEnvironmentSpecificTest(() => "Bar"))
-        {
-            Approvals.Verify(value);
-        }
-    }
-
-    [Theory]
-    [InlineData("Foo", "Bar")]
-    [InlineData(9, false)]
-    [InlineData(true, -1)]
-    public void MultiTheory(object value1, object value2)
-    {
-        Approvals.Verify($"{value1} {value2}");
-    }
-
-    public UsingTestBase(ITestOutputHelper testOutput) :
+    public Sample(ITestOutputHelper testOutput) :
         base(testOutput)
     {
     }
 }
 ```
-<sup>[snippet source](/src/Xunit.ApprovalTests.Tests/UsingTestBase.cs#L1-L63) / [anchor](#snippet-Xunit.ApprovalTests.Tests/UsingTestBase.cs)</sup>
+<sup>[snippet source](/src/Xunit.ApprovalTests.Tests/Snippets/Sample.cs#L1-L44) / [anchor](#snippet-Xunit.ApprovalTests.Tests/Snippets/Sample.cs)</sup>
 <!-- endsnippet -->
 
 
