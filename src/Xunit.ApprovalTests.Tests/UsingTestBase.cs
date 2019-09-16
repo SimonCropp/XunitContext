@@ -28,6 +28,15 @@ public class UsingTestBase :
         }
     }
 
+    [Fact]
+    public void ForScenarioTest()
+    {
+        using (ApprovalResults.ForScenario("Scenario"))
+        {
+            Approvals.Verify("ScenarioValue");
+        }
+    }
+
     [Theory]
     [InlineData("Foo")]
     [InlineData(9)]
