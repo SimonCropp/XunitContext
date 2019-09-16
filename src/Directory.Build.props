@@ -3,5 +3,6 @@
   <PropertyGroup>
     <Version>3.0.6</Version>
     <NoWarn>CS1591</NoWarn>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 </Project>

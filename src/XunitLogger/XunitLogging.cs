@@ -9,7 +9,7 @@ using XunitLogger;
 
 public static class XunitLogging
 {
-    static AsyncLocal<Context> loggingContext = new AsyncLocal<Context>();
+    static AsyncLocal<Context?> loggingContext = new AsyncLocal<Context?>();
     static bool enableExceptionCapture;
 
     public static void EnableExceptionCapture()

@@ -9,15 +9,15 @@ namespace XunitLogger
 {
     public partial class Context
     {
-        public ITestOutputHelper TestOutput { get; internal set; }
-        public string SourceFilePath { get; internal set; }
+        public ITestOutputHelper? TestOutput { get; internal set; }
+        public string? SourceFilePath { get; internal set; }
         List<string> logMessages = new List<string>();
         object locker = new object();
 
         public IReadOnlyList<string> LogMessages => logMessages;
-        internal Exception Exception;
+        internal Exception? Exception;
 
-        public Exception TestException
+        public Exception? TestException
         {
             get
             {
@@ -38,11 +38,11 @@ namespace XunitLogger
                 {
                     return null;
                 }
-                return Exception.InnerException;
+                return Exception?.InnerException;
             }
         }
 
-        public StringBuilder Builder;
+        public StringBuilder? Builder;
 
         public void ThrowIfFlushed()
         {
@@ -80,7 +80,7 @@ namespace XunitLogger
             {
                 ThrowIfFlushed();
                 InitBuilder();
-                Builder.Append(value);
+                Builder?.Append(value);
             }
         }
 
@@ -90,7 +90,7 @@ namespace XunitLogger
             {
                 ThrowIfFlushed();
                 InitBuilder();
-                Builder.Append(value);
+                Builder?.Append(value);
             }
         }
 

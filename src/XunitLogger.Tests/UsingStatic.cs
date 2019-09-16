@@ -48,7 +48,9 @@ public class UsingStatic
         XunitLogging.WriteLine("XunitLogger.WriteLine");
         XunitLogging.WriteLine();
         XunitLogging.WriteLine("Console.WriteLine(null)");
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
         Console.WriteLine((string) null);
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
         XunitLogging.WriteLine("Debug.WriteLine(null)");
         Debug.WriteLine(null);
         XunitLogging.WriteLine("Debug.Write(null)");

@@ -43,11 +43,11 @@ class Namer:
             return true;
         }
 
-        subDirectory = null;
+        subDirectory = "";
         return false;
     }
 
-    string AdditionalInfo()
+    string? AdditionalInfo()
     {
         var additionalInformation = NamerFactory.AdditionalInformation;
         if (additionalInformation == null)
