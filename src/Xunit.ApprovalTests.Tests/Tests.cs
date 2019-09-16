@@ -3,7 +3,7 @@ using ApprovalTests.Namers;
 using Xunit;
 using Xunit.Abstractions;
 
-public class UsingTestBase :
+public class Tests :
     XunitApprovalBase
 {
     [Fact]
@@ -65,7 +65,7 @@ public class UsingTestBase :
         Approvals.Verify($"{value1} {value2}");
     }
 
-    public UsingTestBase(ITestOutputHelper testOutput) :
+    public Tests(ITestOutputHelper testOutput) :
         base(testOutput)
     {
     }
