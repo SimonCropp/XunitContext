@@ -363,9 +363,14 @@ namespace XunitLogger
                 return test;
             }
         }
-
+        
+        public static string MissingTestOutput = "ITestOutputHelper has not been set. It is possible that the call to `XunitLogging.Register()` is missing, or the current test does not inherit from `XunitLoggingBase`.";
         void InitTestMethod()
         {
+            if (TestOutput == null)
+            {
+                throw new Exception(MissingTestOutput);
+            }
             if (testMember != null)
             {
                 return;
@@ -380,7 +385,7 @@ namespace XunitLogger
     }
 }
 ```
-<sup>[snippet source](/src/XunitLogger/LoggingContext_CurrentTest.cs#L1-L41) / [anchor](#snippet-LoggingContext_CurrentTest.cs)</sup>
+<sup>[snippet source](/src/XunitLogger/LoggingContext_CurrentTest.cs#L1-L46) / [anchor](#snippet-LoggingContext_CurrentTest.cs)</sup>
 <!-- endsnippet -->
 
 
