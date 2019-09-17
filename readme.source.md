@@ -157,7 +157,7 @@ Will result in the following `.approved.` files:
  * `Sample.Theory_value=True.approved.txt`
 
 
-#### AsEnvironmentSpecificTest is supported
+#### AsEnvironmentSpecificTest
 
 ApprovalTests `NamerFactory.AsEnvironmentSpecificTest` is supported.
 
