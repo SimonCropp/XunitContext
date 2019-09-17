@@ -38,6 +38,17 @@ public class Sample :
         }
     }
     #endregion
+    
+    #region ForScenario
+    [Fact]
+    public void ForScenarioTest()
+    {
+        using (ApprovalResults.ForScenario("Name"))
+        {
+            Approvals.Verify("Value");
+        }
+    }
+    #endregion
 
     #region Theory
     [Theory]

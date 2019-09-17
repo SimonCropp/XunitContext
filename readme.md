@@ -727,7 +727,7 @@ public void Theory(object value)
     Approvals.Verify(value);
 }
 ```
-<sup>[snippet source](/src/Xunit.ApprovalTests.Tests/Snippets/Sample.cs#L42-L51) / [anchor](#snippet-theory)</sup>
+<sup>[snippet source](/src/Xunit.ApprovalTests.Tests/Snippets/Sample.cs#L54-L63) / [anchor](#snippet-theory)</sup>
 <!-- endsnippet -->
 
 Will result in the following `.approved.` files:
@@ -781,6 +781,30 @@ public void InSubDir()
 Will result in the following `.approved.` file:
 
  * `SubDir\Sample.InSubDir.approved.txt`
+
+
+#### ForScenario
+
+ApprovalTests `ApprovalResults.ForScenario` is supported.
+
+<!-- snippet: ForScenario -->
+<a id='snippet-forscenario'/></a>
+```cs
+[Fact]
+public void ForScenarioTest()
+{
+    using (ApprovalResults.ForScenario("Name"))
+    {
+        Approvals.Verify("Value");
+    }
+}
+```
+<sup>[snippet source](/src/Xunit.ApprovalTests.Tests/Snippets/Sample.cs#L43-L52) / [anchor](#snippet-forscenario)</sup>
+<!-- endsnippet -->
+
+Will result in the following `.approved.` file:
+
+ * `Sample.ForScenarioTest_ForScenario.Name.approved.txt`
 
 
 ## Release Notes

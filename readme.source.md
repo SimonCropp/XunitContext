@@ -179,6 +179,17 @@ Will result in the following `.approved.` file:
  * `SubDir\Sample.InSubDir.approved.txt`
 
 
+#### ForScenario
+
+ApprovalTests `ApprovalResults.ForScenario` is supported.
+
+snippet: ForScenario
+
+Will result in the following `.approved.` file:
+
+ * `Sample.ForScenarioTest_ForScenario.Name.approved.txt`
+
+
 ## Release Notes
 
 See [closed milestones](../../milestones?state=closed).
