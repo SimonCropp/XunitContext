@@ -684,14 +684,9 @@ Xunit.ApprovalTests avoids these problems by using the current xUnit context to 
 
 Usage is done via inheriting from a base class `XunitApprovalBase`
 
-<!-- snippet: Xunit.ApprovalTests.Tests/Snippets/Sample.cs -->
-<a id='snippet-Xunit.ApprovalTests.Tests/Snippets/Sample.cs'/></a>
+<!-- snippet: XunitApprovalBaseUsage -->
+<a id='snippet-xunitapprovalbaseusage'/></a>
 ```cs
-using ApprovalTests;
-using ApprovalTests.Namers;
-using Xunit;
-using Xunit.Abstractions;
-
 public class Sample :
     XunitApprovalBase
 {
@@ -701,39 +696,85 @@ public class Sample :
         Approvals.Verify("SimpleResult");
     }
 
-    [Fact]
-    [UseApprovalSubdirectory("SubDir")]
-    public void InSubDir()
-    {
-        Approvals.Verify("SimpleResult");
-    }
-
-    [Fact]
-    public void AsEnvironmentSpecificTest()
-    {
-        using (NamerFactory.AsEnvironmentSpecificTest(() => "Foo"))
-        {
-            Approvals.Verify("Value");
-        }
-    }
-
-    [Theory]
-    [InlineData("Foo")]
-    [InlineData(9)]
-    [InlineData(true)]
-    public void Theory(object value)
-    {
-        Approvals.Verify(value);
-    }
-
     public Sample(ITestOutputHelper testOutput) :
         base(testOutput)
     {
     }
+```
+<sup>[snippet source](/src/Xunit.ApprovalTests.Tests/Snippets/Sample.cs#L6-L20) / [anchor](#snippet-xunitapprovalbaseusage)</sup>
+<!-- endsnippet -->
+
+
+#### xUnit Theory
+
+[xUnit Theories](https://xunit.net/docs/getting-started/netfx/visual-studio#write-first-theory) are supported.
+
+<!-- snippet: Theory -->
+<a id='snippet-theory'/></a>
+```cs
+[Theory]
+[InlineData("Foo")]
+[InlineData(9)]
+[InlineData(true)]
+public void Theory(object value)
+{
+    Approvals.Verify(value);
 }
 ```
-<sup>[snippet source](/src/Xunit.ApprovalTests.Tests/Snippets/Sample.cs#L1-L44) / [anchor](#snippet-Xunit.ApprovalTests.Tests/Snippets/Sample.cs)</sup>
+<sup>[snippet source](/src/Xunit.ApprovalTests.Tests/Snippets/Sample.cs#L42-L51) / [anchor](#snippet-theory)</sup>
 <!-- endsnippet -->
+
+Will result in the following `.approved.` files:
+
+ * `Sample.Theory_value=Foo.approved.txt`
+ * `Sample.Theory_value=9.approved.txt`
+ * `Sample.Theory_value=True.approved.txt`
+
+
+#### AsEnvironmentSpecificTest is supported
+
+ApprovalTests `NamerFactory.AsEnvironmentSpecificTest` is supported.
+
+<!-- snippet: AsEnvironmentSpecificTest -->
+<a id='snippet-asenvironmentspecifictest'/></a>
+```cs
+[Fact]
+public void AsEnvironmentSpecificTest()
+{
+    using (NamerFactory.AsEnvironmentSpecificTest(() => "Foo"))
+    {
+        Approvals.Verify("Value");
+    }
+}
+```
+<sup>[snippet source](/src/Xunit.ApprovalTests.Tests/Snippets/Sample.cs#L31-L40) / [anchor](#snippet-asenvironmentspecifictest)</sup>
+<!-- endsnippet -->
+
+Will result in the following `.approved.` file:
+
+ * `Sample.AsEnvironmentSpecificTest_Foo.approved.txt`
+
+
+#### UseApprovalSubdirectory
+
+ApprovalTests `[UseApprovalSubdirectory]` is supported.
+
+<!-- snippet: UseApprovalSubdirectory -->
+<a id='snippet-useapprovalsubdirectory'/></a>
+```cs
+[Fact]
+[UseApprovalSubdirectory("SubDir")]
+public void InSubDir()
+{
+    Approvals.Verify("SimpleResult");
+}
+```
+<sup>[snippet source](/src/Xunit.ApprovalTests.Tests/Snippets/Sample.cs#L22-L29) / [anchor](#snippet-useapprovalsubdirectory)</sup>
+<!-- endsnippet -->
+
+Will result in the following `.approved.` file:
+
+ * `SubDir\Sample.InSubDir.approved.txt`
 
 
 ## Release Notes

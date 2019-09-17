@@ -3,6 +3,7 @@ using ApprovalTests.Namers;
 using Xunit;
 using Xunit.Abstractions;
 
+#region XunitApprovalBaseUsage
 public class Sample :
     XunitApprovalBase
 {
@@ -12,13 +13,22 @@ public class Sample :
         Approvals.Verify("SimpleResult");
     }
 
+    public Sample(ITestOutputHelper testOutput) :
+        base(testOutput)
+    {
+    }
+    #endregion
+
+    #region UseApprovalSubdirectory
     [Fact]
     [UseApprovalSubdirectory("SubDir")]
     public void InSubDir()
     {
         Approvals.Verify("SimpleResult");
     }
+    #endregion
 
+    #region AsEnvironmentSpecificTest
     [Fact]
     public void AsEnvironmentSpecificTest()
     {
@@ -27,7 +37,9 @@ public class Sample :
             Approvals.Verify("Value");
         }
     }
+    #endregion
 
+    #region Theory
     [Theory]
     [InlineData("Foo")]
     [InlineData(9)]
@@ -36,9 +48,5 @@ public class Sample :
     {
         Approvals.Verify(value);
     }
-
-    public Sample(ITestOutputHelper testOutput) :
-        base(testOutput)
-    {
-    }
+    #endregion
 }

@@ -136,7 +136,42 @@ Xunit.ApprovalTests avoids these problems by using the current xUnit context to 
 
 Usage is done via inheriting from a base class `XunitApprovalBase`
 
-snippet: Xunit.ApprovalTests.Tests/Snippets/Sample.cs
+snippet: XunitApprovalBaseUsage
+
+
+#### xUnit Theory
+
+[xUnit Theories](https://xunit.net/docs/getting-started/netfx/visual-studio#write-first-theory) are supported.
+
+snippet: Theory
+
+Will result in the following `.approved.` files:
+
+ * `Sample.Theory_value=Foo.approved.txt`
+ * `Sample.Theory_value=9.approved.txt`
+ * `Sample.Theory_value=True.approved.txt`
+
+
+#### AsEnvironmentSpecificTest is supported
+
+ApprovalTests `NamerFactory.AsEnvironmentSpecificTest` is supported.
+
+snippet: AsEnvironmentSpecificTest
+
+Will result in the following `.approved.` file:
+
+ * `Sample.AsEnvironmentSpecificTest_Foo.approved.txt`
+
+
+#### UseApprovalSubdirectory
+
+ApprovalTests `[UseApprovalSubdirectory]` is supported.
+
+snippet: UseApprovalSubdirectory
+
+Will result in the following `.approved.` file:
+
+ * `SubDir\Sample.InSubDir.approved.txt`
 
 
 ## Release Notes
