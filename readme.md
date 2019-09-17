@@ -31,6 +31,7 @@ Uses [AsyncLocal](https://docs.microsoft.com/en-us/dotnet/api/system.threading.a
     * [Counters](#counters)
   * [Logging Libs](#logging-libs)
   * [Xunit.ApprovalTests](#xunitapprovaltests)
+    * [NuGet package](#nuget-package-1)
     * [Usage](#usage)
 <!-- endtoc -->
 
@@ -678,6 +679,11 @@ The default behavior of ApprovalTests uses the [StackTrace](https://docs.microso
  * Performance impact: Computing a stack trace is a relatively expensive operation. Disabling optimization also impacts performance
 
 Xunit.ApprovalTests avoids these problems by using the current xUnit context to derive the approval file name.
+
+
+### NuGet package
+
+https://nuget.org/packages/Xunit.ApprovalTests/
 
 
 ### Usage

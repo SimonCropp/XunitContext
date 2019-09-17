@@ -132,6 +132,11 @@ The default behavior of ApprovalTests uses the [StackTrace](https://docs.microso
 Xunit.ApprovalTests avoids these problems by using the current xUnit context to derive the approval file name.
 
 
+### NuGet package
+
+https://nuget.org/packages/Xunit.ApprovalTests/
+
+
 ### Usage
 
 Usage is done via inheriting from a base class `XunitApprovalBase`
