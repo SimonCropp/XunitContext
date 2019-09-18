@@ -151,7 +151,7 @@ Usage is done via inheriting from a base class `XunitApprovalBase`
 snippet: XunitApprovalBaseUsage
 
 
-#### xUnit Theory
+### xUnit Theory
 
 [xUnit Theories](https://xunit.net/docs/getting-started/netfx/visual-studio#write-first-theory) are supported.
 
@@ -164,7 +164,7 @@ Will result in the following `.approved.` files:
  * `Sample.Theory_value=True.approved.txt`
 
 
-#### AsEnvironmentSpecificTest
+### AsEnvironmentSpecificTest
 
 ApprovalTests `NamerFactory.AsEnvironmentSpecificTest` is supported.
 
@@ -175,7 +175,7 @@ Will result in the following `.approved.` file:
  * `Sample.AsEnvironmentSpecificTest_Foo.approved.txt`
 
 
-#### UseApprovalSubdirectory
+### UseApprovalSubdirectory
 
 ApprovalTests `[UseApprovalSubdirectory]` is supported.
 
@@ -186,7 +186,7 @@ Will result in the following `.approved.` file:
  * `SubDir\Sample.InSubDir.approved.txt`
 
 
-#### ForScenario
+### ForScenario
 
 ApprovalTests `ApprovalResults.ForScenario` is supported.
 
@@ -197,7 +197,7 @@ Will result in the following `.approved.` file:
  * `Sample.ForScenarioTest_ForScenario.Name.approved.txt`
 
 
-#### Base Class
+### Base Class
 
 When creating a custom base class for other tests, it is necessary to pass through the source file path to `XunitApprovalBase` via the constructor.
 
