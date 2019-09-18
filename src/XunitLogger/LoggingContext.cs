@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Reflection;
 using System.Text;
 using Xunit.Abstractions;
 
@@ -10,7 +9,7 @@ namespace XunitLogger
     public partial class Context
     {
         public ITestOutputHelper? TestOutput { get; internal set; }
-        public string? SourceFilePath { get; internal set; }
+        public string? SourceFile { get; internal set; }
         List<string> logMessages = new List<string>();
         object locker = new object();
 
@@ -54,10 +53,10 @@ namespace XunitLogger
 
         internal bool flushed;
 
-        internal Context(ITestOutputHelper testOutput, string sourceFilePath)
+        internal Context(ITestOutputHelper testOutput, string sourceFile)
         {
             TestOutput = testOutput;
-            SourceFilePath = sourceFilePath;
+            SourceFile = sourceFile;
         }
 
         internal Context()

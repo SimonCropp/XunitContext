@@ -12,12 +12,12 @@ public abstract class XunitLoggingBase :
 
     public XunitLoggingBase(
         ITestOutputHelper output,
-        [CallerFilePath] string sourceFilePath = "")
+        [CallerFilePath] string sourceFile = "")
     {
         Guard.AgainstNull(output, nameof(output));
-        Guard.AgainstNullOrEmpty(sourceFilePath, nameof(sourceFilePath));
+        Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
         Output = output;
-        Context = XunitLogging.Register(output, sourceFilePath);
+        Context = XunitLogging.Register(output, sourceFile);
     }
 
     public void WriteLine(string value)

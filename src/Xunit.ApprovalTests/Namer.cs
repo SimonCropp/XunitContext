@@ -15,7 +15,7 @@ class Namer:
         {
             var context = XunitLogging.Context;
 
-            var directory = Path.GetDirectoryName(context.SourceFilePath);
+            var directory = Path.GetDirectoryName(context.SourceFile);
             if (TryGetSubdirectoryFromAttribute(context.Test.TestCase.TestMethod, out var subDirectory))
             {
                 return Path.Combine(directory, subDirectory);
@@ -24,7 +24,7 @@ class Namer:
             return directory;
         }
     }
-    
+
     static string subDirAttribute = typeof(UseApprovalSubdirectoryAttribute).AssemblyQualifiedName;
 
     static bool TryGetSubdirectoryFromAttribute(ITestMethod method, out string subDirectory)

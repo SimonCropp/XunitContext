@@ -114,6 +114,13 @@ snippet: GuidCounter.cs
 snippet: LongCounter.cs
 
 
+### Base Class
+
+When creating a custom base class for other tests, it is necessary to pass through the source file path to `XunitLoggingBase` via the constructor.
+
+snippet: XunitLoggingCustomBase
+
+
 ## Logging Libs
 
 Approaches to routing common logging libraries to Diagnostics.Trace:
@@ -188,6 +195,13 @@ snippet: ForScenario
 Will result in the following `.approved.` file:
 
  * `Sample.ForScenarioTest_ForScenario.Name.approved.txt`
+
+
+#### Base Class
+
+When creating a custom base class for other tests, it is necessary to pass through the source file path to `XunitApprovalBase` via the constructor.
+
+snippet: XunitApprovalCustomBase
 
 
 ## Release Notes

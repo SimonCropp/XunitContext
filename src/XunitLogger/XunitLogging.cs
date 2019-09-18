@@ -144,15 +144,15 @@ public static class XunitLogging
     }
 
     public static Context Register(ITestOutputHelper output,
-        [CallerFilePath] string sourceFilePath = "")
+        [CallerFilePath] string sourceFile = "")
     {
         Guard.AgainstNull(output, nameof(output));
-        Guard.AgainstNullOrEmpty(sourceFilePath, nameof(sourceFilePath));
+        Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
         var existingContext = loggingContext.Value;
 
         if (existingContext == null)
         {
-            var context = new Context(output, sourceFilePath);
+            var context = new Context(output, sourceFile);
             loggingContext.Value = context;
             return context;
         }
@@ -163,7 +163,7 @@ public static class XunitLogging
         }
 
         existingContext.TestOutput = output;
-        existingContext.SourceFilePath = sourceFilePath;
+        existingContext.SourceFile = sourceFile;
         return existingContext;
     }
 }

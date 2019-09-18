@@ -38,7 +38,7 @@ public class Sample :
         }
     }
     #endregion
-    
+
     #region ForScenario
     [Fact]
     public void ForScenarioTest()

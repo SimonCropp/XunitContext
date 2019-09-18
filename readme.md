@@ -29,10 +29,18 @@ Uses [AsyncLocal](https://docs.microsoft.com/en-us/dotnet/api/system.threading.a
     * [Current Test](#current-test)
     * [Test Failure](#test-failure)
     * [Counters](#counters)
+      * [Non Test Context usage](#non-test-context-usage)
+      * [Implementation](#implementation)
+    * [Base Class](#base-class)
   * [Logging Libs](#logging-libs)
   * [Xunit.ApprovalTests](#xunitapprovaltests)
     * [NuGet package](#nuget-package-1)
     * [Usage](#usage)
+      * [xUnit Theory](#xunit-theory)
+      * [AsEnvironmentSpecificTest](#asenvironmentspecifictest)
+      * [UseApprovalSubdirectory](#useapprovalsubdirectory)
+      * [ForScenario](#forscenario)
+      * [Base Class](#base-class-1)
 <!-- endtoc -->
 
 
@@ -663,6 +671,28 @@ namespace XunitLogger
 <!-- endsnippet -->
 
 
+### Base Class
+
+When creating a custom base class for other tests, it is necessary to pass through the source file path to `XunitLoggingBase` via the constructor.
+
+<!-- snippet: XunitLoggingCustomBase -->
+<a id='snippet-xunitloggingcustombase'/></a>
+```cs
+public class CustomBase :
+    XunitLoggingBase
+{
+    public CustomBase(
+        ITestOutputHelper testOutput,
+        [CallerFilePath] string sourceFile = "") :
+        base(testOutput, sourceFile)
+    {
+    }
+}
+```
+<sup>[snippet source](/src/XunitLogger.Tests/Snippets/CustomBase.cs#L4-L15) / [anchor](#snippet-xunitloggingcustombase)</sup>
+<!-- endsnippet -->
+
+
 ## Logging Libs
 
 Approaches to routing common logging libraries to Diagnostics.Trace:
@@ -727,7 +757,7 @@ public void Theory(object value)
     Approvals.Verify(value);
 }
 ```
-<sup>[snippet source](/src/Xunit.ApprovalTests.Tests/Snippets/Sample.cs#L54-L63) / [anchor](#snippet-theory)</sup>
+<sup>[snippet source](/src/Xunit.ApprovalTests.Tests/Snippets/Sample.cs#L53-L62) / [anchor](#snippet-theory)</sup>
 <!-- endsnippet -->
 
 Will result in the following `.approved.` files:
@@ -799,12 +829,34 @@ public void ForScenarioTest()
     }
 }
 ```
-<sup>[snippet source](/src/Xunit.ApprovalTests.Tests/Snippets/Sample.cs#L43-L52) / [anchor](#snippet-forscenario)</sup>
+<sup>[snippet source](/src/Xunit.ApprovalTests.Tests/Snippets/Sample.cs#L42-L51) / [anchor](#snippet-forscenario)</sup>
 <!-- endsnippet -->
 
 Will result in the following `.approved.` file:
 
  * `Sample.ForScenarioTest_ForScenario.Name.approved.txt`
+
+
+#### Base Class
+
+When creating a custom base class for other tests, it is necessary to pass through the source file path to `XunitApprovalBase` via the constructor.
+
+<!-- snippet: XunitApprovalCustomBase -->
+<a id='snippet-xunitapprovalcustombase'/></a>
+```cs
+public class CustomBase :
+    XunitApprovalBase
+{
+    public CustomBase(
+        ITestOutputHelper testOutput,
+        [CallerFilePath] string sourceFile = "") :
+        base(testOutput, sourceFile)
+    {
+    }
+}
+```
+<sup>[snippet source](/src/Xunit.ApprovalTests.Tests/Snippets/CustomBase.cs#L4-L15) / [anchor](#snippet-xunitapprovalcustombase)</sup>
+<!-- endsnippet -->
 
 
 ## Release Notes

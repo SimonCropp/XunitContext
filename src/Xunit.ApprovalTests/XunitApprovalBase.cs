@@ -6,8 +6,8 @@ public abstract class XunitApprovalBase :
 {
     protected XunitApprovalBase(
         ITestOutputHelper output,
-        [CallerFilePath] string sourceFilePath = "") :
-        base(output, sourceFilePath)
+        [CallerFilePath] string sourceFile = "") :
+        base(output, sourceFile)
     {
     }
 }
