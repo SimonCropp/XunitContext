@@ -24,7 +24,7 @@ namespace XunitLogger
                 return test;
             }
         }
-        
+
         public static string MissingTestOutput = "ITestOutputHelper has not been set. It is possible that the call to `XunitLogging.Register()` is missing, or the current test does not inherit from `XunitLoggingBase`.";
         FieldInfo GetTestMethod()
         {
