@@ -1,7 +1,5 @@
 ﻿using System.IO;
 using System.Linq;
-using System.Net;
-using System.Text;
 using ApprovalTests.Core;
 using ApprovalTests.Namers;
 using Xunit.Abstractions;
@@ -59,34 +57,6 @@ class Namer:
 
     public string Name
     {
-        get
-        {
-            var testCase = XunitLogging.Context.Test.TestCase;
-            var arguments = testCase.TestMethodArguments;
-            var method = testCase.TestMethod;
-            var name = $"{method.TestClass.Class.Name}.{method.Method.Name}";
-            if (arguments == null || !arguments.Any())
-            {
-                return $"{name}{AdditionalInfo()}";
-            }
-
-            var builder = new StringBuilder();
-            var parameterInfos = method.Method.GetParameters().ToList();
-            for (var index = 0; index < parameterInfos.Count; index++)
-            {
-                var parameterInfo = parameterInfos[index];
-                var argument = arguments[index];
-                if (argument == null)
-                {
-                    builder.Append($"{parameterInfo.Name}=null_");
-                    continue;
-                }
-                builder.Append($"{parameterInfo.Name}={argument}_");
-            }
-
-            builder.Length -= 1;
-
-            return $"{name}_{builder}{AdditionalInfo()}";
-        }
+        get { return $"{XunitLogging.Context.UniqueTestName}{AdditionalInfo()}"; }
     }
 }
