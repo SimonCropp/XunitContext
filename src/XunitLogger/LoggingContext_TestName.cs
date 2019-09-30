@@ -20,7 +20,7 @@ namespace XunitLogger
                 return uniqueTestName;
             }
         }
-
+        #region UniqueTestName
         static string GetUniqueTestName(ITestCase testCase)
         {
             var arguments = testCase.TestMethodArguments;
@@ -50,5 +50,6 @@ namespace XunitLogger
 
             return $"{name}_{builder}";
         }
+        #endregion
     }
 }

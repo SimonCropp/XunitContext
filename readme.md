@@ -30,6 +30,7 @@ Uses [AsyncLocal](https://docs.microsoft.com/en-us/dotnet/api/system.threading.a
     * [Test Failure](#test-failure)
     * [Counters](#counters)
     * [Base Class](#base-class)
+    * [UniqueTestName](#uniquetestname)
   * [Logging Libs](#logging-libs)
   * [Xunit.ApprovalTests](#xunitapprovaltests)
     * [NuGet package](#nuget-package-1)
@@ -692,6 +693,49 @@ public class CustomBase :
 }
 ```
 <sup>[snippet source](/src/XunitLogger.Tests/Snippets/CustomBase.cs#L4-L15) / [anchor](#snippet-xunitloggingcustombase)</sup>
+<!-- endsnippet -->
+
+
+### UniqueTestName
+
+Provided a string that uniquely identifies a test case.
+
+Implementation:
+
+<!-- snippet: UniqueTestName -->
+<a id='snippet-uniquetestname'/></a>
+```cs
+static string GetUniqueTestName(ITestCase testCase)
+{
+    var arguments = testCase.TestMethodArguments;
+    var method = testCase.TestMethod;
+    var name = $"{method.TestClass.Class.Name}.{method.Method.Name}";
+    if (arguments == null || !arguments.Any())
+    {
+        return name;
+    }
+
+    var builder = new StringBuilder();
+    var parameterInfos = method.Method.GetParameters().ToList();
+    for (var index = 0; index < parameterInfos.Count; index++)
+    {
+        var parameterInfo = parameterInfos[index];
+        var argument = arguments[index];
+        if (argument == null)
+        {
+            builder.Append($"{parameterInfo.Name}=null_");
+            continue;
+        }
+
+        builder.Append($"{parameterInfo.Name}={argument}_");
+    }
+
+    builder.Length -= 1;
+
+    return $"{name}_{builder}";
+}
+```
+<sup>[snippet source](/src/XunitLogger/LoggingContext_TestName.cs#L23-L53) / [anchor](#snippet-uniquetestname)</sup>
 <!-- endsnippet -->
 
 

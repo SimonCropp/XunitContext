@@ -121,6 +121,15 @@ When creating a custom base class for other tests, it is necessary to pass throu
 snippet: XunitLoggingCustomBase
 
 
+### UniqueTestName
+
+Provided a string that uniquely identifies a test case.
+
+Implementation:
+
+snippet: UniqueTestName
+
+
 ## Logging Libs
 
 Approaches to routing common logging libraries to Diagnostics.Trace:
