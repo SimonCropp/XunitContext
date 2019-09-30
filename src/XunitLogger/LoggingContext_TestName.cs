@@ -20,7 +20,7 @@ namespace XunitLogger
                 return uniqueTestName;
             }
         }
-        
+
         static string GetUniqueTestName(ITestCase testCase)
         {
             var arguments = testCase.TestMethodArguments;
