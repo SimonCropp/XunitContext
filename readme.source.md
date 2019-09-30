@@ -125,6 +125,11 @@ snippet: XunitLoggingCustomBase
 
 Provided a string that uniquely identifies a test case.
 
+Usage:
+
+snippet: UniqueTestNameSample
+
+
 Implementation:
 
 snippet: UniqueTestName
