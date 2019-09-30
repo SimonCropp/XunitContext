@@ -700,6 +700,35 @@ public class CustomBase :
 
 Provided a string that uniquely identifies a test case.
 
+Usage:
+
+<!-- snippet: UniqueTestNameSample.cs -->
+<a id='snippet-UniqueTestNameSample.cs'/></a>
+```cs
+using Xunit;
+using Xunit.Abstractions;
+
+public class UniqueTestNameSample :
+    XunitLoggingBase
+{
+    [Fact]
+    public void Usage()
+    {
+        var currentGuid = Context.UniqueTestName;
+
+        Context.WriteLine(currentGuid);
+    }
+
+    public UniqueTestNameSample(ITestOutputHelper output) :
+        base(output)
+    {
+    }
+}
+```
+<sup>[snippet source](/src/XunitLogger.Tests/Snippets/UniqueTestNameSample.cs#L1-L19) / [anchor](#snippet-UniqueTestNameSample.cs)</sup>
+<!-- endsnippet -->
+
+
 Implementation:
 
 <!-- snippet: UniqueTestName -->

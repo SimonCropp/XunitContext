@@ -127,7 +127,7 @@ Provided a string that uniquely identifies a test case.
 
 Usage:
 
-snippet: UniqueTestNameSample
+snippet: UniqueTestNameSample.cs
 
 
 Implementation:
