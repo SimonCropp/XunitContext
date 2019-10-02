@@ -765,7 +765,7 @@ static List<Parameter> GetParameters(ITestCase testCase)
     return items;
 }
 ```
-<sup>[snippet source](/src/XunitLogger/LoggingContext_Parameters.cs#L25-L45) / [anchor](#snippet-parameters)</sup>
+<sup>[snippet source](/src/XunitLogger/LoggingContext_Parameters.cs#L18-L38) / [anchor](#snippet-parameters)</sup>
 <!-- endsnippet -->
 
 

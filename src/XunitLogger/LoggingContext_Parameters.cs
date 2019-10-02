@@ -7,17 +7,10 @@ namespace XunitLogger
     public partial class Context
     {
         List<Parameter>? parameters;
-        public List<Parameter> Parameters
-        {
-            get
-            {
-                if (parameters == null)
-                {
-                    parameters = GetParameters(Test.TestCase);
-                }
 
-                return parameters;
-            }
+        public IReadOnlyList<Parameter> Parameters
+        {
+            get => parameters ??= GetParameters(Test.TestCase);
         }
 
         static List<Parameter> empty = new List<Parameter>();
