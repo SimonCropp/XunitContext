@@ -30,6 +30,7 @@ Uses [AsyncLocal](https://docs.microsoft.com/en-us/dotnet/api/system.threading.a
     * [Test Failure](#test-failure)
     * [Counters](#counters)
     * [Base Class](#base-class)
+    * [Parameters](#parameters)
     * [UniqueTestName](#uniquetestname)
   * [Logging Libs](#logging-libs)
   * [Xunit.ApprovalTests](#xunitapprovaltests)
@@ -696,6 +697,78 @@ public class CustomBase :
 <!-- endsnippet -->
 
 
+### Parameters
+
+Provided the parmaters passed to the current test when using a `[Theory]`.
+
+Usage:
+
+<!-- snippet: ParametersSample.cs -->
+<a id='snippet-ParametersSample.cs'/></a>
+```cs
+using System.Collections.Generic;
+using System.Linq;
+using Xunit;
+using Xunit.Abstractions;
+
+public class ParametersSample :
+    XunitLoggingBase
+{
+    [Theory]
+    [MemberData(nameof(GetData))]
+    public void Usage(string arg)
+    {
+        var parameter = Context.Parameters.Single();
+        var parameterInfo = parameter.Info;
+        Assert.Equal("arg", parameterInfo.Name);
+        Assert.Equal(arg, parameter.Value);
+    }
+
+    public static IEnumerable<object[]> GetData()
+    {
+        yield return new object[] {"Value1"};
+        yield return new object[] {"Value2"};
+    }
+
+    public ParametersSample(ITestOutputHelper output) :
+        base(output)
+    {
+    }
+}
+```
+<sup>[snippet source](/src/XunitLogger.Tests/Snippets/ParametersSample.cs#L1-L29) / [anchor](#snippet-ParametersSample.cs)</sup>
+<!-- endsnippet -->
+
+
+Implementation:
+
+<!-- snippet: Parameters -->
+<a id='snippet-parameters'/></a>
+```cs
+static List<Parameter> GetParameters(ITestCase testCase)
+{
+    var arguments = testCase.TestMethodArguments;
+    if (arguments == null || !arguments.Any())
+    {
+        return empty;
+    }
+
+    var items = new List<Parameter>();
+
+    var method = testCase.TestMethod;
+    var infos = method.Method.GetParameters().ToList();
+    for (var index = 0; index < infos.Count; index++)
+    {
+        items.Add(new Parameter(infos[index], arguments[index]));
+    }
+
+    return items;
+}
+```
+<sup>[snippet source](/src/XunitLogger/LoggingContext_Parameters.cs#L25-L45) / [anchor](#snippet-parameters)</sup>
+<!-- endsnippet -->
+
+
 ### UniqueTestName
 
 Provided a string that uniquely identifies a test case.
@@ -734,29 +807,26 @@ Implementation:
 <!-- snippet: UniqueTestName -->
 <a id='snippet-uniquetestname'/></a>
 ```cs
-static string GetUniqueTestName(ITestCase testCase)
+string GetUniqueTestName(ITestCase testCase)
 {
-    var arguments = testCase.TestMethodArguments;
     var method = testCase.TestMethod;
     var name = $"{method.TestClass.Class.Name}.{method.Method.Name}";
-    if (arguments == null || !arguments.Any())
+    if (!Parameters.Any())
     {
         return name;
     }
 
     var builder = new StringBuilder();
-    var parameterInfos = method.Method.GetParameters().ToList();
-    for (var index = 0; index < parameterInfos.Count; index++)
+    foreach (var parameter in Parameters)
     {
-        var parameterInfo = parameterInfos[index];
-        var argument = arguments[index];
-        if (argument == null)
+        builder.Append($"{parameter.Info.Name}=");
+        if (parameter.Value == null)
         {
-            builder.Append($"{parameterInfo.Name}=null_");
+            builder.Append("null_");
             continue;
         }
 
-        builder.Append($"{parameterInfo.Name}={argument}_");
+        builder.Append($"{parameter.Value}_");
     }
 
     builder.Length -= 1;
@@ -764,7 +834,7 @@ static string GetUniqueTestName(ITestCase testCase)
     return $"{name}_{builder}";
 }
 ```
-<sup>[snippet source](/src/XunitLogger/LoggingContext_TestName.cs#L23-L53) / [anchor](#snippet-uniquetestname)</sup>
+<sup>[snippet source](/src/XunitLogger/LoggingContext_TestName.cs#L32-L59) / [anchor](#snippet-uniquetestname)</sup>
 <!-- endsnippet -->
 
 

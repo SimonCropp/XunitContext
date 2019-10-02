@@ -121,6 +121,20 @@ When creating a custom base class for other tests, it is necessary to pass throu
 snippet: XunitLoggingCustomBase
 
 
+### Parameters
+
+Provided the parmaters passed to the current test when using a `[Theory]`.
+
+Usage:
+
+snippet: ParametersSample.cs
+
+
+Implementation:
+
+snippet: Parameters
+
+
 ### UniqueTestName
 
 Provided a string that uniquely identifies a test case.

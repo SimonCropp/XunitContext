@@ -8,6 +8,15 @@ namespace XunitLogger
     {
         string? uniqueTestName;
 
+        public string ClassName
+        {
+            get => Test.TestCase.TestMethod.TestClass.Class.Name;
+        }
+        public string MethodName
+        {
+            get => Test.TestCase.TestMethod.Method.Name;
+        }
+
         public string UniqueTestName
         {
             get
@@ -21,29 +30,26 @@ namespace XunitLogger
             }
         }
         #region UniqueTestName
-        static string GetUniqueTestName(ITestCase testCase)
+        string GetUniqueTestName(ITestCase testCase)
         {
-            var arguments = testCase.TestMethodArguments;
             var method = testCase.TestMethod;
             var name = $"{method.TestClass.Class.Name}.{method.Method.Name}";
-            if (arguments == null || !arguments.Any())
+            if (!Parameters.Any())
             {
                 return name;
             }
 
             var builder = new StringBuilder();
-            var parameterInfos = method.Method.GetParameters().ToList();
-            for (var index = 0; index < parameterInfos.Count; index++)
+            foreach (var parameter in Parameters)
             {
-                var parameterInfo = parameterInfos[index];
-                var argument = arguments[index];
-                if (argument == null)
+                builder.Append($"{parameter.Info.Name}=");
+                if (parameter.Value == null)
                 {
-                    builder.Append($"{parameterInfo.Name}=null_");
+                    builder.Append("null_");
                     continue;
                 }
 
-                builder.Append($"{parameterInfo.Name}={argument}_");
+                builder.Append($"{parameter.Value}_");
             }
 
             builder.Length -= 1;

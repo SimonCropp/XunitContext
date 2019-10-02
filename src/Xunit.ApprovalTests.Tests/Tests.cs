@@ -68,7 +68,7 @@ public class Tests :
 
     [Theory]
     [MemberData(nameof(GetData))]
-    public void MemberDataTheory(object arg)
+    public void MemberDataTheory(string arg)
     {
         Approvals.Verify(arg);
     }
@@ -81,7 +81,7 @@ public class Tests :
 
     [Theory]
     [MemberData(nameof(MultiGetData))]
-    public void MultiMemberDataTheory(object arg1, object arg2)
+    public void MultiMemberDataTheory(string arg1, string arg2)
     {
         Approvals.Verify($"{arg1} {arg2}");
     }
