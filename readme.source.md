@@ -123,7 +123,7 @@ snippet: XunitLoggingCustomBase
 
 ### Parameters
 
-Provided the parmaters passed to the current test when using a `[Theory]`.
+Provided the parameters passed to the current test when using a `[Theory]`.
 
 Usage:
 
