@@ -61,7 +61,6 @@ namespace XunitLogger
 
         internal Context()
         {
-
         }
 
         void InitBuilder()

@@ -12,6 +12,7 @@ namespace XunitLogger
         {
             get => Test.TestCase.TestMethod.TestClass.Class.Name;
         }
+
         public string MethodName
         {
             get => Test.TestCase.TestMethod.Method.Name;
@@ -19,16 +20,9 @@ namespace XunitLogger
 
         public string UniqueTestName
         {
-            get
-            {
-                if (uniqueTestName == null)
-                {
-                    uniqueTestName = GetUniqueTestName(Test.TestCase);
-                }
-
-                return uniqueTestName;
-            }
+            get => uniqueTestName ??= GetUniqueTestName(Test.TestCase);
         }
+
         #region UniqueTestName
         string GetUniqueTestName(ITestCase testCase)
         {
