@@ -12,17 +12,7 @@ namespace XunitLogger
 
         public ITest Test
         {
-            get
-            {
-                if (test == null)
-                {
-                    var testMember = GetTestMethod();
-
-                    test = (ITest) testMember.GetValue(TestOutput);
-                }
-
-                return test;
-            }
+            get => test ??= (ITest) GetTestMethod().GetValue(TestOutput);
         }
 
         public static string MissingTestOutput = "ITestOutputHelper has not been set. It is possible that the call to `XunitLogging.Register()` is missing, or the current test does not inherit from `XunitLoggingBase`.";

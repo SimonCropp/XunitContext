@@ -361,17 +361,7 @@ namespace XunitLogger
 
         public ITest Test
         {
-            get
-            {
-                if (test == null)
-                {
-                    var testMember = GetTestMethod();
-
-                    test = (ITest) testMember.GetValue(TestOutput);
-                }
-
-                return test;
-            }
+            get => test ??= (ITest) GetTestMethod().GetValue(TestOutput);
         }
 
         public static string MissingTestOutput = "ITestOutputHelper has not been set. It is possible that the call to `XunitLogging.Register()` is missing, or the current test does not inherit from `XunitLoggingBase`.";
@@ -400,7 +390,7 @@ namespace XunitLogger
     }
 }
 ```
-<sup>[snippet source](/src/XunitLogger/LoggingContext_CurrentTest.cs#L1-L52) / [anchor](#snippet-LoggingContext_CurrentTest.cs)</sup>
+<sup>[snippet source](/src/XunitLogger/LoggingContext_CurrentTest.cs#L1-L42) / [anchor](#snippet-LoggingContext_CurrentTest.cs)</sup>
 <!-- endsnippet -->
 
 
@@ -834,7 +824,7 @@ string GetUniqueTestName(ITestCase testCase)
     return $"{name}_{builder}";
 }
 ```
-<sup>[snippet source](/src/XunitLogger/LoggingContext_TestName.cs#L32-L59) / [anchor](#snippet-uniquetestname)</sup>
+<sup>[snippet source](/src/XunitLogger/LoggingContext_TestName.cs#L26-L53) / [anchor](#snippet-uniquetestname)</sup>
 <!-- endsnippet -->
 
 
