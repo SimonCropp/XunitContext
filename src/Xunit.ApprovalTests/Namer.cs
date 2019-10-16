@@ -45,7 +45,7 @@ class Namer:
         return false;
     }
 
-    string? AdditionalInfo()
+    static string? AdditionalInfo()
     {
         var additionalInformation = NamerFactory.AdditionalInformation;
         if (additionalInformation == null)
@@ -57,6 +57,6 @@ class Namer:
 
     public string Name
     {
-        get { return $"{XunitLogging.Context.UniqueTestName}{AdditionalInfo()}"; }
+        get => $"{XunitLogging.Context.UniqueTestName}{AdditionalInfo()}";
     }
 }
