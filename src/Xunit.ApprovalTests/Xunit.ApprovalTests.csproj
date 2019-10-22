@@ -9,7 +9,7 @@
     <PackageReference Include="Fody" Version="6.0.2" PrivateAssets="all" />
     <PackageReference Include="ModuleInit.Fody" Version="2.1.0" PrivateAssets="All" />
     <PackageReference Include="xunit.abstractions" Version="2.0.3" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.26" PrivateAssets="All" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.27" PrivateAssets="All" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-19367-01" PrivateAssets="All" />
     <ProjectReference Include="..\XunitLogger\XunitLogger.csproj" />
   </ItemGroup>
