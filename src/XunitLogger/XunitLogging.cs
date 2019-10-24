@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using Xunit.Abstractions;
@@ -10,6 +11,9 @@ public static class XunitLogging
 {
     static AsyncLocal<Context?> loggingContext = new AsyncLocal<Context?>();
     static bool enableExceptionCapture;
+
+    private static readonly TextWriter _initialConsoleOut = Console.Out;
+    private static readonly TextWriter _initialConsoleError = Console.Error;
 
     public static void EnableExceptionCapture()
     {
@@ -75,6 +79,12 @@ public static class XunitLogging
         Console.SetError(writer);
 
         #endregion
+    }
+
+    public static void RestoreConsoleStreams()
+    {
+        Console.SetOut(_initialConsoleOut);
+        Console.SetError(_initialConsoleError);
     }
 
     public static void Write(string value)
