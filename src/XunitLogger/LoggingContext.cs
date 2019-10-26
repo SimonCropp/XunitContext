@@ -43,11 +43,11 @@ namespace XunitLogger
 
         public StringBuilder? Builder;
 
-        public void ThrowIfFlushed()
+        public void ThrowIfFlushed(string logText)
         {
             if (flushed)
             {
-                throw new Exception("Logging context has been flushed.");
+                throw new Exception($"Logging context has been flushed. Could not write the string: {logText}");
             }
         }
 
@@ -76,7 +76,7 @@ namespace XunitLogger
             Guard.AgainstNull(value, nameof(value));
             lock (locker)
             {
-                ThrowIfFlushed();
+                ThrowIfFlushed(value);
                 InitBuilder();
                 Builder?.Append(value);
             }
@@ -86,7 +86,7 @@ namespace XunitLogger
         {
             lock (locker)
             {
-                ThrowIfFlushed();
+                ThrowIfFlushed(value.ToString());
                 InitBuilder();
                 Builder?.Append(value);
             }
@@ -96,7 +96,7 @@ namespace XunitLogger
         {
             lock (locker)
             {
-                ThrowIfFlushed();
+                ThrowIfFlushed("Environment.NewLine");
 
                 if (Builder == null && TestOutput == null)
                 {
@@ -138,7 +138,7 @@ namespace XunitLogger
             Guard.AgainstNull(value, nameof(value));
             lock (locker)
             {
-                ThrowIfFlushed();
+                ThrowIfFlushed(value);
 
                 if (Builder == null && TestOutput == null)
                 {
