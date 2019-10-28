@@ -1,14 +1,11 @@
-﻿using System.Runtime.CompilerServices;
-using Xunit.Abstractions;
+﻿using Xunit.Abstractions;
 
 #region XunitLoggingCustomBase
 public class CustomBase :
     XunitLoggingBase
 {
-    public CustomBase(
-        ITestOutputHelper testOutput,
-        [CallerFilePath] string sourceFile = "") :
-        base(testOutput, sourceFile)
+    protected CustomBase(ITestOutputHelper testOutput) :
+        base(testOutput)
     {
     }
 }

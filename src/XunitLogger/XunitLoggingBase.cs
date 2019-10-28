@@ -1,22 +1,29 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+using System.Diagnostics;
 using Xunit.Abstractions;
 using XunitLogger;
 
 public abstract class XunitLoggingBase :
     IDisposable
 {
+    ConcurrentDictionary<Type, string> filePathCacheDictionary = new ConcurrentDictionary<Type, string>();
+
     public ITestOutputHelper Output { get; }
     public Context Context { get; }
 
-    protected XunitLoggingBase(
-        ITestOutputHelper output,
-        [CallerFilePath] string sourceFile = "")
+    protected XunitLoggingBase(ITestOutputHelper output)
     {
         Guard.AgainstNull(output, nameof(output));
-        Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
         Output = output;
+        var sourceFile = filePathCacheDictionary.GetOrAdd(
+            GetType(),
+            type =>
+            {
+                var trace = new StackTrace(3, true);
+                return TestFileFinder.WalkStackTraceForFileWithConstructor(trace);
+            });
         Context = XunitLogging.Register(output, sourceFile);
     }
 
