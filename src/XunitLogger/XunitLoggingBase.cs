@@ -8,7 +8,7 @@ using XunitLogger;
 public abstract class XunitLoggingBase :
     IDisposable
 {
-    static ConcurrentDictionary<Type, string> filePathCacheDictionary = new ConcurrentDictionary<Type, string>();
+    ConcurrentDictionary<Type, string> filePathCacheDictionary = new ConcurrentDictionary<Type, string>();
 
     public ITestOutputHelper Output { get; }
     public Context Context { get; }
