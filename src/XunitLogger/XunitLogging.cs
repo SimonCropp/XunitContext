@@ -142,7 +142,8 @@ public static class XunitLogging
         }
     }
 
-    public static Context Register(ITestOutputHelper output,
+    public static Context Register(
+        ITestOutputHelper output,
         [CallerFilePath] string sourceFile = "")
     {
         Guard.AgainstNull(output, nameof(output));
