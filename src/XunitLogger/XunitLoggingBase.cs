@@ -10,7 +10,7 @@ public abstract class XunitLoggingBase :
     public ITestOutputHelper Output { get; }
     public Context Context { get; }
 
-    public XunitLoggingBase(
+    protected XunitLoggingBase(
         ITestOutputHelper output,
         [CallerFilePath] string sourceFile = "")
     {
