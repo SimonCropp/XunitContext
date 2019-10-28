@@ -675,13 +675,15 @@ When creating a custom base class for other tests, it is necessary to pass throu
 public class CustomBase :
     XunitLoggingBase
 {
-    protected CustomBase(ITestOutputHelper testOutput) :
-        base(testOutput)
+    public CustomBase(
+        ITestOutputHelper testOutput,
+        [CallerFilePath] string sourceFile = "") :
+        base(testOutput, sourceFile)
     {
     }
 }
 ```
-<sup>[snippet source](/src/XunitLogger.Tests/Snippets/CustomBase.cs#L3-L12) / [anchor](#snippet-xunitloggingcustombase)</sup>
+<sup>[snippet source](/src/XunitLogger.Tests/Snippets/CustomBase.cs#L4-L15) / [anchor](#snippet-xunitloggingcustombase)</sup>
 <!-- endsnippet -->
 
 
@@ -980,13 +982,15 @@ When creating a custom base class for other tests, it is necessary to pass throu
 public class CustomBase :
     XunitApprovalBase
 {
-    public CustomBase(ITestOutputHelper testOutput) :
-        base(testOutput)
+    public CustomBase(
+        ITestOutputHelper testOutput,
+        [CallerFilePath] string sourceFile = "") :
+        base(testOutput, sourceFile)
     {
     }
 }
 ```
-<sup>[snippet source](/src/Xunit.ApprovalTests.Tests/Snippets/CustomBase.cs#L3-L12) / [anchor](#snippet-xunitapprovalcustombase)</sup>
+<sup>[snippet source](/src/Xunit.ApprovalTests.Tests/Snippets/CustomBase.cs#L4-L15) / [anchor](#snippet-xunitapprovalcustombase)</sup>
 <!-- endsnippet -->
 
 

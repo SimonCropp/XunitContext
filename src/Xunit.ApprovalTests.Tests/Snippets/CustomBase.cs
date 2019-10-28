@@ -1,11 +1,14 @@
-﻿using Xunit.Abstractions;
+﻿using System.Runtime.CompilerServices;
+using Xunit.Abstractions;
 
 #region XunitApprovalCustomBase
 public class CustomBase :
     XunitApprovalBase
 {
-    public CustomBase(ITestOutputHelper testOutput) :
-        base(testOutput)
+    public CustomBase(
+        ITestOutputHelper testOutput,
+        [CallerFilePath] string sourceFile = "") :
+        base(testOutput, sourceFile)
     {
     }
 }
