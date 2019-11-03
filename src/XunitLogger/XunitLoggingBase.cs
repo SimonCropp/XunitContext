@@ -41,4 +41,19 @@ public abstract class XunitLoggingBase :
     {
         Context.Flush();
     }
+
+    public Exception? TestException
+    {
+        get => Context.TestException;
+    }
+
+    public string SourceFile
+    {
+        get => Context.SourceFile;
+    }
+
+    public string SourceDirectory
+    {
+        get => Context.SourceDirectory;
+    }
 }
