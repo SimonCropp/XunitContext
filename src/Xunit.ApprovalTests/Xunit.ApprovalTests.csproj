@@ -6,7 +6,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="ApprovalTests" Version="4.2.2" />
-    <PackageReference Include="Fody" Version="6.0.4-beta.2" PrivateAssets="all" />
+    <PackageReference Include="Fody" Version="6.0.4" PrivateAssets="all" />
     <PackageReference Include="ModuleInit.Fody" Version="2.1.0" PrivateAssets="All" />
     <PackageReference Include="xunit.abstractions" Version="2.0.3" />
     <PackageReference Include="ProjectDefaults" Version="1.0.27" PrivateAssets="All" />
