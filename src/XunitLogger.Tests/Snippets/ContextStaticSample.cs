@@ -23,6 +23,8 @@ public class ContextStaticSample :
 
         var sourceDirectory = XunitLogging.Context.SourceDirectory;
 
+        var solutionDirectory = XunitLogging.Context.SolutionDirectory;
+
         var currentTestException = XunitLogging.Context.TestException;
     }
 

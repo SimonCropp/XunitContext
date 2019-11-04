@@ -9,18 +9,50 @@ namespace XunitLogger
 {
     public partial class Context
     {
+        /// <summary>
+        /// The current <see cref="ITestOutputHelper"/>.
+        /// </summary>
         public ITestOutputHelper? TestOutput { get; internal set; }
+        /// <summary>
+        /// The source file that the current test exists in.
+        /// </summary>
         public string SourceFile { get; internal set; } = null!;
+        /// <summary>
+        /// The source directory that the current test exists in.
+        /// </summary>
         public string SourceDirectory
         {
             get => Path.GetDirectoryName(SourceFile);
         }
+        string? solutionDirectory;
+
+        /// <summary>
+        /// The current solution directory. Obtained by walking up the directory tree from <see cref="SourceDirectory"/>.
+        /// </summary>
+        public string SolutionDirectory
+        {
+            get
+            {
+                if (solutionDirectory == null)
+                {
+                    solutionDirectory = SolutionDirectoryFinder.Find(SourceDirectory);
+                }
+                return solutionDirectory;
+            }
+        }
+
         List<string> logMessages = new List<string>();
         object locker = new object();
 
+        /// <summary>
+        /// All log message that have been written to the current <see cref="ITestOutputHelper"/>.
+        /// </summary>
         public IReadOnlyList<string> LogMessages => logMessages;
         internal Exception? Exception;
 
+        /// <summary>
+        /// The <see cref="Exception"/> for the current test if it failed.
+        /// </summary>
         public Exception? TestException
         {
             get
@@ -76,6 +108,9 @@ namespace XunitLogger
             }
         }
 
+        /// <summary>
+        /// Writes a string to the current <see cref="ITestOutputHelper"/>.
+        /// </summary>
         public void Write(string value)
         {
             Guard.AgainstNull(value, nameof(value));
@@ -87,6 +122,9 @@ namespace XunitLogger
             }
         }
 
+        /// <summary>
+        /// Writes a <see cref="char"/> to the current <see cref="ITestOutputHelper"/>.
+        /// </summary>
         public void Write(char value)
         {
             lock (locker)
@@ -97,6 +135,9 @@ namespace XunitLogger
             }
         }
 
+        /// <summary>
+        /// Writes a line to the current <see cref="ITestOutputHelper"/>.
+        /// </summary>
         public void WriteLine()
         {
             lock (locker)
@@ -138,6 +179,9 @@ namespace XunitLogger
             }
         }
 
+        /// <summary>
+        /// Writes a line to the current <see cref="ITestOutputHelper"/>.
+        /// </summary>
         public void WriteLine(string value)
         {
             Guard.AgainstNull(value, nameof(value));

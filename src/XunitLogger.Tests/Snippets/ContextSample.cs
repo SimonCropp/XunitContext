@@ -20,8 +20,10 @@ public class ContextSample  :
         var currentTest = Context.Test;
 
         var sourceFile = Context.SourceFile;
-        
+
         var sourceDirectory = Context.SourceDirectory;
+
+        var solutionDirectory = Context.SolutionDirectory;
 
         var currentTestException = Context.TestException;
     }

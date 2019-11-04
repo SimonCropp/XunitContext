@@ -248,6 +248,7 @@ For every tests there is a contextual API to perform several operations.
  * `Context.Test`: Access to the current `ITest`.
  * `Context.SourceFile`: Access to the file path for the current test.
  * `Context.SourceDirectory`: Access to the directory path for the current test.
+ * `Context.SolutionDirectory`: The current solution directory. Obtained by walking up the directory tree from `SourceDirectory`.
  * `Context.TestException`: Access to the exception if the current test has failed.
 
 <!-- snippet: ContextSample.cs -->
@@ -275,8 +276,10 @@ public class ContextSample  :
         var currentTest = Context.Test;
 
         var sourceFile = Context.SourceFile;
-        
+
         var sourceDirectory = Context.SourceDirectory;
+
+        var solutionDirectory = Context.SolutionDirectory;
 
         var currentTestException = Context.TestException;
     }
@@ -287,7 +290,7 @@ public class ContextSample  :
     }
 }
 ```
-<sup>[snippet source](/src/XunitLogger.Tests/Snippets/ContextSample.cs#L1-L33) / [anchor](#snippet-ContextSample.cs)</sup>
+<sup>[snippet source](/src/XunitLogger.Tests/Snippets/ContextSample.cs#L1-L35) / [anchor](#snippet-ContextSample.cs)</sup>
 <!-- endsnippet -->
 
 Some members are pushed down to the be accessible directly from XunitLoggingBase:
@@ -313,6 +316,10 @@ public class ContextPushedDownSample  :
         var sourceFile = SourceFile;
 
         var sourceDirectory = SourceDirectory;
+
+        var solutionDirectory = SolutionDirectory;
+
+        var currentTestException = TestException;
     }
 
     public ContextPushedDownSample(ITestOutputHelper output) :
@@ -321,7 +328,7 @@ public class ContextPushedDownSample  :
     }
 }
 ```
-<sup>[snippet source](/src/XunitLogger.Tests/Snippets/ContextPushedDownSample.cs#L1-L25) / [anchor](#snippet-ContextPushedDownSample.cs)</sup>
+<sup>[snippet source](/src/XunitLogger.Tests/Snippets/ContextPushedDownSample.cs#L1-L29) / [anchor](#snippet-ContextPushedDownSample.cs)</sup>
 <!-- endsnippet -->
 
 Context can accessed via a static API:
@@ -354,6 +361,8 @@ public class ContextStaticSample :
 
         var sourceDirectory = XunitLogging.Context.SourceDirectory;
 
+        var solutionDirectory = XunitLogging.Context.SolutionDirectory;
+
         var currentTestException = XunitLogging.Context.TestException;
     }
 
@@ -363,7 +372,7 @@ public class ContextStaticSample :
     }
 }
 ```
-<sup>[snippet source](/src/XunitLogger.Tests/Snippets/ContextStaticSample.cs#L1-L33) / [anchor](#snippet-ContextStaticSample.cs)</sup>
+<sup>[snippet source](/src/XunitLogger.Tests/Snippets/ContextStaticSample.cs#L1-L35) / [anchor](#snippet-ContextStaticSample.cs)</sup>
 <!-- endsnippet -->
 
 

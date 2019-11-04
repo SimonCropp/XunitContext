@@ -16,6 +16,10 @@ public class ContextPushedDownSample  :
         var sourceFile = SourceFile;
 
         var sourceDirectory = SourceDirectory;
+
+        var solutionDirectory = SolutionDirectory;
+
+        var currentTestException = TestException;
     }
 
     public ContextPushedDownSample(ITestOutputHelper output) :

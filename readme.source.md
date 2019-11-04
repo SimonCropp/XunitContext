@@ -63,6 +63,7 @@ For every tests there is a contextual API to perform several operations.
  * `Context.Test`: Access to the current `ITest`.
  * `Context.SourceFile`: Access to the file path for the current test.
  * `Context.SourceDirectory`: Access to the directory path for the current test.
+ * `Context.SolutionDirectory`: The current solution directory. Obtained by walking up the directory tree from `SourceDirectory`.
  * `Context.TestException`: Access to the exception if the current test has failed.
 
 snippet: ContextSample.cs
