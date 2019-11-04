@@ -292,6 +292,38 @@ public class ContextSample  :
 
 Some members are pushed down to the be accessible directly from XunitLoggingBase:
 
+<!-- snippet: ContextPushedDownSample.cs -->
+<a id='snippet-ContextPushedDownSample.cs'/></a>
+```cs
+using Xunit;
+using Xunit.Abstractions;
+
+public class ContextPushedDownSample  :
+    XunitLoggingBase
+{
+    [Fact]
+    public void Usage()
+    {
+        WriteLine("Some message");
+
+        var currentLogMessages = Logs;
+
+        var testOutputHelper = Output;
+
+        var sourceFile = SourceFile;
+
+        var sourceDirectory = SourceDirectory;
+    }
+
+    public ContextPushedDownSample(ITestOutputHelper output) :
+        base(output)
+    {
+    }
+}
+```
+<sup>[snippet source](/src/XunitLogger.Tests/Snippets/ContextPushedDownSample.cs#L1-L25) / [anchor](#snippet-ContextPushedDownSample.cs)</sup>
+<!-- endsnippet -->
+
 Context can accessed via a static API:
 
 <!-- snippet: ContextStaticSample.cs -->

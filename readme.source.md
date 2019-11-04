@@ -69,6 +69,8 @@ snippet: ContextSample.cs
 
 Some members are pushed down to the be accessible directly from XunitLoggingBase:
 
+snippet: ContextPushedDownSample.cs
+
 Context can accessed via a static API:
 
 snippet: ContextStaticSample.cs
