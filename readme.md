@@ -246,8 +246,9 @@ For every tests there is a contextual API to perform several operations.
  * `Context.LogMessages`: Access to all log message for the current test.
  * Counters: Provide access in predicable and incrementing values for the following types: `Guid`, `Int`, `Long`, `UInt`, and `ULong`.
  * `Context.Test`: Access to the current `ITest`.
-
-There is also access via a static API.
+ * `Context.SourceFile`: Access to the file path for the current test.
+ * `Context.SourceDirectory`: Access to the directory path for the current test.
+ * `Context.TestException`: Access to the exception if the current test has failed.
 
 <!-- snippet: ContextSample.cs -->
 <a id='snippet-ContextSample.cs'/></a>
@@ -272,8 +273,36 @@ public class ContextSample  :
         var testOutputHelper = Context.TestOutput;
 
         var currentTest = Context.Test;
+
+        var sourceFile = Context.SourceFile;
+        
+        var sourceDirectory = Context.SourceDirectory;
+
+        var currentTestException = Context.TestException;
     }
 
+    public ContextSample(ITestOutputHelper output) :
+        base(output)
+    {
+    }
+}
+```
+<sup>[snippet source](/src/XunitLogger.Tests/Snippets/ContextSample.cs#L1-L33) / [anchor](#snippet-ContextSample.cs)</sup>
+<!-- endsnippet -->
+
+Some members are pushed down to the be accessible directly from XunitLoggingBase:
+
+Context can accessed via a static API:
+
+<!-- snippet: ContextStaticSample.cs -->
+<a id='snippet-ContextStaticSample.cs'/></a>
+```cs
+using Xunit;
+using Xunit.Abstractions;
+
+public class ContextStaticSample :
+    XunitLoggingBase
+{
     [Fact]
     public void StaticUsage()
     {
@@ -288,15 +317,21 @@ public class ContextSample  :
         var testOutputHelper = XunitLogging.Context.TestOutput;
 
         var currentTest = XunitLogging.Context.Test;
+
+        var sourceFile = XunitLogging.Context.SourceFile;
+
+        var sourceDirectory = XunitLogging.Context.SourceDirectory;
+
+        var currentTestException = XunitLogging.Context.TestException;
     }
 
-    public ContextSample(ITestOutputHelper output) :
+    public ContextStaticSample(ITestOutputHelper output) :
         base(output)
     {
     }
 }
 ```
-<sup>[snippet source](/src/XunitLogger.Tests/Snippets/ContextSample.cs#L1-L43) / [anchor](#snippet-ContextSample.cs)</sup>
+<sup>[snippet source](/src/XunitLogger.Tests/Snippets/ContextStaticSample.cs#L1-L33) / [anchor](#snippet-ContextStaticSample.cs)</sup>
 <!-- endsnippet -->
 
 

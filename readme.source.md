@@ -61,10 +61,17 @@ For every tests there is a contextual API to perform several operations.
  * `Context.LogMessages`: Access to all log message for the current test.
  * Counters: Provide access in predicable and incrementing values for the following types: `Guid`, `Int`, `Long`, `UInt`, and `ULong`.
  * `Context.Test`: Access to the current `ITest`.
-
-There is also access via a static API.
+ * `Context.SourceFile`: Access to the file path for the current test.
+ * `Context.SourceDirectory`: Access to the directory path for the current test.
+ * `Context.TestException`: Access to the exception if the current test has failed.
 
 snippet: ContextSample.cs
+
+Some members are pushed down to the be accessible directly from XunitLoggingBase:
+
+Context can accessed via a static API:
+
+snippet: ContextStaticSample.cs
 
 
 ### Current Test

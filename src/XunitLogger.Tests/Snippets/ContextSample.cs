@@ -18,22 +18,12 @@ public class ContextSample  :
         var testOutputHelper = Context.TestOutput;
 
         var currentTest = Context.Test;
-    }
 
-    [Fact]
-    public void StaticUsage()
-    {
-        var currentGuid = XunitLogging.Context.CurrentGuid;
+        var sourceFile = Context.SourceFile;
+        
+        var sourceDirectory = Context.SourceDirectory;
 
-        var nextGuid = XunitLogging.Context.NextGuid();
-
-        XunitLogging.Context.WriteLine("Some message");
-
-        var currentLogMessages = XunitLogging.Context.LogMessages;
-
-        var testOutputHelper = XunitLogging.Context.TestOutput;
-
-        var currentTest = XunitLogging.Context.Test;
+        var currentTestException = Context.TestException;
     }
 
     public ContextSample(ITestOutputHelper output) :
