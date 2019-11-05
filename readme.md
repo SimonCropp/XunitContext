@@ -244,12 +244,12 @@ For every tests there is a contextual API to perform several operations.
  * `Context.TestOutput`: Access to [ITestOutputHelper](https://xunit.net/docs/capturing-output).
  * `Context.Write` and `Context.WriteLine`: Write to the current log.
  * `Context.LogMessages`: Access to all log message for the current test.
- * Counters: Provide access in predicable and incrementing values for the following types: `Guid`, `Int`, `Long`, `UInt`, and `ULong`.
+ * [Counters](#counters): Provide access in predicable and incrementing values for the following types: `Guid`, `Int`, `Long`, `UInt`, and `ULong`.
  * `Context.Test`: Access to the current `ITest`.
  * `Context.SourceFile`: Access to the file path for the current test.
  * `Context.SourceDirectory`: Access to the directory path for the current test.
  * `Context.SolutionDirectory`: The current solution directory. Obtained by walking up the directory tree from `SourceDirectory`.
- * `Context.TestException`: Access to the exception if the current test has failed.
+ * `Context.TestException`: Access to the exception if the current test has failed. See [Test Failure](test-failure)
 
 <!-- snippet: ContextSample.cs -->
 <a id='snippet-ContextSample.cs'/></a>
