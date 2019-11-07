@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 
@@ -14,7 +15,7 @@ static class SolutionDirectoryFinder
         return solutionDirectory;
     }
 
-    public static bool TryFind(string testDirectory, out string path)
+    public static bool TryFind(string testDirectory, [NotNullWhen(returnValue: true)] out string? path)
     {
         var currentDirectory = testDirectory;
         do
@@ -28,7 +29,7 @@ static class SolutionDirectoryFinder
             var parent = Directory.GetParent(currentDirectory);
             if (parent == null)
             {
-                path = string.Empty;
+                path = null;
                 return false;
             }
 
