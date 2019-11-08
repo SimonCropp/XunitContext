@@ -26,7 +26,7 @@ class Namer:
 
     static string subDirAttribute = typeof(UseApprovalSubdirectoryAttribute).AssemblyQualifiedName;
 
-    static bool TryGetSubdirectoryFromAttribute(ITestMethod method, [NotNullWhen(returnValue: true)] out string? subDirectory)
+    static bool TryGetSubdirectoryFromAttribute(ITestMethod method, [NotNullWhen(true)] out string? subDirectory)
     {
         var attribute = method.Method.GetCustomAttributes(subDirAttribute).SingleOrDefault();
         if (attribute != null)
