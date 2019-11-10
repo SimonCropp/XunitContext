@@ -11,9 +11,9 @@ public class PerformanceTestBuilder :
     {
         var builder = new StringBuilder();
         builder.AppendLine(@"using System.Threading.Tasks;
-using ApprovalTests;
 using Xunit;
 using Xunit.Abstractions;
+using Xunit.ApprovalTests;
 ");
         for (var classIndex = 0; classIndex < 10; classIndex++)
         {

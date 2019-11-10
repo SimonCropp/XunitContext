@@ -1,64 +1,84 @@
 ﻿ using System;
- using System.Collections.Generic;
  using System.IO;
- using System.Linq;
+ using System.Reflection;
  using System.Threading;
- using ApprovalTests;
- using ApprovalTests.Approvers;
  using ApprovalTests.Core;
  using ApprovalTests.Html;
- using ApprovalTests.Namers;
  using ApprovalTests.Reporters;
  using ApprovalTests.Scrubber;
  using ApprovalTests.Utilities;
  using ApprovalTests.Writers;
  using ApprovalTests.Xml;
- using ApprovalUtilities.CallStack;
- using ApprovalUtilities.Persistence;
  using ApprovalUtilities.Utilities;
 
  namespace Xunit.ApprovalTests
  {
-     public class Approvals
+     public static class Approvals
      {
-         private static readonly ThreadLocal<Caller> currentCaller = new ThreadLocal<Caller>();
-         private static Func<IApprovalNamer> defaultNamerCreator = () => new UnitTestFrameworkNamer();
-         private static Func<IApprovalWriter, IApprovalNamer, bool, IApprovalApprover> defaultApproverCreator = (IApprovalWriter writer, IApprovalNamer namer, bool shouldIgnoreLineEndings) => new FileApprover(writer, namer, shouldIgnoreLineEndings);
-
-         public static Caller CurrentCaller
+         class TestData
          {
-             get
+             Type testType;
+             MethodInfo testMethod;
+
+             public TestData(Type testType, MethodInfo testMethod)
              {
-                 if (currentCaller.Value == null)
+                 this.testType = testType;
+                 this.testMethod = testMethod;
+             }
+
+             public T? GetFirstFrameForAttribute<T>() where T : Attribute
+             {
+                 var attribute = testMethod.GetCustomAttribute<T>();
+                 if (attribute != null)
                  {
-                     SetCaller();
+                     return attribute;
                  }
 
-                 return currentCaller.Value;
+                 attribute = testType.GetCustomAttribute<T>(true);
+                 if (attribute != null)
+                 {
+                     return attribute;
+                 }
+
+                 attribute = testType.Assembly.GetCustomAttribute<T>();
+                 if (attribute != null)
+                 {
+                     return attribute;
+                 }
+
+                 return null;
              }
          }
 
-         public static void SetCaller()
+         static AsyncLocal<TestData?> testData = new AsyncLocal<TestData?>();
+
+         public static void SetTestData(Type testType, MethodInfo testMethod)
          {
-             currentCaller.Value = new Caller();
+             testData.Value = new TestData(testType, testMethod);
          }
 
-         public static void Verify(IApprovalWriter writer, IApprovalNamer namer, IApprovalFailureReporter reporter)
+         public static void ClearTestData()
          {
-             var normalizeLineEndingsForTextFiles = CurrentCaller.GetFirstFrameForAttribute<IgnoreLineEndingsAttribute>();
+             testData.Value = null;
+         }
+
+         public static void Verify(IApprovalWriter writer, IApprovalFailureReporter reporter)
+         {
+             var normalizeLineEndingsForTextFiles = GetTestData().GetFirstFrameForAttribute<IgnoreLineEndingsAttribute>();
              var shouldIgnoreLineEndings = normalizeLineEndingsForTextFiles == null || normalizeLineEndingsForTextFiles.IgnoreLineEndings;
-             var approver = GetDefaultApprover(writer, namer, shouldIgnoreLineEndings);
+             var approver = GetDefaultApprover(writer, shouldIgnoreLineEndings);
              Verify(approver, reporter);
          }
 
-         public static void RegisterDefaultApprover(Func<IApprovalWriter, IApprovalNamer, bool, IApprovalApprover> creator)
+         private static TestData GetTestData()
          {
-             defaultApproverCreator = creator;
+             if (testData.Value == null) throw new Exception("SetTestData has not been called");
+             return testData.Value;
          }
 
-         private static IApprovalApprover GetDefaultApprover(IApprovalWriter writer, IApprovalNamer namer, bool shouldIgnoreLineEndings)
+         static IApprovalApprover GetDefaultApprover(IApprovalWriter writer, bool shouldIgnoreLineEndings)
          {
-             return defaultApproverCreator(writer, namer, shouldIgnoreLineEndings);
+             return global::ApprovalTests.Approvals.GetDefaultApprover(writer, Namer.Instance, shouldIgnoreLineEndings);
          }
 
          public static void Verify(IApprovalApprover approver)
@@ -73,7 +93,6 @@
 
          public static IApprovalFailureReporter GetReporter()
          {
-             SetCaller();
              return GetReporter(IntroductionReporter.INSTANCE);
          }
 
@@ -84,7 +103,7 @@
 
          private static IEnvironmentAwareReporter GetFrontLoadedReporterFromAttribute()
          {
-             var frontLoaded = CurrentCaller.GetFirstFrameForAttribute<FrontLoadedReporterAttribute>();
+             var frontLoaded = GetTestData().GetFirstFrameForAttribute<FrontLoadedReporterAttribute>();
              return frontLoaded != null ? frontLoaded.Reporter : FrontLoadedReporterDisposer.Default;
          }
 
@@ -96,33 +115,15 @@
                  : GetReporterFromAttribute() ?? defaultIfNotFound;
          }
 
-         private static IEnvironmentAwareReporter WrapAsEnvironmentAwareReporter(IApprovalFailureReporter mainReporter)
+         private static IApprovalFailureReporter? GetReporterFromAttribute()
          {
-             if (mainReporter is IEnvironmentAwareReporter reporter)
-             {
-                 return reporter;
-             }
-
-             return new AlwaysWorksReporter(mainReporter);
-         }
-
-         private static IApprovalFailureReporter GetReporterFromAttribute()
-         {
-             var useReporter = CurrentCaller.GetFirstFrameForAttribute<UseReporterAttribute>();
-             return useReporter != null ? useReporter.Reporter : null;
-         }
-
-         public static void Verify(IExecutableQuery query)
-         {
-             Verify(
-                 WriterFactory.CreateTextWriter(query.GetQuery()),
-                 GetDefaultNamer(),
-                 new ExecutableQueryFailure(query, GetReporter()));
+             var useReporter = GetTestData().GetFirstFrameForAttribute<UseReporterAttribute>();
+             return useReporter?.Reporter;
          }
 
          public static void Verify(IApprovalWriter writer)
          {
-             Verify(writer, GetDefaultNamer(), GetReporter());
+             Verify(writer, GetReporter());
          }
 
          public static void VerifyFile(string receivedFilePath)
@@ -135,45 +136,12 @@
              VerifyFile(receivedFilePath.FullName);
          }
 
-         public static void VerifyWithCallback(object text, Action<string> callBackOnFailure)
-         {
-             Verify(new ExecutableLambda("" + text, callBackOnFailure));
-         }
-
-         public static void VerifyWithCallback(object text, Func<string, string> callBackOnFailure)
-         {
-             Verify(new ExecutableLambda("" + text, callBackOnFailure));
-         }
-
-         #region Text
-
-         public static void RegisterDefaultNamerCreation(Func<IApprovalNamer> creator)
-         {
-             defaultNamerCreator = creator;
-         }
-
-         public static IApprovalNamer GetDefaultNamer()
-         {
-             return defaultNamerCreator.Invoke();
-         }
-
-         /// <summary>
-         /// This is sometimes needed on CI systems that move/remove the original source.
-         /// If you use this you will also need to set the .approved. files to "Copy Always"
-         /// and if you use subdirectories you'll need a post-build command like
-         /// copy /y $(ProjectDir)**subfolder**\*.approved.txt $(TargetDir)
-         /// </summary>
-         public static void UseAssemblyLocationForApprovedFiles()
-         {
-             RegisterDefaultNamerCreation(() => new AssemblyLocationNamer());
-         }
-
          public static void Verify(object text)
          {
              Verify(WriterFactory.CreateTextWriter("" + text));
          }
 
-         public static void Verify(string text, Func<string, string> scrubber = null)
+         public static void Verify(string text, Func<string, string>? scrubber = null)
          {
              if (scrubber == null)
              {
@@ -186,58 +154,6 @@
          public static void Verify(Exception e)
          {
              Verify(e.Scrub());
-         }
-
-         #endregion Text
-
-         #region Enumerable
-
-         public static void VerifyAll<T>(string header, IEnumerable<T> enumerable, string label)
-         {
-             Verify(header + "\n\n" + enumerable.Write(label));
-         }
-
-         public static void VerifyAll<T>(IEnumerable<T> enumerable, string label)
-         {
-             Verify(enumerable.Write(label));
-         }
-
-         public static void VerifyAll<T>(IEnumerable<T> enumerable, string label,
-             Func<T, string> formatter)
-         {
-             Verify(enumerable.Write(label, formatter));
-         }
-
-         public static void VerifyAll<T>(string header, IEnumerable<T> enumerable,
-             Func<T, string> formatter)
-         {
-             Verify(header + "\n\n" + enumerable.Write(formatter));
-         }
-
-         public static void VerifyAll<T>(IEnumerable<T> enumerable, Func<T, string> formatter)
-         {
-             Verify(enumerable.Write(formatter));
-         }
-
-         public static void VerifyAll<K, V>(IDictionary<K, V> dictionary)
-         {
-             dictionary ??= new Dictionary<K, V>();
-             VerifyAll(dictionary.OrderBy(p => p.Key), p => $"{p.Key} => {p.Value}");
-         }
-
-         public static void VerifyAll<K, V>(string header, IDictionary<K, V> dictionary)
-         {
-             VerifyAll(header, dictionary.OrderBy(p => p.Key), p => $"{p.Key} => {p.Value}");
-         }
-
-         public static void VerifyAll<K, V>(string header, IDictionary<K, V> dictionary, Func<K, V, string> formatter)
-         {
-             VerifyAll(header, dictionary.OrderBy(p => p.Key), p => formatter(p.Key, p.Value));
-         }
-
-         public static void VerifyAll<K, V>(IDictionary<K, V> dictionary, Func<K, V, string> formatter)
-         {
-             VerifyAll(dictionary.OrderBy(p => p.Key), p => formatter(p.Key, p.Value));
          }
 
          public static void VerifyBinaryFile(byte[] bytes, string fileExtensionWithoutDot)
@@ -260,32 +176,10 @@
              Verify(WriterFactory.CreateTextWriter(json.FormatJson(), "json"));
          }
 
-         #endregion Enumerable
-
-         public static void AssertEquals(string expected, string actual, IApprovalFailureReporter reporter)
-         {
-             StringReporting.AssertEqual(expected, actual, reporter);
-         }
-
-         public static void AssertEquals<T>(string expected, string actual) where T : IApprovalFailureReporter, new()
-         {
-             StringReporting.AssertEqual(expected, actual, new T());
-         }
-
-         public static void AssertEquals(string expected, string actual)
-         {
-             StringReporting.AssertEqual(expected, actual, GetReporter());
-         }
-
          public static void VerifyPdfFile(string pdfFilePath)
          {
              PdfScrubber.ScrubPdf(pdfFilePath);
              Verify(new ExistingFileWriter(pdfFilePath));
-         }
-
-         public static IDisposable SetFrontLoadedReporter(IEnvironmentAwareReporter reporter)
-         {
-             return new FrontLoadedReporterDisposer(reporter);
          }
      }
  }
