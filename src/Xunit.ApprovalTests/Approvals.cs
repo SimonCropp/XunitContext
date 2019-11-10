@@ -15,40 +15,6 @@
  {
      public static class Approvals
      {
-         class TestData
-         {
-             Type testType;
-             MethodInfo testMethod;
-
-             public TestData(Type testType, MethodInfo testMethod)
-             {
-                 this.testType = testType;
-                 this.testMethod = testMethod;
-             }
-
-             public T? GetFirstFrameForAttribute<T>() where T : Attribute
-             {
-                 var attribute = testMethod.GetCustomAttribute<T>();
-                 if (attribute != null)
-                 {
-                     return attribute;
-                 }
-
-                 attribute = testType.GetCustomAttribute<T>(true);
-                 if (attribute != null)
-                 {
-                     return attribute;
-                 }
-
-                 attribute = testType.Assembly.GetCustomAttribute<T>();
-                 if (attribute != null)
-                 {
-                     return attribute;
-                 }
-
-                 return null;
-             }
-         }
 
          static AsyncLocal<TestData?> testData = new AsyncLocal<TestData?>();
 
@@ -70,7 +36,7 @@
              Verify(approver, reporter);
          }
 
-         private static TestData GetTestData()
+         static TestData GetTestData()
          {
              if (testData.Value == null) throw new Exception("SetTestData has not been called");
              return testData.Value;
@@ -101,13 +67,14 @@
              return GetFrontLoadedReporter(defaultIfNotFound, GetFrontLoadedReporterFromAttribute());
          }
 
-         private static IEnvironmentAwareReporter GetFrontLoadedReporterFromAttribute()
+         static IEnvironmentAwareReporter GetFrontLoadedReporterFromAttribute()
          {
              var frontLoaded = GetTestData().GetFirstFrameForAttribute<FrontLoadedReporterAttribute>();
-             return frontLoaded != null ? frontLoaded.Reporter : FrontLoadedReporterDisposer.Default;
+             //TODO: DefaultFrontLoaderReporter => FrontLoadedReporterDisposer;
+             return frontLoaded != null ? frontLoaded.Reporter : DefaultFrontLoaderReporter.INSTANCE;
          }
 
-         private static IApprovalFailureReporter GetFrontLoadedReporter(IApprovalFailureReporter defaultIfNotFound,
+         static IApprovalFailureReporter GetFrontLoadedReporter(IApprovalFailureReporter defaultIfNotFound,
              IEnvironmentAwareReporter frontLoad)
          {
              return frontLoad.IsWorkingInThisEnvironment("default.txt")
@@ -115,7 +82,7 @@
                  : GetReporterFromAttribute() ?? defaultIfNotFound;
          }
 
-         private static IApprovalFailureReporter? GetReporterFromAttribute()
+         static IApprovalFailureReporter? GetReporterFromAttribute()
          {
              var useReporter = GetTestData().GetFirstFrameForAttribute<UseReporterAttribute>();
              return useReporter?.Reporter;
