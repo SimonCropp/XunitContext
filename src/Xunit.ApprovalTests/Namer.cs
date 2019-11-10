@@ -8,6 +8,8 @@ using Xunit.Abstractions;
 class Namer:
     IApprovalNamer
 {
+    public static Namer Instance = new Namer();
+
     public string SourcePath
     {
         get

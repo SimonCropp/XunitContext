@@ -4,7 +4,6 @@ static class ModuleInitializer
 {
     public static void Initialize()
     {
-        var namer = new Namer();
-        Approvals.RegisterDefaultNamerCreation(() => namer);
+        Approvals.RegisterDefaultNamerCreation(() => Namer.Instance);
     }
 }
