@@ -31,14 +31,7 @@ namespace XunitLogger
         /// </summary>
         public string SolutionDirectory
         {
-            get
-            {
-                if (solutionDirectory == null)
-                {
-                    solutionDirectory = SolutionDirectoryFinder.Find(SourceDirectory);
-                }
-                return solutionDirectory;
-            }
+            get => solutionDirectory ??= SolutionDirectoryFinder.Find(SourceDirectory);
         }
 
         List<string> logMessages = new List<string>();
