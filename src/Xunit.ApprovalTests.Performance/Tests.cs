@@ -11,7 +11,7 @@ public class TestClass0 :
     [Fact]
     public void Test0()
     {
-        Approvals.Verify("SimpkleResult");
+        Approvals.Verify("SimpleResult");
     }
 
     [Fact]
