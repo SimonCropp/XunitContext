@@ -32,7 +32,7 @@ public class Sample :
     [Fact]
     public void AsEnvironmentSpecificTest()
     {
-        using (NamerFactory.AsEnvironmentSpecificTest(() => "Foo"))
+        using (NamerFactory.AsEnvironmentSpecificTest("Foo"))
         {
             Approvals.Verify("Value");
         }

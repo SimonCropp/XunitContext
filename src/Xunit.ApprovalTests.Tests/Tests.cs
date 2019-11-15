@@ -23,7 +23,7 @@ public class Tests :
     [Fact]
     public void AsEnvironmentSpecificTest()
     {
-        using (NamerFactory.AsEnvironmentSpecificTest(() => "Foo"))
+        using (NamerFactory.AsEnvironmentSpecificTest("Foo"))
         {
             Approvals.Verify("Value");
         }
@@ -51,7 +51,7 @@ public class Tests :
     [InlineData("Foo")]
     public void TheoryAsEnvironmentSpecificTest(object arg)
     {
-        using (NamerFactory.AsEnvironmentSpecificTest(() => "Bar"))
+        using (NamerFactory.AsEnvironmentSpecificTest("Bar"))
         {
             Approvals.Verify(arg);
         }

@@ -1027,7 +1027,7 @@ ApprovalTests `NamerFactory.AsEnvironmentSpecificTest` is supported.
 [Fact]
 public void AsEnvironmentSpecificTest()
 {
-    using (NamerFactory.AsEnvironmentSpecificTest(() => "Foo"))
+    using (NamerFactory.AsEnvironmentSpecificTest("Foo"))
     {
         Approvals.Verify("Value");
     }
