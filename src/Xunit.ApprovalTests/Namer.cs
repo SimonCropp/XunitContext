@@ -1,9 +1,10 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using ApprovalTests.Core;
 using ApprovalTests.Namers;
-using Xunit.Abstractions;
+using XunitLogger;
 
 class Namer:
     IApprovalNamer
@@ -15,9 +16,8 @@ class Namer:
         get
         {
             var context = XunitLogging.Context;
-
             var directory = Path.GetDirectoryName(context.SourceFile);
-            if (TryGetSubdirectoryFromAttribute(context.Test.TestCase.TestMethod, out var subDirectory))
+            if (TryGetSubdirectoryFromAttribute(context, out var subDirectory))
             {
                 return Path.Combine(directory, subDirectory);
             }
@@ -28,19 +28,21 @@ class Namer:
 
     static string subDirAttribute = typeof(UseApprovalSubdirectoryAttribute).AssemblyQualifiedName;
 
-    static bool TryGetSubdirectoryFromAttribute(ITestMethod method, [NotNullWhen(true)] out string? subDirectory)
+    static bool TryGetSubdirectoryFromAttribute(Context context, [NotNullWhen(true)] out string? subDirectory)
     {
-        var attribute = method.Method.GetCustomAttributes(subDirAttribute).SingleOrDefault();
-        if (attribute != null)
+        var method = context.MethodInfo;
+        var attribute = (UseApprovalSubdirectoryAttribute)method.GetCustomAttribute(typeof(UseApprovalSubdirectoryAttribute), true);
+        if (attribute == null)
         {
-            subDirectory = attribute.GetNamedArgument<string>("Subdirectory");
-            return true;
+            attribute = (UseApprovalSubdirectoryAttribute)method.DeclaringType.GetCustomAttribute(typeof(UseApprovalSubdirectoryAttribute), true);
         }
-
-        attribute = method.TestClass.Class.GetCustomAttributes(subDirAttribute).SingleOrDefault();
+        if (attribute == null)
+        {
+            attribute = (UseApprovalSubdirectoryAttribute)method.DeclaringType.Assembly.GetCustomAttribute(typeof(UseApprovalSubdirectoryAttribute));
+        }
         if (attribute != null)
         {
-            subDirectory = attribute.GetNamedArgument<string>("Subdirectory");
+            subDirectory = attribute.Subdirectory;
             return true;
         }
 
