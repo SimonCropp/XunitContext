@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using ApprovalTests.Core;
 using ApprovalTests.Namers;
@@ -26,19 +25,16 @@ class Namer:
         }
     }
 
-    static string subDirAttribute = typeof(UseApprovalSubdirectoryAttribute).AssemblyQualifiedName;
-
     static bool TryGetSubdirectoryFromAttribute(Context context, [NotNullWhen(true)] out string? subDirectory)
     {
-        var method = context.MethodInfo;
-        var attribute = (UseApprovalSubdirectoryAttribute)method.GetCustomAttribute(typeof(UseApprovalSubdirectoryAttribute), true);
+        var attribute = (UseApprovalSubdirectoryAttribute)context.MethodInfo.GetCustomAttribute(typeof(UseApprovalSubdirectoryAttribute), true);
         if (attribute == null)
         {
-            attribute = (UseApprovalSubdirectoryAttribute)method.DeclaringType.GetCustomAttribute(typeof(UseApprovalSubdirectoryAttribute), true);
+            attribute = (UseApprovalSubdirectoryAttribute)context.TestType.GetCustomAttribute(typeof(UseApprovalSubdirectoryAttribute), true);
         }
         if (attribute == null)
         {
-            attribute = (UseApprovalSubdirectoryAttribute)method.DeclaringType.Assembly.GetCustomAttribute(typeof(UseApprovalSubdirectoryAttribute));
+            attribute = (UseApprovalSubdirectoryAttribute)context.TestType.Assembly.GetCustomAttribute(typeof(UseApprovalSubdirectoryAttribute));
         }
         if (attribute != null)
         {
