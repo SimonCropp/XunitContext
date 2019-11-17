@@ -1,8 +1,7 @@
 ﻿using System.Threading.Tasks;
+using ApprovalTests;
 using Xunit;
 using Xunit.Abstractions;
-using Xunit.ApprovalTests;
-
 
 public class TestClass0 :
     XunitApprovalBase

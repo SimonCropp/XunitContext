@@ -1,6 +1,5 @@
 ﻿using System.Runtime.CompilerServices;
 using Xunit.Abstractions;
-using Xunit.ApprovalTests;
 
 public abstract class XunitApprovalBase :
     XunitLoggingBase
@@ -10,12 +9,12 @@ public abstract class XunitApprovalBase :
         [CallerFilePath] string sourceFile = "") :
         base(output, sourceFile)
     {
-        Approvals.SetTestData(Context.TestType, Context.MethodInfo);
+     //   Approvals.SetTestData(Context.TestType, Context.MethodInfo);
     }
 
-    public override void Dispose()
-    {
-        base.Dispose();
-        Approvals.ClearTestData();
-    }
+    //public override void Dispose()
+    //{
+    //    base.Dispose();
+    //    Approvals.ClearTestData();
+    //}
 }
