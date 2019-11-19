@@ -8,7 +8,7 @@
     <Compile Remove="Approvals.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="ApprovalTests" Version="4.3.0" />
+    <PackageReference Include="ApprovalTests" Version="4.4.0" />
     <PackageReference Include="Fody" Version="6.0.5" PrivateAssets="all" />
     <PackageReference Include="ModuleInit.Fody" Version="2.1.0" PrivateAssets="All" />
     <PackageReference Include="Nullable" Version="1.1.1" PrivateAssets="All" />
