@@ -5,7 +5,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="ApprovalTests" Version="4.3.0" />
+    <PackageReference Include="ApprovalTests" Version="4.4.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.6.0" />
     <PackageReference Include="MarkdownSnippets.MsBuild" Version="17.0.0" PrivateAssets="all" />
     <PackageReference Include="ObjectApproval" Version="11.2.1" />

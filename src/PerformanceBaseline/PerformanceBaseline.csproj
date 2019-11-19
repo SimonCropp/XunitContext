@@ -7,7 +7,7 @@
   <ItemGroup>
     <None Remove="*.approved.txt" />
 
-    <PackageReference Include="ApprovalTests" Version="4.3.0" />
+    <PackageReference Include="ApprovalTests" Version="4.4.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.6.0" />
     <PackageReference Include="Xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
