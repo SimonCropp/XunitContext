@@ -14,6 +14,6 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
     <ProjectReference Include="..\Xunit.ApprovalTests\Xunit.ApprovalTests.csproj" />
     <ProjectReference Include="..\XunitLogger\XunitLogger.csproj" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.30" PrivateAssets="All" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.32" PrivateAssets="All" />
   </ItemGroup>
 </Project>
