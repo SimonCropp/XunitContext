@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace XunitLogger
+namespace Xunit
 {
     public partial class Context
     {

@@ -4,51 +4,53 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using Xunit.Abstractions;
-using XunitLogger;
 
-public static class XunitContext
+namespace Xunit
 {
-    static AsyncLocal<Context?> loggingContext = new AsyncLocal<Context?>();
-    static bool enableExceptionCapture;
-
-    public static void EnableExceptionCapture()
+    public static class XunitContext
     {
-        if (enableExceptionCapture)
+        static AsyncLocal<Context?> loggingContext = new AsyncLocal<Context?>();
+        static bool enableExceptionCapture;
+
+        public static void EnableExceptionCapture()
         {
-            return;
+            if (enableExceptionCapture)
+            {
+                return;
+            }
+
+            enableExceptionCapture = true;
+            AppDomain.CurrentDomain.FirstChanceException += (sender, e) =>
+            {
+                if (loggingContext.Value == null)
+                {
+                    return;
+                }
+
+                if (loggingContext.Value.flushed)
+                {
+                    return;
+                }
+
+                loggingContext.Value.Exception = e.Exception;
+            };
         }
 
-        enableExceptionCapture = true;
-        AppDomain.CurrentDomain.FirstChanceException += (sender, e) =>
+
+        public static void Init()
         {
-            if (loggingContext.Value == null)
-            {
-                return;
-            }
+            var useGlobalLock = Trace.UseGlobalLock;
+            Trace.UseGlobalLock = true;
+            InnerInit();
+            Trace.UseGlobalLock = useGlobalLock;
+        }
 
-            if (loggingContext.Value.flushed)
-            {
-                return;
-            }
-            loggingContext.Value.Exception = e.Exception;
-        };
-    }
+        private static void InnerInit()
+        {
+            #region writeRedirects
 
-
-    public static void Init()
-    {
-        var useGlobalLock = Trace.UseGlobalLock;
-        Trace.UseGlobalLock = true;
-        InnerInit();
-        Trace.UseGlobalLock = useGlobalLock;
-    }
-
-    private static void InnerInit()
-    {
-        #region writeRedirects
-
-        Trace.Listeners.Clear();
-        Trace.Listeners.Add(new TraceListener());
+            Trace.Listeners.Clear();
+            Trace.Listeners.Add(new TraceListener());
 #if (NETSTANDARD)
         DebugPoker.Overwrite(
             text =>
@@ -67,103 +69,104 @@ public static class XunitContext
                 Write(text);
             });
 #else
-        Debug.Listeners.Clear();
-        Debug.Listeners.Add(new TraceListener());
+            Debug.Listeners.Clear();
+            Debug.Listeners.Add(new TraceListener());
 #endif
-        var writer = new TestWriter();
-        Console.SetOut(writer);
-        Console.SetError(writer);
+            var writer = new TestWriter();
+            Console.SetOut(writer);
+            Console.SetError(writer);
 
-        #endregion
-    }
+            #endregion
+        }
 
-    public static void Write(string value)
-    {
-        Guard.AgainstNull(value, nameof(value));
-        Context.Write(value);
-    }
+        public static void Write(string value)
+        {
+            Guard.AgainstNull(value, nameof(value));
+            Context.Write(value);
+        }
 
-    public static IReadOnlyList<string> Logs
-    {
-        get
+        public static IReadOnlyList<string> Logs
+        {
+            get
+            {
+                var context = loggingContext.Value;
+                if (context == null)
+                {
+                    throw new Exception("No current context.");
+                }
+
+                return context.LogMessages;
+            }
+        }
+
+        public static void Write(char value)
+        {
+            Context.Write(value);
+        }
+
+        public static void WriteLine()
+        {
+            Context.WriteLine();
+        }
+
+        public static void WriteLine(string value)
+        {
+            Context.WriteLine(value);
+        }
+
+        public static IReadOnlyList<string> Flush()
         {
             var context = loggingContext.Value;
             if (context == null)
             {
-                throw new Exception("No current context.");
+                throw new Exception("No context to flush.");
             }
 
-            return context.LogMessages;
-        }
-    }
-
-    public static void Write(char value)
-    {
-        Context.Write(value);
-    }
-
-    public static void WriteLine()
-    {
-        Context.WriteLine();
-    }
-
-    public static void WriteLine(string value)
-    {
-        Context.WriteLine(value);
-    }
-
-    public static IReadOnlyList<string> Flush()
-    {
-        var context = loggingContext.Value;
-        if (context == null)
-        {
-            throw new Exception("No context to flush.");
+            context.Flush();
+            var messages = context.LogMessages;
+            loggingContext.Value = null;
+            return messages;
         }
 
-        context.Flush();
-        var messages = context.LogMessages;
-        loggingContext.Value = null;
-        return messages;
-    }
-
-    public static Context Context
-    {
-        get
+        public static Context Context
         {
-            var context = loggingContext.Value;
-            if (context != null)
+            get
             {
+                var context = loggingContext.Value;
+                if (context != null)
+                {
+                    return context;
+                }
+
+                context = new Context();
+                loggingContext.Value = context;
+                return context;
+            }
+        }
+
+        public static Context Register(
+            ITestOutputHelper output,
+            [CallerFilePath] string sourceFile = "")
+        {
+            Guard.AgainstNull(output, nameof(output));
+            Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
+            var existingContext = loggingContext.Value;
+
+            if (existingContext == null)
+            {
+                var context = new Context(output, sourceFile);
+                loggingContext.Value = context;
                 return context;
             }
 
-            context = new Context();
-            loggingContext.Value = context;
-            return context;
+            if (existingContext.TestOutput != null)
+            {
+                throw new Exception("A ITestOutputHelper has already been registered.");
+            }
+
+            existingContext.TestOutput = output;
+            existingContext.SourceFile = sourceFile;
+            return existingContext;
         }
-    }
-
-    public static Context Register(
-        ITestOutputHelper output,
-        [CallerFilePath] string sourceFile = "")
-    {
-        Guard.AgainstNull(output, nameof(output));
-        Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
-        var existingContext = loggingContext.Value;
-
-        if (existingContext == null)
-        {
-            var context = new Context(output, sourceFile);
-            loggingContext.Value = context;
-            return context;
-        }
-
-        if (existingContext.TestOutput != null)
-        {
-            throw new Exception("A ITestOutputHelper has already been registered.");
-        }
-
-        existingContext.TestOutput = output;
-        existingContext.SourceFile = sourceFile;
-        return existingContext;
     }
 }

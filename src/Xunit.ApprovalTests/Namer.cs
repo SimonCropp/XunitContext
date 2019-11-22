@@ -3,7 +3,7 @@ using System.IO;
 using System.Reflection;
 using ApprovalTests.Core;
 using ApprovalTests.Namers;
-using XunitLogger;
+using Xunit;
 
 class Namer:
     IApprovalNamer

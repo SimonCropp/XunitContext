@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace XunitLogger
+namespace Xunit
 {
     public class GuidCounter
     {

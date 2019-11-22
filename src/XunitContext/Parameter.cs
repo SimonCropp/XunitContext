@@ -1,6 +1,6 @@
 ﻿using Xunit.Abstractions;
 
-namespace XunitLogger
+namespace Xunit
 {
     public class Parameter
     {

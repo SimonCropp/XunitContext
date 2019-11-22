@@ -1,6 +1,5 @@
 ﻿using Xunit;
 using Xunit.Abstractions;
-using XunitLogger;
 
 public class FilterSample :
     XunitContextBase

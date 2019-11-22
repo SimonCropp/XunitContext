@@ -1,4 +1,6 @@
-﻿static class ModuleInitializer
+﻿using Xunit;
+
+static class ModuleInitializer
 {
     public static void Initialize()
     {

@@ -1,6 +1,5 @@
 ﻿using System;
 using Xunit;
-using XunitLogger;
 
 public class MissingRegister
 {

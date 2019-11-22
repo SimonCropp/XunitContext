@@ -164,21 +164,21 @@ Trace.Listeners.Clear();
 Trace.Listeners.Add(new TraceListener());
 #if (NETSTANDARD)
 DebugPoker.Overwrite(
-    text =>
+text =>
+{
+    if (string.IsNullOrEmpty(text))
     {
-        if (string.IsNullOrEmpty(text))
-        {
-            return;
-        }
+        return;
+    }
 
-        if (text.EndsWith(Environment.NewLine))
-        {
-            WriteLine(text.TrimTrailingNewline());
-            return;
-        }
+    if (text.EndsWith(Environment.NewLine))
+    {
+        WriteLine(text.TrimTrailingNewline());
+        return;
+    }
 
-        Write(text);
-    });
+    Write(text);
+});
 #else
 Debug.Listeners.Clear();
 Debug.Listeners.Add(new TraceListener());
@@ -187,7 +187,7 @@ var writer = new TestWriter();
 Console.SetOut(writer);
 Console.SetError(writer);
 ```
-<sup>[snippet source](/src/XunitContext/XunitContext.cs#L48-L77) / [anchor](#snippet-writeredirects)</sup>
+<sup>[snippet source](/src/XunitContext/XunitContext.cs#L50-L79) / [anchor](#snippet-writeredirects)</sup>
 <!-- endsnippet -->
 
 These API calls are then routed to the correct xUnit [ITestOutputHelper](https://xunit.net/docs/capturing-output) via a static [AsyncLocal](https://docs.microsoft.com/en-us/dotnet/api/system.threading.asynclocal-1).
@@ -210,7 +210,6 @@ Approaches to routing common logging libraries to Diagnostics.Trace:
 ```cs
 using Xunit;
 using Xunit.Abstractions;
-using XunitLogger;
 
 public class FilterSample :
     XunitContextBase
@@ -239,7 +238,7 @@ public class FilterSample :
     }
 }
 ```
-<sup>[snippet source](/src/XunitContext.Tests/Snippets/FilterSample.cs#L1-L30) / [anchor](#snippet-FilterSample.cs)</sup>
+<sup>[snippet source](/src/XunitContext.Tests/Snippets/FilterSample.cs#L1-L29) / [anchor](#snippet-FilterSample.cs)</sup>
 <!-- endsnippet -->
 
 Filters are static and shared for all tests.
@@ -436,7 +435,7 @@ using System.Reflection;
 using Xunit.Abstractions;
 using Xunit.Sdk;
 
-namespace XunitLogger
+namespace Xunit
 {
     public partial class Context
     {
@@ -580,7 +579,7 @@ var counter = new GuidCounter();
 var localCurrent = counter.Current;
 var localNext = counter.Next();
 ```
-<sup>[snippet source](/src/XunitContext.Tests/Snippets/CountersSample.cs#L9-L17) / [anchor](#snippet-nontestcontextusage)</sup>
+<sup>[snippet source](/src/XunitContext.Tests/Snippets/CountersSample.cs#L8-L16) / [anchor](#snippet-nontestcontextusage)</sup>
 <!-- endsnippet -->
 
 
@@ -591,7 +590,7 @@ var localNext = counter.Next();
 ```cs
 using System;
 
-namespace XunitLogger
+namespace Xunit
 {
     public partial class Context
     {
@@ -661,7 +660,7 @@ namespace XunitLogger
 ```cs
 using System;
 
-namespace XunitLogger
+namespace Xunit
 {
     public static class Counters
     {
@@ -732,7 +731,7 @@ namespace XunitLogger
 using System;
 using System.Threading;
 
-namespace XunitLogger
+namespace Xunit
 {
     public class GuidCounter
     {
@@ -766,7 +765,7 @@ namespace XunitLogger
 ```cs
 using System.Threading;
 
-namespace XunitLogger
+namespace Xunit
 {
     public class LongCounter
     {
@@ -806,7 +805,7 @@ public class CustomBase :
     }
 }
 ```
-<sup>[snippet source](/src/XunitContext.Tests/Snippets/CustomBase.cs#L4-L15) / [anchor](#snippet-xunitcontextcustombase)</sup>
+<sup>[snippet source](/src/XunitContext.Tests/Snippets/CustomBase.cs#L5-L16) / [anchor](#snippet-xunitcontextcustombase)</sup>
 <!-- endsnippet -->
 
 

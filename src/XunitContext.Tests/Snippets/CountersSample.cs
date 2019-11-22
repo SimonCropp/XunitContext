@@ -1,5 +1,4 @@
 ﻿using Xunit;
-using XunitLogger;
 
 public class CountersSample
 {

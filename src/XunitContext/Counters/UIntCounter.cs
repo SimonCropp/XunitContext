@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 
-namespace XunitLogger
+namespace Xunit
 {
     public class UIntCounter
     {

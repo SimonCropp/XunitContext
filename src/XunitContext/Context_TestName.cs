@@ -2,7 +2,7 @@
 using System.Text;
 using Xunit.Abstractions;
 
-namespace XunitLogger
+namespace Xunit
 {
     public partial class Context
     {

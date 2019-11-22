@@ -1,4 +1,6 @@
-﻿class TraceListener : System.Diagnostics.TraceListener
+﻿using Xunit;
+
+class TraceListener : System.Diagnostics.TraceListener
 {
     public override void Write(string value)
     {

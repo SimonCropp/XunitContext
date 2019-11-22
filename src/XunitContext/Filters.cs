@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 
-namespace XunitLogger
+namespace Xunit
 {
     public static class Filters
     {

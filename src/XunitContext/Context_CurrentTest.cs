@@ -3,7 +3,7 @@ using System.Reflection;
 using Xunit.Abstractions;
 using Xunit.Sdk;
 
-namespace XunitLogger
+namespace Xunit
 {
     public partial class Context
     {
