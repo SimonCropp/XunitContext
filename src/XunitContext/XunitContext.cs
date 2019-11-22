@@ -9,7 +9,7 @@ namespace Xunit
 {
     public static class XunitContext
     {
-        static AsyncLocal<Context?> loggingContext = new AsyncLocal<Context?>();
+        static AsyncLocal<Context?> local = new AsyncLocal<Context?>();
         static bool enableExceptionCapture;
 
         public static void EnableExceptionCapture()
@@ -22,17 +22,17 @@ namespace Xunit
             enableExceptionCapture = true;
             AppDomain.CurrentDomain.FirstChanceException += (sender, e) =>
             {
-                if (loggingContext.Value == null)
+                if (local.Value == null)
                 {
                     return;
                 }
 
-                if (loggingContext.Value.flushed)
+                if (local.Value.flushed)
                 {
                     return;
                 }
 
-                loggingContext.Value.Exception = e.Exception;
+                local.Value.Exception = e.Exception;
             };
         }
 
@@ -89,7 +89,7 @@ namespace Xunit
         {
             get
             {
-                var context = loggingContext.Value;
+                var context = local.Value;
                 if (context == null)
                 {
                     throw new Exception("No current context.");
@@ -116,7 +116,7 @@ namespace Xunit
 
         public static IReadOnlyList<string> Flush()
         {
-            var context = loggingContext.Value;
+            var context = local.Value;
             if (context == null)
             {
                 throw new Exception("No context to flush.");
@@ -124,7 +124,7 @@ namespace Xunit
 
             context.Flush();
             var messages = context.LogMessages;
-            loggingContext.Value = null;
+            local.Value = null;
             return messages;
         }
 
@@ -132,14 +132,14 @@ namespace Xunit
         {
             get
             {
-                var context = loggingContext.Value;
+                var context = local.Value;
                 if (context != null)
                 {
                     return context;
                 }
 
                 context = new Context();
-                loggingContext.Value = context;
+                local.Value = context;
                 return context;
             }
         }
@@ -150,12 +150,12 @@ namespace Xunit
         {
             Guard.AgainstNull(output, nameof(output));
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
-            var existingContext = loggingContext.Value;
+            var existingContext = local.Value;
 
             if (existingContext == null)
             {
                 var context = new Context(output, sourceFile);
-                loggingContext.Value = context;
+                local.Value = context;
                 return context;
             }
 

@@ -77,7 +77,7 @@ namespace Xunit
         {
             if (flushed)
             {
-                throw new Exception($"Logging context has been flushed. Could not write the string: {logText}");
+                throw new Exception($"Context has been flushed. Could not write the string: {logText}");
             }
         }
 

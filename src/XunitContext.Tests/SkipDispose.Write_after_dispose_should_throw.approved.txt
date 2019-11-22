@@ -1,5 +1,5 @@
 ﻿{
-  Message: 'Logging context has been flushed. Could not write the string: Environment.NewLine',
+  Message: 'Context has been flushed. Could not write the string: Environment.NewLine',
   Data: {},
   Source: 'XunitContext'
 }
