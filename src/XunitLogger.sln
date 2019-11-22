@@ -19,10 +19,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xunit.ApprovalTests", "Xuni
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xunit.ApprovalTests.Tests", "Xunit.ApprovalTests.Tests\Xunit.ApprovalTests.Tests.csproj", "{7D7B7466-BAAA-4D07-9F8B-726B49AC0EFC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PerformanceBaseline", "PerformanceBaseline\PerformanceBaseline.csproj", "{C8FAC3EE-17A6-4EB2-BE0B-8AA4B26DEEEB}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xunit.ApprovalTests.Performance", "Xunit.ApprovalTests.Performance\Xunit.ApprovalTests.Performance.csproj", "{BA7F1064-D79B-48EB-8B4B-96841C1E36E5}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,14 +41,6 @@ Global
 		{7D7B7466-BAAA-4D07-9F8B-726B49AC0EFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D7B7466-BAAA-4D07-9F8B-726B49AC0EFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D7B7466-BAAA-4D07-9F8B-726B49AC0EFC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C8FAC3EE-17A6-4EB2-BE0B-8AA4B26DEEEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C8FAC3EE-17A6-4EB2-BE0B-8AA4B26DEEEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C8FAC3EE-17A6-4EB2-BE0B-8AA4B26DEEEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C8FAC3EE-17A6-4EB2-BE0B-8AA4B26DEEEB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BA7F1064-D79B-48EB-8B4B-96841C1E36E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BA7F1064-D79B-48EB-8B4B-96841C1E36E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BA7F1064-D79B-48EB-8B4B-96841C1E36E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BA7F1064-D79B-48EB-8B4B-96841C1E36E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
