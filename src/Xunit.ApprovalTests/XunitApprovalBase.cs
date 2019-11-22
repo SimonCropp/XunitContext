@@ -1,8 +1,9 @@
 ﻿using System.Runtime.CompilerServices;
+using Xunit;
 using Xunit.Abstractions;
 
 public abstract class XunitApprovalBase :
-    XunitLoggingBase
+    XunitContextBase
 {
     protected XunitApprovalBase(
         ITestOutputHelper output,
