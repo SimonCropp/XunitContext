@@ -14,7 +14,7 @@ class Namer:
     {
         get
         {
-            var context = XunitLogging.Context;
+            var context = XunitContext.Context;
             var directory = Path.GetDirectoryName(context.SourceFile);
             if (TryGetSubdirectoryFromAttribute(context, out var subDirectory))
             {
@@ -58,6 +58,6 @@ class Namer:
 
     public string Name
     {
-        get => $"{XunitLogging.Context.UniqueTestName}{AdditionalInfo()}";
+        get => $"{XunitContext.Context.UniqueTestName}{AdditionalInfo()}";
     }
 }

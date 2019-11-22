@@ -1,0 +1,16 @@
+﻿<Project>
+  <PropertyGroup>
+    <BuildDependsOn>
+        $(BuildDependsOn);
+        Validate_NetFx_472_Or_Higher
+    </BuildDependsOn>
+  </PropertyGroup>
+  <Target Name="Validate_NetFx_472_Or_Higher"
+          Condition="$(TargetFrameworkIdentifier) == '.NETFramework'">
+    <Error Condition="'$(TargetFrameworkVersion)' == 'v4.6.1' OR
+                      '$(TargetFrameworkVersion)' == 'v4.6.2' OR
+                      '$(TargetFrameworkVersion)' == 'v4.7' OR
+                      '$(TargetFrameworkVersion)' == 'v4.7.1'"
+           Text="XunitContext is only supported on .NET Framework 4.7.2 or higher." />
+  </Target>
+</Project>
