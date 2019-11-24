@@ -35,7 +35,7 @@ namespace Xunit
             get => GuidCounter.Current;
         }
 
-        public int Next<T>(T input)
+        public int IntOrNext<T>(T input)
         {
             if (input is Guid guidInput)
             {
