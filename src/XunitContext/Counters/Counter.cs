@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
 using System.Threading;
 
 namespace Xunit
 {
     public abstract class Counter<T>
     {
-        Dictionary<T, int> cache = new Dictionary<T, int>();
+        ConcurrentDictionary<T, int> cache = new ConcurrentDictionary<T, int>();
         int current;
 
         protected abstract T Convert(int i);
@@ -15,13 +15,17 @@ namespace Xunit
             get => Convert(current);
         }
 
-        public T Next(T input)
+        public int IntOrNext(T input)
         {
             if (cache.TryGetValue(input, out var cached))
             {
-                return Convert(cached);
+                return cached;
             }
-            return Next();
+
+            var increment = Interlocked.Increment(ref current);
+            var convert = Convert(increment);
+            cache[convert] = increment;
+            return increment;
         }
 
         public T Next()
