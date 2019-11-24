@@ -35,6 +35,31 @@ namespace Xunit
             get => GuidCounter.Current;
         }
 
+        public uint NextUInt(uint input)
+        {
+            return UIntCounter.Next(input);
+        }
+
+        public int NextInt(int input)
+        {
+            return IntCounter.Next(input);
+        }
+
+        public long NextLong(long input)
+        {
+            return LongCounter.Next(input);
+        }
+
+        public ulong NextULong(ulong input)
+        {
+            return ULongCounter.Next(input);
+        }
+
+        public Guid NextGuid(Guid input)
+        {
+            return GuidCounter.Next(input);
+        }
+
         public uint NextUInt()
         {
             return UIntCounter.Next();
