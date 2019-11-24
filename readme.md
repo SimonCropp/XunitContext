@@ -8,8 +8,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 # <img src="/src/icon.png" height="30px"> XunitContext
 
 [![Build status](https://ci.appveyor.com/api/projects/status/sdg2ni2jhe2o33le/branch/master?svg=true)](https://ci.appveyor.com/project/SimonCropp/XunitContext)
-[![NuGet Status](https://img.shields.io/nuget/v/XunitContext.svg?label=XunitContext&cacheSeconds=86400)](https://www.nuget.org/packages/XunitContext/)
-[![NuGet Status](https://img.shields.io/nuget/v/Xunit.ApprovalTests.svg?label=Xunit.ApprovalTests&cacheSeconds=86400)](https://www.nuget.org/packages/Xunit.ApprovalTests/)
+[![NuGet Status](https://img.shields.io/nuget/v/XunitContext.svg?cacheSeconds=86400)](https://www.nuget.org/packages/XunitContext/)
 
 Extends [xUnit](https://xunit.net/) to expose extra context and simplify logging.
 
@@ -33,14 +32,6 @@ Uses [AsyncLocal](https://docs.microsoft.com/en-us/dotnet/api/system.threading.a
     * [Base Class](#base-class)
     * [Parameters](#parameters)
     * [UniqueTestName](#uniquetestname)
-  * [Xunit.ApprovalTests](#xunitapprovaltests)
-    * [NuGet package](#nuget-package-1)
-    * [Usage](#usage)
-    * [xUnit Theory](#xunit-theory)
-    * [AsEnvironmentSpecificTest](#asenvironmentspecifictest)
-    * [UseApprovalSubdirectory](#useapprovalsubdirectory)
-    * [ForScenario](#forscenario)
-    * [Base Class](#base-class-1)
 <!-- endtoc -->
 
 
@@ -69,7 +60,7 @@ static class ClassBeingTested
     }
 }
 ```
-<sup>[snippet source](/src/XunitContext.Tests/Snippets/ClassBeingTested.cs#L1-L13) / [anchor](#snippet-ClassBeingTested.cs)</sup>
+<sup>[snippet source](/src/Tests/Snippets/ClassBeingTested.cs#L1-L13) / [anchor](#snippet-ClassBeingTested.cs)</sup>
 <!-- endsnippet -->
 
 
@@ -107,7 +98,7 @@ public class TestBaseSample  :
     }
 }
 ```
-<sup>[snippet source](/src/XunitContext.Tests/Snippets/TestBaseSample.cs#L1-L26) / [anchor](#snippet-TestBaseSample.cs)</sup>
+<sup>[snippet source](/src/Tests/Snippets/TestBaseSample.cs#L1-L26) / [anchor](#snippet-TestBaseSample.cs)</sup>
 <!-- endsnippet -->
 
 
@@ -152,7 +143,7 @@ public class XunitLoggerSample :
     }
 }
 ```
-<sup>[snippet source](/src/XunitContext.Tests/Snippets/XunitLoggerSample.cs#L1-L33) / [anchor](#snippet-XunitLoggerSample.cs)</sup>
+<sup>[snippet source](/src/Tests/Snippets/XunitLoggerSample.cs#L1-L33) / [anchor](#snippet-XunitLoggerSample.cs)</sup>
 <!-- endsnippet -->
 
 `XunitContext` redirects [Trace.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.trace.write), [Console.Write](https://docs.microsoft.com/en-us/dotnet/api/system.console.write), and [Debug.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.debug.write) in its static constructor.
@@ -238,7 +229,7 @@ public class FilterSample :
     }
 }
 ```
-<sup>[snippet source](/src/XunitContext.Tests/Snippets/FilterSample.cs#L1-L29) / [anchor](#snippet-FilterSample.cs)</sup>
+<sup>[snippet source](/src/Tests/Snippets/FilterSample.cs#L1-L29) / [anchor](#snippet-FilterSample.cs)</sup>
 <!-- endsnippet -->
 
 Filters are static and shared for all tests.
@@ -297,7 +288,7 @@ public class ContextSample  :
     }
 }
 ```
-<sup>[snippet source](/src/XunitContext.Tests/Snippets/ContextSample.cs#L1-L35) / [anchor](#snippet-ContextSample.cs)</sup>
+<sup>[snippet source](/src/Tests/Snippets/ContextSample.cs#L1-L35) / [anchor](#snippet-ContextSample.cs)</sup>
 <!-- endsnippet -->
 
 Some members are pushed down to the be accessible directly from `XunitContextBase`:
@@ -335,7 +326,7 @@ public class ContextPushedDownSample  :
     }
 }
 ```
-<sup>[snippet source](/src/XunitContext.Tests/Snippets/ContextPushedDownSample.cs#L1-L29) / [anchor](#snippet-ContextPushedDownSample.cs)</sup>
+<sup>[snippet source](/src/Tests/Snippets/ContextPushedDownSample.cs#L1-L29) / [anchor](#snippet-ContextPushedDownSample.cs)</sup>
 <!-- endsnippet -->
 
 Context can accessed via a static API:
@@ -379,7 +370,7 @@ public class ContextStaticSample :
     }
 }
 ```
-<sup>[snippet source](/src/XunitContext.Tests/Snippets/ContextStaticSample.cs#L1-L35) / [anchor](#snippet-ContextStaticSample.cs)</sup>
+<sup>[snippet source](/src/Tests/Snippets/ContextStaticSample.cs#L1-L35) / [anchor](#snippet-ContextStaticSample.cs)</sup>
 <!-- endsnippet -->
 
 
@@ -422,7 +413,7 @@ public class CurrentTestSample :
     }
 }
 ```
-<sup>[snippet source](/src/XunitContext.Tests/Snippets/CurrentTestSample.cs#L1-L27) / [anchor](#snippet-CurrentTestSample.cs)</sup>
+<sup>[snippet source](/src/Tests/Snippets/CurrentTestSample.cs#L1-L27) / [anchor](#snippet-CurrentTestSample.cs)</sup>
 <!-- endsnippet -->
 
 Implementation:
@@ -555,7 +546,7 @@ public class TestExceptionSample :
     }
 }
 ```
-<sup>[snippet source](/src/XunitContext.Tests/Snippets/TestExceptionSample.cs#L6-L37) / [anchor](#snippet-testexceptionsample)</sup>
+<sup>[snippet source](/src/Tests/Snippets/TestExceptionSample.cs#L6-L37) / [anchor](#snippet-testexceptionsample)</sup>
 <!-- endsnippet -->
 
 
@@ -579,7 +570,7 @@ var counter = new GuidCounter();
 var localCurrent = counter.Current;
 var localNext = counter.Next();
 ```
-<sup>[snippet source](/src/XunitContext.Tests/Snippets/CountersSample.cs#L8-L16) / [anchor](#snippet-nontestcontextusage)</sup>
+<sup>[snippet source](/src/Tests/Snippets/CountersSample.cs#L8-L16) / [anchor](#snippet-nontestcontextusage)</sup>
 <!-- endsnippet -->
 
 
@@ -805,7 +796,7 @@ public class CustomBase :
     }
 }
 ```
-<sup>[snippet source](/src/XunitContext.Tests/Snippets/CustomBase.cs#L5-L16) / [anchor](#snippet-xunitcontextcustombase)</sup>
+<sup>[snippet source](/src/Tests/Snippets/CustomBase.cs#L5-L16) / [anchor](#snippet-xunitcontextcustombase)</sup>
 <!-- endsnippet -->
 
 
@@ -848,7 +839,7 @@ public class ParametersSample :
     }
 }
 ```
-<sup>[snippet source](/src/XunitContext.Tests/Snippets/ParametersSample.cs#L1-L29) / [anchor](#snippet-ParametersSample.cs)</sup>
+<sup>[snippet source](/src/Tests/Snippets/ParametersSample.cs#L1-L29) / [anchor](#snippet-ParametersSample.cs)</sup>
 <!-- endsnippet -->
 
 
@@ -910,7 +901,7 @@ public class UniqueTestNameSample :
     }
 }
 ```
-<sup>[snippet source](/src/XunitContext.Tests/Snippets/UniqueTestNameSample.cs#L1-L19) / [anchor](#snippet-UniqueTestNameSample.cs)</sup>
+<sup>[snippet source](/src/Tests/Snippets/UniqueTestNameSample.cs#L1-L19) / [anchor](#snippet-UniqueTestNameSample.cs)</sup>
 <!-- endsnippet -->
 
 
@@ -949,164 +940,6 @@ string GetUniqueTestName(ITestCase testCase)
 <sup>[snippet source](/src/XunitContext/Context_TestName.cs#L26-L53) / [anchor](#snippet-uniquetestname)</sup>
 <!-- endsnippet -->
 
-
-
-## Xunit.ApprovalTests
-
-The default behavior of ApprovalTests uses the [StackTrace](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.stacktrace) to derive the current test and hence compute the name of the approval file. This has several drawbacks/issues:
-
- * Fragility: Deriving the test name from a stack trace is dependent on several things to be configured correctly. Optimization must be disabled to avoid in-lining and debug symbols enabled and parsable.
- * Performance impact: Computing a stack trace is a relatively expensive operation. Disabling optimization also impacts performance
-
-Xunit.ApprovalTests avoids these problems by using the current xUnit context to derive the approval file name.
-
-
-### NuGet package
-
-https://nuget.org/packages/Xunit.ApprovalTests/
-
-
-### Usage
-
-Usage is done via inheriting from a base class `XunitApprovalBase`
-
-<!-- snippet: XunitApprovalBaseUsage -->
-<a id='snippet-xunitapprovalbaseusage'/></a>
-```cs
-public class Sample :
-    XunitApprovalBase
-{
-    [Fact]
-    public void Simple()
-    {
-        Approvals.Verify("SimpleResult");
-    }
-
-    public Sample(ITestOutputHelper testOutput) :
-        base(testOutput)
-    {
-    }
-```
-<sup>[snippet source](/src/Xunit.ApprovalTests.Tests/Snippets/Sample.cs#L6-L20) / [anchor](#snippet-xunitapprovalbaseusage)</sup>
-<!-- endsnippet -->
-
-
-### xUnit Theory
-
-[xUnit Theories](https://xunit.net/docs/getting-started/netfx/visual-studio#write-first-theory) are supported.
-
-<!-- snippet: Theory -->
-<a id='snippet-theory'/></a>
-```cs
-[Theory]
-[InlineData("Foo")]
-[InlineData(9)]
-[InlineData(true)]
-public void Theory(object value)
-{
-    Approvals.Verify(value);
-}
-```
-<sup>[snippet source](/src/Xunit.ApprovalTests.Tests/Snippets/Sample.cs#L53-L62) / [anchor](#snippet-theory)</sup>
-<!-- endsnippet -->
-
-Will result in the following `.approved.` files:
-
- * `Sample.Theory_value=Foo.approved.txt`
- * `Sample.Theory_value=9.approved.txt`
- * `Sample.Theory_value=True.approved.txt`
-
-
-### AsEnvironmentSpecificTest
-
-ApprovalTests `NamerFactory.AsEnvironmentSpecificTest` is supported.
-
-<!-- snippet: AsEnvironmentSpecificTest -->
-<a id='snippet-asenvironmentspecifictest'/></a>
-```cs
-[Fact]
-public void AsEnvironmentSpecificTest()
-{
-    using (NamerFactory.AsEnvironmentSpecificTest("Foo"))
-    {
-        Approvals.Verify("Value");
-    }
-}
-```
-<sup>[snippet source](/src/Xunit.ApprovalTests.Tests/Snippets/Sample.cs#L31-L40) / [anchor](#snippet-asenvironmentspecifictest)</sup>
-<!-- endsnippet -->
-
-Will result in the following `.approved.` file:
-
- * `Sample.AsEnvironmentSpecificTest_Foo.approved.txt`
-
-
-### UseApprovalSubdirectory
-
-ApprovalTests `[UseApprovalSubdirectory]` is supported.
-
-<!-- snippet: UseApprovalSubdirectory -->
-<a id='snippet-useapprovalsubdirectory'/></a>
-```cs
-[Fact]
-[UseApprovalSubdirectory("SubDir")]
-public void InSubDir()
-{
-    Approvals.Verify("SimpleResult");
-}
-```
-<sup>[snippet source](/src/Xunit.ApprovalTests.Tests/Snippets/Sample.cs#L22-L29) / [anchor](#snippet-useapprovalsubdirectory)</sup>
-<!-- endsnippet -->
-
-Will result in the following `.approved.` file:
-
- * `SubDir\Sample.InSubDir.approved.txt`
-
-
-### ForScenario
-
-ApprovalTests `ApprovalResults.ForScenario` is supported.
-
-<!-- snippet: ForScenario -->
-<a id='snippet-forscenario'/></a>
-```cs
-[Fact]
-public void ForScenarioTest()
-{
-    using (ApprovalResults.ForScenario("Name"))
-    {
-        Approvals.Verify("Value");
-    }
-}
-```
-<sup>[snippet source](/src/Xunit.ApprovalTests.Tests/Snippets/Sample.cs#L42-L51) / [anchor](#snippet-forscenario)</sup>
-<!-- endsnippet -->
-
-Will result in the following `.approved.` file:
-
- * `Sample.ForScenarioTest_ForScenario.Name.approved.txt`
-
-
-### Base Class
-
-When creating a custom base class for other tests, it is necessary to pass through the source file path to `XunitApprovalBase` via the constructor.
-
-<!-- snippet: XunitApprovalCustomBase -->
-<a id='snippet-xunitapprovalcustombase'/></a>
-```cs
-public class CustomBase :
-    XunitApprovalBase
-{
-    public CustomBase(
-        ITestOutputHelper testOutput,
-        [CallerFilePath] string sourceFile = "") :
-        base(testOutput, sourceFile)
-    {
-    }
-}
-```
-<sup>[snippet source](/src/Xunit.ApprovalTests.Tests/Snippets/CustomBase.cs#L4-L15) / [anchor](#snippet-xunitapprovalcustombase)</sup>
-<!-- endsnippet -->
 
 
 ## Release Notes
