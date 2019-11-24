@@ -40,6 +40,36 @@ namespace Xunit
             return UIntCounter.Next(input);
         }
 
+        public T Next<T>(T input)
+        {
+            if (input is Guid guidInput)
+            {
+                return (T) (object) GuidCounter.Next(guidInput);
+            }
+
+            if (input is int intInput)
+            {
+                return (T) (object) IntCounter.Next(intInput);
+            }
+
+            if (input is uint uIntInput)
+            {
+                return (T) (object) UIntCounter.Next(uIntInput);
+            }
+
+            if (input is ulong ulongInput)
+            {
+                return (T) (object) ULongCounter.Next(ulongInput);
+            }
+
+            if (input is long longInput)
+            {
+                return (T) (object) LongCounter.Next(longInput);
+            }
+
+            throw new Exception($"Unknown type {typeof(T).FullName}");
+        }
+
         public int NextInt(int input)
         {
             return IntCounter.Next(input);
