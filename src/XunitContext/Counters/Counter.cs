@@ -23,8 +23,7 @@ namespace Xunit
             }
 
             var increment = Interlocked.Increment(ref current);
-            var convert = Convert(increment);
-            cache[convert] = increment;
+            cache[input] = increment;
             return increment;
         }
 

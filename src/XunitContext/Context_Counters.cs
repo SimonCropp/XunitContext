@@ -9,6 +9,8 @@ namespace Xunit
         LongCounter LongCounter = new LongCounter();
         UIntCounter UIntCounter = new UIntCounter();
         ULongCounter ULongCounter = new ULongCounter();
+        DateTimeOffsetCounter DateTimeOffsetCounter = new DateTimeOffsetCounter();
+        DateTimeCounter DateTimeCounter = new DateTimeCounter();
 
         public uint CurrentUInt
         {
@@ -33,6 +35,16 @@ namespace Xunit
         public Guid CurrentGuid
         {
             get => GuidCounter.Current;
+        }
+
+        public DateTime CurrentDateTime
+        {
+            get => DateTimeCounter.Current;
+        }
+
+        public DateTimeOffset CurrentDateTimeOffset
+        {
+            get => DateTimeOffsetCounter.Current;
         }
 
         public int IntOrNext<T>(T input)
@@ -62,6 +74,16 @@ namespace Xunit
                 return LongCounter.IntOrNext(longInput);
             }
 
+            if (input is DateTime dateTimeInput)
+            {
+                return DateTimeCounter.IntOrNext(dateTimeInput);
+            }
+
+            if (input is DateTimeOffset dateTimeOffsetInput)
+            {
+                return DateTimeOffsetCounter.IntOrNext(dateTimeOffsetInput);
+            }
+
             throw new Exception($"Unknown type {typeof(T).FullName}");
         }
 
@@ -88,6 +110,16 @@ namespace Xunit
         public Guid NextGuid()
         {
             return GuidCounter.Next();
+        }
+
+        public DateTime NextDateTime()
+        {
+            return DateTimeCounter.Next();
+        }
+
+        public DateTimeOffset NextTimeOffset()
+        {
+            return DateTimeOffsetCounter.Next();
         }
     }
 }
