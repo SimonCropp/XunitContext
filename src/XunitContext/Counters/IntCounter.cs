@@ -1,19 +1,11 @@
-﻿using System.Threading;
-
-namespace Xunit
+﻿namespace Xunit
 {
-    public class IntCounter
+    public class IntCounter :
+        Counter<int>
     {
-        int current;
-
-        public int Current
+        protected override int Convert(int i)
         {
-            get => current;
-        }
-
-        public int Next()
-        {
-            return Interlocked.Increment(ref current);
+            return i;
         }
     }
 }

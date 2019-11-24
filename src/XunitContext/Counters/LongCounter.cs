@@ -1,19 +1,11 @@
-﻿using System.Threading;
-
-namespace Xunit
+﻿namespace Xunit
 {
-    public class LongCounter
+    public class LongCounter :
+        Counter<long>
     {
-        long current;
-
-        public long Current
+        protected override long Convert(int i)
         {
-            get => current;
-        }
-
-        public long Next()
-        {
-            return Interlocked.Increment(ref current);
+            return i;
         }
     }
 }

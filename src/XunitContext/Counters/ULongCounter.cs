@@ -1,19 +1,11 @@
-﻿using System.Threading;
-
-namespace Xunit
+﻿namespace Xunit
 {
-    public class ULongCounter
+    public class ULongCounter :
+        Counter<ulong>
     {
-        long current;
-
-        public ulong Current
+        protected override ulong Convert(int i)
         {
-            get => (ulong) current;
-        }
-
-        public ulong Next()
-        {
-            return (ulong) Interlocked.Increment(ref current);
+            return (ulong) i;
         }
     }
 }
