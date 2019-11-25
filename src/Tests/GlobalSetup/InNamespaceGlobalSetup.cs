@@ -2,7 +2,7 @@
 
 namespace InNamespace
 {
-    [SetUpFixture]
+    [GlobalSetUp]
     public static class GlobalSetup
     {
         public static void Setup()

@@ -2,7 +2,7 @@
 
 class Nested
 {
-    [SetUpFixture]
+    [GlobalSetUp]
     public static class GlobalSetup
     {
         public static void Setup()

@@ -3,7 +3,7 @@
 namespace Xunit
 {
     [AttributeUsage(AttributeTargets.Class)]
-    public sealed class SetUpFixtureAttribute :
+    public sealed class GlobalSetUpAttribute :
         Attribute
     {
     }

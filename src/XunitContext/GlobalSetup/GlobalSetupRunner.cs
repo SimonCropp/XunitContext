@@ -72,7 +72,7 @@ static class GlobalSetupRunner
 
     static bool HasSetUpFixtureAttribute(Type type)
     {
-        return type.GetCustomAttribute<SetUpFixtureAttribute>() != null;
+        return type.GetCustomAttribute<GlobalSetUpAttribute>() != null;
     }
 
     public static void Run()

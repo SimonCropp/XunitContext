@@ -1,6 +1,6 @@
 ﻿using Xunit;
 
-[SetUpFixture]
+[GlobalSetUp]
 public static class GlobalSetup
 {
     public static void Setup()
