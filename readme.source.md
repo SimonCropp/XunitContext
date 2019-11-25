@@ -166,6 +166,14 @@ Implementation:
 snippet: UniqueTestName
 
 
+## Global Setup
+
+Xunit has no way to run code once prior to any tests executing. XUnitContext adds this feature by a class convention.
+
+snippet: XunitGlobalSetup.cs
+
+Multiple setups can be defined as nested classes and classes in namespaces are supported.
+
 
 ## Release Notes
 

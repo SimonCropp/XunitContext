@@ -8,6 +8,10 @@ namespace Xunit
     public abstract class XunitContextBase :
         IDisposable
     {
+        static XunitContextBase()
+        {
+            GlobalSetupRunner.Run();
+        }
         /// <summary>
         /// The current <see cref="ITestOutputHelper"/>.
         /// </summary>
@@ -21,6 +25,8 @@ namespace Xunit
         {
             Guard.AgainstNull(output, nameof(output));
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
+
+
             Output = output;
             Context = XunitContext.Register(output, sourceFile);
         }
