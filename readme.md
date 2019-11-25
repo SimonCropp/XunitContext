@@ -983,12 +983,15 @@ string GetUniqueTestName(ITestCase testCase)
 
 ## Global Setup
 
-Xunit has no way to run code once prior to any tests executing. XUnitContext adds this feature by a class convention.
+Xunit has no way to run code once prior to any tests executing. XUnitContext adds this feature via an attribute.
 
-<!-- snippet: XunitGlobalSetup.cs -->
-<a id='snippet-XunitGlobalSetup.cs'/></a>
+<!-- snippet: GlobalSetup.cs -->
+<a id='snippet-GlobalSetup.cs'/></a>
 ```cs
-public static class XunitGlobalSetup
+using Xunit;
+
+[GlobalSetUp]
+public static class GlobalSetup
 {
     public static void Setup()
     {
@@ -998,7 +1001,7 @@ public static class XunitGlobalSetup
     public static bool Called;
 }
 ```
-<sup>[snippet source](/src/Tests/GlobalSetup/XunitGlobalSetup.cs#L1-L9) / [anchor](#snippet-XunitGlobalSetup.cs)</sup>
+<sup>[snippet source](/src/Tests/GlobalSetup/GlobalSetup.cs#L1-L12) / [anchor](#snippet-GlobalSetup.cs)</sup>
 <!-- endsnippet -->
 
 Multiple setups can be defined as nested classes and classes in namespaces are supported.
