@@ -1,6 +1,9 @@
-﻿namespace InNamespace
+﻿using Xunit;
+
+namespace InNamespace
 {
-    public static class XunitGlobalSetup
+    [SetUpFixture]
+    public static class GlobalSetup
     {
         public static void Setup()
         {

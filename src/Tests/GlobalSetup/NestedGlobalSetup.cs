@@ -1,6 +1,9 @@
-﻿class Nested
+﻿using Xunit;
+
+class Nested
 {
-    public static class XunitGlobalSetup
+    [SetUpFixture]
+    public static class GlobalSetup
     {
         public static void Setup()
         {

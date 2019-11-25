@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using Xunit;
 
 static class GlobalSetupRunner
 {
@@ -54,18 +55,24 @@ static class GlobalSetupRunner
                 continue;
             }
 
-            if (assembly.GetReferencedAssemblies().All(x => x.Name != "XunitContext"))
+            var referencedAssemblies = assembly.GetReferencedAssemblies();
+            if (referencedAssemblies.All(x => x.Name != "XunitContext"))
             {
                 continue;
             }
 
-            foreach (var globalSetup in assembly.GetTypes().Where(x => x.Name == "XunitGlobalSetup"))
+            foreach (var globalSetup in assembly.GetTypes().Where(HasSetUpFixtureAttribute))
             {
                 Invoke(globalSetup);
             }
         }
 
         startNew.Stop();
+    }
+
+    static bool HasSetUpFixtureAttribute(Type type)
+    {
+        return type.GetCustomAttribute<SetUpFixtureAttribute>() != null;
     }
 
     public static void Run()

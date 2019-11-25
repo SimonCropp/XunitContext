@@ -7,9 +7,9 @@ public class GlobalSetupTest :
     [Fact]
     public void VerifyCalled()
     {
-        Assert.True(XunitGlobalSetup.Called);
-        Assert.True(InNamespace.XunitGlobalSetup.Called);
-        Assert.True(Nested.XunitGlobalSetup.Called);
+        Assert.True(GlobalSetup.Called);
+        Assert.True(InNamespace.GlobalSetup.Called);
+        Assert.True(Nested.GlobalSetup.Called);
     }
 
     public GlobalSetupTest(ITestOutputHelper testOutput) :

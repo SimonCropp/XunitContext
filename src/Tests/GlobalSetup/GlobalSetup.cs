@@ -1,4 +1,7 @@
-﻿public static class XunitGlobalSetup
+﻿using Xunit;
+
+[SetUpFixture]
+public static class GlobalSetup
 {
     public static void Setup()
     {
