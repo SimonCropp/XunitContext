@@ -32,6 +32,7 @@ Uses [AsyncLocal](https://docs.microsoft.com/en-us/dotnet/api/system.threading.a
     * [Base Class](#base-class)
     * [Parameters](#parameters)
     * [UniqueTestName](#uniquetestname)
+  * [Global Setup](#global-setup)
 <!-- endtoc -->
 
 
@@ -178,7 +179,7 @@ var writer = new TestWriter();
 Console.SetOut(writer);
 Console.SetError(writer);
 ```
-<sup>[snippet source](/src/XunitContext/XunitContext.cs#L50-L79) / [anchor](#snippet-writeredirects)</sup>
+<sup>[snippet source](/src/XunitContext/XunitContext.cs#L55-L84) / [anchor](#snippet-writeredirects)</sup>
 <!-- endsnippet -->
 
 These API calls are then routed to the correct xUnit [ITestOutputHelper](https://xunit.net/docs/capturing-output) via a static [AsyncLocal](https://docs.microsoft.com/en-us/dotnet/api/system.threading.asynclocal-1).
@@ -590,6 +591,8 @@ namespace Xunit
         LongCounter LongCounter = new LongCounter();
         UIntCounter UIntCounter = new UIntCounter();
         ULongCounter ULongCounter = new ULongCounter();
+        DateTimeOffsetCounter DateTimeOffsetCounter = new DateTimeOffsetCounter();
+        DateTimeCounter DateTimeCounter = new DateTimeCounter();
 
         public uint CurrentUInt
         {
@@ -616,29 +619,54 @@ namespace Xunit
             get => GuidCounter.Current;
         }
 
-        public uint NextUInt(uint input)
+        public DateTime CurrentDateTime
         {
-            return UIntCounter.Next(input);
+            get => DateTimeCounter.Current;
         }
 
-        public int NextInt(int input)
+        public DateTimeOffset CurrentDateTimeOffset
         {
-            return IntCounter.Next(input);
+            get => DateTimeOffsetCounter.Current;
         }
 
-        public long NextLong(long input)
+        public int IntOrNext<T>(T input)
         {
-            return LongCounter.Next(input);
-        }
+            if (input is Guid guidInput)
+            {
+                return GuidCounter.IntOrNext(guidInput);
+            }
 
-        public ulong NextULong(ulong input)
-        {
-            return ULongCounter.Next(input);
-        }
+            if (input is int intInput)
+            {
+                return IntCounter.IntOrNext(intInput);
+            }
 
-        public Guid NextGuid(Guid input)
-        {
-            return GuidCounter.Next(input);
+            if (input is uint uIntInput)
+            {
+                return UIntCounter.IntOrNext(uIntInput);
+            }
+
+            if (input is ulong ulongInput)
+            {
+                return ULongCounter.IntOrNext(ulongInput);
+            }
+
+            if (input is long longInput)
+            {
+                return LongCounter.IntOrNext(longInput);
+            }
+
+            if (input is DateTime dateTimeInput)
+            {
+                return DateTimeCounter.IntOrNext(dateTimeInput);
+            }
+
+            if (input is DateTimeOffset dateTimeOffsetInput)
+            {
+                return DateTimeOffsetCounter.IntOrNext(dateTimeOffsetInput);
+            }
+
+            throw new Exception($"Unknown type {typeof(T).FullName}");
         }
 
         public uint NextUInt()
@@ -665,10 +693,20 @@ namespace Xunit
         {
             return GuidCounter.Next();
         }
+
+        public DateTime NextDateTime()
+        {
+            return DateTimeCounter.Next();
+        }
+
+        public DateTimeOffset NextTimeOffset()
+        {
+            return DateTimeOffsetCounter.Next();
+        }
     }
 }
 ```
-<sup>[snippet source](/src/XunitContext/Context_Counters.cs#L1-L88) / [anchor](#snippet-Context_Counters.cs)</sup>
+<sup>[snippet source](/src/XunitContext/Context_Counters.cs#L1-L125) / [anchor](#snippet-Context_Counters.cs)</sup>
 <!-- endsnippet -->
 
 <!-- snippet: Counters.cs -->
@@ -846,7 +884,6 @@ public class ParametersSample :
 <sup>[snippet source](/src/Tests/Snippets/ParametersSample.cs#L1-L29) / [anchor](#snippet-ParametersSample.cs)</sup>
 <!-- endsnippet -->
 
-
 Implementation:
 
 <!-- snippet: Parameters -->
@@ -908,7 +945,6 @@ public class UniqueTestNameSample :
 <sup>[snippet source](/src/Tests/Snippets/UniqueTestNameSample.cs#L1-L19) / [anchor](#snippet-UniqueTestNameSample.cs)</sup>
 <!-- endsnippet -->
 
-
 Implementation:
 
 <!-- snippet: UniqueTestName -->
@@ -944,6 +980,28 @@ string GetUniqueTestName(ITestCase testCase)
 <sup>[snippet source](/src/XunitContext/Context_TestName.cs#L26-L53) / [anchor](#snippet-uniquetestname)</sup>
 <!-- endsnippet -->
 
+
+## Global Setup
+
+Xunit has no way to run code once prior to any tests executing. XUnitContext adds this feature by a class convention.
+
+<!-- snippet: XunitGlobalSetup.cs -->
+<a id='snippet-XunitGlobalSetup.cs'/></a>
+```cs
+public static class XunitGlobalSetup
+{
+    public static void Setup()
+    {
+        Called = true;
+    }
+
+    public static bool Called;
+}
+```
+<sup>[snippet source](/src/Tests/GlobalSetup/XunitGlobalSetup.cs#L1-L9) / [anchor](#snippet-XunitGlobalSetup.cs)</sup>
+<!-- endsnippet -->
+
+Multiple setups can be defined as nested classes and classes in namespaces are supported.
 
 
 ## Release Notes
