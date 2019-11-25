@@ -9,6 +9,11 @@ namespace Xunit
 {
     public static class XunitContext
     {
+        static XunitContext()
+        {
+            GlobalSetupRunner.Run();
+        }
+
         static AsyncLocal<Context?> local = new AsyncLocal<Context?>();
         static bool enableExceptionCapture;
 

@@ -12,6 +12,7 @@ namespace Xunit
         {
             GlobalSetupRunner.Run();
         }
+
         /// <summary>
         /// The current <see cref="ITestOutputHelper"/>.
         /// </summary>

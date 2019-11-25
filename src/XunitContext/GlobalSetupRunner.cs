@@ -6,36 +6,39 @@ using System.Reflection;
 
 static class GlobalSetupRunner
 {
-    static List<string> strongNamesToIgnore = new List<string>
+    static GlobalSetupRunner()
     {
-        // mscorlib
-        "b77a5c561934e089",
-        // ReSharper
-        "1010a0d8d6380325",
-        // System
-        "7cec85d7bea7798e",
-        "b03f5f7f11d50a3a",
-        "cc7b13ffcd2ddd51",
-        //newtonsoft
-        "30ad4fe6b2a6aeed",
-        //xunit
-        "8d05b1bb7a6fdb6c",
-        //nuget
-        "31bf3856ad364e35",
-        //aspnet + ef
-        "adb9793829ddae60"
-    };
+        var strongNamesToIgnore =
+            new List<string>
+            {
+                // mscorlib
+                "b77a5c561934e089",
+                // ReSharper
+                "1010a0d8d6380325",
+                // System
+                "7cec85d7bea7798e",
+                "b03f5f7f11d50a3a",
+                "cc7b13ffcd2ddd51",
+                //newtonsoft
+                "30ad4fe6b2a6aeed",
+                //xunit
+                "8d05b1bb7a6fdb6c",
+                //nuget
+                "31bf3856ad364e35",
+                //aspnet + ef
+                "adb9793829ddae60"
+            };
 
-    public static void Run()
-    {
         var startNew = Stopwatch.StartNew();
         var assemblies = AppDomain.CurrentDomain.GetAssemblies();
         foreach (var assembly in assemblies)
         {
-            if (assembly.FullName.StartsWith("XunitContext,"))
+            var fullName = assembly.FullName;
+            if (fullName.StartsWith("XunitContext,"))
             {
                 continue;
             }
+
             if (assembly.IsDynamic)
             {
                 continue;
@@ -46,7 +49,6 @@ static class GlobalSetupRunner
                 continue;
             }
 
-            var fullName = assembly.FullName;
             if (strongNamesToIgnore.Any(x => fullName.Contains(x)))
             {
                 continue;
@@ -64,7 +66,10 @@ static class GlobalSetupRunner
         }
 
         startNew.Stop();
-        Debug.WriteLine(startNew);
+    }
+
+    public static void Run()
+    {
     }
 
     static void Invoke(Type globalSetupType)
