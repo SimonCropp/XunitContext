@@ -1,13 +1,12 @@
 ﻿using Xunit;
 using Xunit.Abstractions;
 
-[Trait("Category", "Integration")]
-
-#region TestExceptionSample
-
-public class TestExceptionSample :
-    XunitContextBase
+namespace TestExceptionSample
 {
+    [Trait("Category", "Integration")]
+
+    #region TestExceptionSample
+
     [GlobalSetUp]
     public static class GlobalSetup
     {
@@ -17,25 +16,29 @@ public class TestExceptionSample :
         }
     }
 
-    [Fact]
-    public void Usage()
+    public class TestExceptionSample :
+        XunitContextBase
     {
-        //This tests will fail
-        Assert.False(true);
+        [Fact]
+        public void Usage()
+        {
+            //This tests will fail
+            Assert.False(true);
+        }
+
+        public TestExceptionSample(ITestOutputHelper output) :
+            base(output)
+        {
+        }
+
+        public override void Dispose()
+        {
+            var theExceptionThrownByTest = Context.TestException;
+            var testDisplayName = Context.Test.DisplayName;
+            var testCase = Context.Test.TestCase;
+            base.Dispose();
+        }
     }
 
-    public TestExceptionSample(ITestOutputHelper output) :
-        base(output)
-    {
-    }
-
-    public override void Dispose()
-    {
-        var theExceptionThrownByTest = Context.TestException;
-        var testDisplayName = Context.Test.DisplayName;
-        var testCase = Context.Test.TestCase;
-        base.Dispose();
-    }
+    #endregion
 }
-
-#endregion

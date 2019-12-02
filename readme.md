@@ -515,18 +515,18 @@ One common case is to perform some logic, based on the existence of the exceptio
 <!-- snippet: TestExceptionSample -->
 <a id='snippet-testexceptionsample'/></a>
 ```cs
+[GlobalSetUp]
+public static class GlobalSetup
+{
+    public static void Setup()
+    {
+        XunitContext.EnableExceptionCapture();
+    }
+}
+
 public class TestExceptionSample :
     XunitContextBase
 {
-    [GlobalSetUp]
-    public static class GlobalSetup
-    {
-        public static void Setup()
-        {
-            XunitContext.EnableExceptionCapture();
-        }
-    }
-
     [Fact]
     public void Usage()
     {
@@ -548,7 +548,7 @@ public class TestExceptionSample :
     }
 }
 ```
-<sup>[snippet source](/src/Tests/Snippets/TestExceptionSample.cs#L6-L41) / [anchor](#snippet-testexceptionsample)</sup>
+<sup>[snippet source](/src/Tests/Snippets/TestExceptionSample.cs#L8-L43) / [anchor](#snippet-testexceptionsample)</sup>
 <!-- endsnippet -->
 
 
