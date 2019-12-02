@@ -32,7 +32,9 @@ Uses [AsyncLocal](https://docs.microsoft.com/en-us/dotnet/api/system.threading.a
     * [Base Class](#base-class)
     * [Parameters](#parameters)
     * [UniqueTestName](#uniquetestname)
-  * [Global Setup](#global-setup)<!-- endtoc -->
+  * [Global Setup](#global-setup)
+<!-- endtoc -->
+
 
 
 ## NuGet package
@@ -1006,6 +1008,11 @@ public static class GlobalSetup
 <!-- endsnippet -->
 
 Multiple setups can be defined as nested classes and classes in namespaces are supported.
+
+Alternatives to this approach:
+
+ * Using a [module initializer ](https://github.com/Fody/ModuleInit).
+ * Having a single base class that all tests inherit from, and place any configuration code in the static constructor of that type.
 
 
 ## Release Notes

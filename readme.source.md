@@ -172,6 +172,11 @@ snippet: GlobalSetup.cs
 
 Multiple setups can be defined as nested classes and classes in namespaces are supported.
 
+Alternatives to this approach:
+
+ * Using a [module initializer ](https://github.com/Fody/ModuleInit).
+ * Having a single base class that all tests inherit from, and place any configuration code in the static constructor of that type.
+
 
 ## Release Notes
 
