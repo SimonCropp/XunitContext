@@ -8,10 +8,13 @@ using Xunit.Abstractions;
 public class TestExceptionSample :
     XunitContextBase
 {
-    static TestExceptionSample()
+    [GlobalSetUp]
+    public static class GlobalSetup
     {
-        //Should be called once at appdomain startup
-        XunitContext.EnableExceptionCapture();
+        public static void Setup()
+        {
+            XunitContext.EnableExceptionCapture();
+        }
     }
 
     [Fact]
@@ -34,4 +37,5 @@ public class TestExceptionSample :
         base.Dispose();
     }
 }
+
 #endregion
