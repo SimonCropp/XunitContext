@@ -32,9 +32,7 @@ Uses [AsyncLocal](https://docs.microsoft.com/en-us/dotnet/api/system.threading.a
     * [Base Class](#base-class)
     * [Parameters](#parameters)
     * [UniqueTestName](#uniquetestname)
-  * [Global Setup](#global-setup)
-<!-- endtoc -->
-
+  * [Global Setup](#global-setup)<!-- endtoc -->
 
 
 ## NuGet package
@@ -520,10 +518,13 @@ One common case is to perform some logic, based on the existence of the exceptio
 public class TestExceptionSample :
     XunitContextBase
 {
-    static TestExceptionSample()
+    [GlobalSetUp]
+    public static class GlobalSetup
     {
-        //Should be called once at appdomain startup
-        XunitContext.EnableExceptionCapture();
+        public static void Setup()
+        {
+            XunitContext.EnableExceptionCapture();
+        }
     }
 
     [Fact]
@@ -547,7 +548,7 @@ public class TestExceptionSample :
     }
 }
 ```
-<sup>[snippet source](/src/Tests/Snippets/TestExceptionSample.cs#L6-L37) / [anchor](#snippet-testexceptionsample)</sup>
+<sup>[snippet source](/src/Tests/Snippets/TestExceptionSample.cs#L6-L41) / [anchor](#snippet-testexceptionsample)</sup>
 <!-- endsnippet -->
 
 
