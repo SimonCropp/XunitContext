@@ -32,9 +32,7 @@ Uses [AsyncLocal](https://docs.microsoft.com/en-us/dotnet/api/system.threading.a
     * [Base Class](#base-class)
     * [Parameters](#parameters)
     * [UniqueTestName](#uniquetestname)
-  * [Global Setup](#global-setup)
-<!-- endtoc -->
-
+  * [Global Setup](#global-setup)<!-- endtoc -->
 
 
 ## NuGet package
