@@ -7,14 +7,6 @@ namespace TestExceptionSample
 
     #region TestExceptionSample
 
-    [GlobalSetUp]
-    public static class GlobalSetup
-    {
-        public static void Setup()
-        {
-            XunitContext.EnableExceptionCapture();
-        }
-    }
 
     public class TestExceptionSample :
         XunitContextBase
@@ -37,6 +29,15 @@ namespace TestExceptionSample
             var testDisplayName = Context.Test.DisplayName;
             var testCase = Context.Test.TestCase;
             base.Dispose();
+        }
+    }
+
+    [GlobalSetUp]
+    public static class GlobalSetup
+    {
+        public static void Setup()
+        {
+            XunitContext.EnableExceptionCapture();
         }
     }
 
