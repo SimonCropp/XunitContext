@@ -59,7 +59,7 @@ static class ClassBeingTested
     }
 }
 ```
-<sup>[snippet source](/src/Tests/Snippets/ClassBeingTested.cs#L1-L13) / [anchor](#snippet-ClassBeingTested.cs)</sup>
+<sup><a href='/src/Tests/Snippets/ClassBeingTested.cs#L1-L13' title='File snippet `ClassBeingTested.cs` was extracted from'>snippet source</a> | <a href='#snippet-ClassBeingTested.cs' title='Navigate to start of snippet `ClassBeingTested.cs`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -97,7 +97,7 @@ public class TestBaseSample  :
     }
 }
 ```
-<sup>[snippet source](/src/Tests/Snippets/TestBaseSample.cs#L1-L26) / [anchor](#snippet-TestBaseSample.cs)</sup>
+<sup><a href='/src/Tests/Snippets/TestBaseSample.cs#L1-L26' title='File snippet `TestBaseSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-TestBaseSample.cs' title='Navigate to start of snippet `TestBaseSample.cs`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -142,7 +142,7 @@ public class XunitLoggerSample :
     }
 }
 ```
-<sup>[snippet source](/src/Tests/Snippets/XunitLoggerSample.cs#L1-L33) / [anchor](#snippet-XunitLoggerSample.cs)</sup>
+<sup><a href='/src/Tests/Snippets/XunitLoggerSample.cs#L1-L33' title='File snippet `XunitLoggerSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-XunitLoggerSample.cs' title='Navigate to start of snippet `XunitLoggerSample.cs`'>anchor</a></sup>
 <!-- endsnippet -->
 
 `XunitContext` redirects [Trace.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.trace.write), [Console.Write](https://docs.microsoft.com/en-us/dotnet/api/system.console.write), and [Debug.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.debug.write) in its static constructor.
@@ -177,7 +177,7 @@ var writer = new TestWriter();
 Console.SetOut(writer);
 Console.SetError(writer);
 ```
-<sup>[snippet source](/src/XunitContext/XunitContext.cs#L55-L84) / [anchor](#snippet-writeredirects)</sup>
+<sup><a href='/src/XunitContext/XunitContext.cs#L55-L84' title='File snippet `writeredirects` was extracted from'>snippet source</a> | <a href='#snippet-writeredirects' title='Navigate to start of snippet `writeredirects`'>anchor</a></sup>
 <!-- endsnippet -->
 
 These API calls are then routed to the correct xUnit [ITestOutputHelper](https://xunit.net/docs/capturing-output) via a static [AsyncLocal](https://docs.microsoft.com/en-us/dotnet/api/system.threading.asynclocal-1).
@@ -228,7 +228,7 @@ public class FilterSample :
     }
 }
 ```
-<sup>[snippet source](/src/Tests/Snippets/FilterSample.cs#L1-L29) / [anchor](#snippet-FilterSample.cs)</sup>
+<sup><a href='/src/Tests/Snippets/FilterSample.cs#L1-L29' title='File snippet `FilterSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-FilterSample.cs' title='Navigate to start of snippet `FilterSample.cs`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Filters are static and shared for all tests.
@@ -287,7 +287,7 @@ public class ContextSample  :
     }
 }
 ```
-<sup>[snippet source](/src/Tests/Snippets/ContextSample.cs#L1-L35) / [anchor](#snippet-ContextSample.cs)</sup>
+<sup><a href='/src/Tests/Snippets/ContextSample.cs#L1-L35' title='File snippet `ContextSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-ContextSample.cs' title='Navigate to start of snippet `ContextSample.cs`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Some members are pushed down to the be accessible directly from `XunitContextBase`:
@@ -325,7 +325,7 @@ public class ContextPushedDownSample  :
     }
 }
 ```
-<sup>[snippet source](/src/Tests/Snippets/ContextPushedDownSample.cs#L1-L29) / [anchor](#snippet-ContextPushedDownSample.cs)</sup>
+<sup><a href='/src/Tests/Snippets/ContextPushedDownSample.cs#L1-L29' title='File snippet `ContextPushedDownSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-ContextPushedDownSample.cs' title='Navigate to start of snippet `ContextPushedDownSample.cs`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Context can accessed via a static API:
@@ -369,7 +369,7 @@ public class ContextStaticSample :
     }
 }
 ```
-<sup>[snippet source](/src/Tests/Snippets/ContextStaticSample.cs#L1-L35) / [anchor](#snippet-ContextStaticSample.cs)</sup>
+<sup><a href='/src/Tests/Snippets/ContextStaticSample.cs#L1-L35' title='File snippet `ContextStaticSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-ContextStaticSample.cs' title='Navigate to start of snippet `ContextStaticSample.cs`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -412,7 +412,7 @@ public class CurrentTestSample :
     }
 }
 ```
-<sup>[snippet source](/src/Tests/Snippets/CurrentTestSample.cs#L1-L27) / [anchor](#snippet-CurrentTestSample.cs)</sup>
+<sup><a href='/src/Tests/Snippets/CurrentTestSample.cs#L1-L27' title='File snippet `CurrentTestSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-CurrentTestSample.cs' title='Navigate to start of snippet `CurrentTestSample.cs`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Implementation:
@@ -502,7 +502,7 @@ namespace Xunit
     }
 }
 ```
-<sup>[snippet source](/src/XunitContext/Context_CurrentTest.cs#L1-L81) / [anchor](#snippet-Context_CurrentTest.cs)</sup>
+<sup><a href='/src/XunitContext/Context_CurrentTest.cs#L1-L81' title='File snippet `Context_CurrentTest.cs` was extracted from'>snippet source</a> | <a href='#snippet-Context_CurrentTest.cs' title='Navigate to start of snippet `Context_CurrentTest.cs`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -515,15 +515,6 @@ One common case is to perform some logic, based on the existence of the exceptio
 <!-- snippet: TestExceptionSample -->
 <a id='snippet-testexceptionsample'/></a>
 ```cs
-[GlobalSetUp]
-public static class GlobalSetup
-{
-    public static void Setup()
-    {
-        XunitContext.EnableExceptionCapture();
-    }
-}
-
 public class TestExceptionSample :
     XunitContextBase
 {
@@ -547,8 +538,17 @@ public class TestExceptionSample :
         base.Dispose();
     }
 }
+
+[GlobalSetUp]
+public static class GlobalSetup
+{
+    public static void Setup()
+    {
+        XunitContext.EnableExceptionCapture();
+    }
+}
 ```
-<sup>[snippet source](/src/Tests/Snippets/TestExceptionSample.cs#L8-L43) / [anchor](#snippet-testexceptionsample)</sup>
+<sup><a href='/src/Tests/Snippets/TestExceptionSample.cs#L8-L44' title='File snippet `testexceptionsample` was extracted from'>snippet source</a> | <a href='#snippet-testexceptionsample' title='Navigate to start of snippet `testexceptionsample`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -572,7 +572,7 @@ var counter = new GuidCounter();
 var localCurrent = counter.Current;
 var localNext = counter.Next();
 ```
-<sup>[snippet source](/src/Tests/Snippets/CountersSample.cs#L8-L16) / [anchor](#snippet-nontestcontextusage)</sup>
+<sup><a href='/src/Tests/Snippets/CountersSample.cs#L8-L16' title='File snippet `nontestcontextusage` was extracted from'>snippet source</a> | <a href='#snippet-nontestcontextusage' title='Navigate to start of snippet `nontestcontextusage`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -707,7 +707,7 @@ namespace Xunit
     }
 }
 ```
-<sup>[snippet source](/src/XunitContext/Context_Counters.cs#L1-L125) / [anchor](#snippet-Context_Counters.cs)</sup>
+<sup><a href='/src/XunitContext/Context_Counters.cs#L1-L125' title='File snippet `Context_Counters.cs` was extracted from'>snippet source</a> | <a href='#snippet-Context_Counters.cs' title='Navigate to start of snippet `Context_Counters.cs`'>anchor</a></sup>
 <!-- endsnippet -->
 
 <!-- snippet: Counters.cs -->
@@ -777,7 +777,7 @@ namespace Xunit
     }
 }
 ```
-<sup>[snippet source](/src/XunitContext/Counters.cs#L1-L63) / [anchor](#snippet-Counters.cs)</sup>
+<sup><a href='/src/XunitContext/Counters.cs#L1-L63' title='File snippet `Counters.cs` was extracted from'>snippet source</a> | <a href='#snippet-Counters.cs' title='Navigate to start of snippet `Counters.cs`'>anchor</a></sup>
 <!-- endsnippet -->
 
 <!-- snippet: GuidCounter.cs -->
@@ -799,7 +799,7 @@ namespace Xunit
     }
 }
 ```
-<sup>[snippet source](/src/XunitContext/Counters/GuidCounter.cs#L1-L15) / [anchor](#snippet-GuidCounter.cs)</sup>
+<sup><a href='/src/XunitContext/Counters/GuidCounter.cs#L1-L15' title='File snippet `GuidCounter.cs` was extracted from'>snippet source</a> | <a href='#snippet-GuidCounter.cs' title='Navigate to start of snippet `GuidCounter.cs`'>anchor</a></sup>
 <!-- endsnippet -->
 
 <!-- snippet: LongCounter.cs -->
@@ -817,7 +817,7 @@ namespace Xunit
     }
 }
 ```
-<sup>[snippet source](/src/XunitContext/Counters/LongCounter.cs#L1-L11) / [anchor](#snippet-LongCounter.cs)</sup>
+<sup><a href='/src/XunitContext/Counters/LongCounter.cs#L1-L11' title='File snippet `LongCounter.cs` was extracted from'>snippet source</a> | <a href='#snippet-LongCounter.cs' title='Navigate to start of snippet `LongCounter.cs`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -839,7 +839,7 @@ public class CustomBase :
     }
 }
 ```
-<sup>[snippet source](/src/Tests/Snippets/CustomBase.cs#L5-L16) / [anchor](#snippet-xunitcontextcustombase)</sup>
+<sup><a href='/src/Tests/Snippets/CustomBase.cs#L5-L16' title='File snippet `xunitcontextcustombase` was extracted from'>snippet source</a> | <a href='#snippet-xunitcontextcustombase' title='Navigate to start of snippet `xunitcontextcustombase`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -882,7 +882,7 @@ public class ParametersSample :
     }
 }
 ```
-<sup>[snippet source](/src/Tests/Snippets/ParametersSample.cs#L1-L29) / [anchor](#snippet-ParametersSample.cs)</sup>
+<sup><a href='/src/Tests/Snippets/ParametersSample.cs#L1-L29' title='File snippet `ParametersSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-ParametersSample.cs' title='Navigate to start of snippet `ParametersSample.cs`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Implementation:
@@ -910,7 +910,7 @@ static List<Parameter> GetParameters(ITestCase testCase)
     return items;
 }
 ```
-<sup>[snippet source](/src/XunitContext/Context_Parameters.cs#L18-L38) / [anchor](#snippet-parameters)</sup>
+<sup><a href='/src/XunitContext/Context_Parameters.cs#L18-L38' title='File snippet `parameters` was extracted from'>snippet source</a> | <a href='#snippet-parameters' title='Navigate to start of snippet `parameters`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -943,7 +943,7 @@ public class UniqueTestNameSample :
     }
 }
 ```
-<sup>[snippet source](/src/Tests/Snippets/UniqueTestNameSample.cs#L1-L19) / [anchor](#snippet-UniqueTestNameSample.cs)</sup>
+<sup><a href='/src/Tests/Snippets/UniqueTestNameSample.cs#L1-L19' title='File snippet `UniqueTestNameSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-UniqueTestNameSample.cs' title='Navigate to start of snippet `UniqueTestNameSample.cs`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Implementation:
@@ -978,7 +978,7 @@ string GetUniqueTestName(ITestCase testCase)
     return $"{name}_{builder}";
 }
 ```
-<sup>[snippet source](/src/XunitContext/Context_TestName.cs#L26-L53) / [anchor](#snippet-uniquetestname)</sup>
+<sup><a href='/src/XunitContext/Context_TestName.cs#L26-L53' title='File snippet `uniquetestname` was extracted from'>snippet source</a> | <a href='#snippet-uniquetestname' title='Navigate to start of snippet `uniquetestname`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -1002,7 +1002,7 @@ public static class GlobalSetup
     public static bool Called;
 }
 ```
-<sup>[snippet source](/src/Tests/GlobalSetup/GlobalSetup.cs#L1-L12) / [anchor](#snippet-GlobalSetup.cs)</sup>
+<sup><a href='/src/Tests/GlobalSetup/GlobalSetup.cs#L1-L12' title='File snippet `GlobalSetup.cs` was extracted from'>snippet source</a> | <a href='#snippet-GlobalSetup.cs' title='Navigate to start of snippet `GlobalSetup.cs`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Multiple setups can be defined as nested classes and classes in namespaces are supported.
