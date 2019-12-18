@@ -892,16 +892,20 @@ Implementation:
 ```cs
 static List<Parameter> GetParameters(ITestCase testCase)
 {
+    var method = testCase.TestMethod;
+    var infos = method.Method.GetParameters().ToList();
     var arguments = testCase.TestMethodArguments;
     if (arguments == null || !arguments.Any())
     {
+        if (infos.Count != 0)
+        {
+            throw new Exception("No arguments detected for method with parameters. This is most likely caused by using a parameter that Xunit cannot serialize. Instead pass in a simple type as a parameter and construct the complex object inside the test.");
+        }
         return empty;
     }
 
     var items = new List<Parameter>();
 
-    var method = testCase.TestMethod;
-    var infos = method.Method.GetParameters().ToList();
     for (var index = 0; index < infos.Count; index++)
     {
         items.Add(new Parameter(infos[index], arguments[index]));
@@ -910,7 +914,7 @@ static List<Parameter> GetParameters(ITestCase testCase)
     return items;
 }
 ```
-<sup><a href='/src/XunitContext/Context_Parameters.cs#L18-L38' title='File snippet `parameters` was extracted from'>snippet source</a> | <a href='#snippet-parameters' title='Navigate to start of snippet `parameters`'>anchor</a></sup>
+<sup><a href='/src/XunitContext/Context_Parameters.cs#L19-L43' title='File snippet `parameters` was extracted from'>snippet source</a> | <a href='#snippet-parameters' title='Navigate to start of snippet `parameters`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
