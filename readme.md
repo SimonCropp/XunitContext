@@ -8,7 +8,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 # <img src="/src/icon.png" height="30px"> XunitContext
 
 [![Build status](https://ci.appveyor.com/api/projects/status/sdg2ni2jhe2o33le/branch/master?svg=true)](https://ci.appveyor.com/project/SimonCropp/XunitContext)
-[![NuGet Status](https://img.shields.io/nuget/v/XunitContext.svg?cacheSeconds=86400)](https://www.nuget.org/packages/XunitContext/)
+[![NuGet Status](https://img.shields.io/nuget/v/XunitContext.svg)](https://www.nuget.org/packages/XunitContext/)
 
 Extends [xUnit](https://xunit.net/) to expose extra context and simplify logging.
 
