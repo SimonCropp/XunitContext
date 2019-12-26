@@ -24,11 +24,11 @@ namespace Xunit
             var arguments = testCase.TestMethodArguments;
             if (arguments == null || !arguments.Any())
             {
-                if (infos.Count != 0)
+                if (infos.Count == 0)
                 {
-                    throw new Exception("No arguments detected for method with parameters. This is most likely caused by using a parameter that Xunit cannot serialize. Instead pass in a simple type as a parameter and construct the complex object inside the test.");
+                    return empty;
                 }
-                return empty;
+                throw NewNoArgumentsDetectedException();
             }
 
             var items = new List<Parameter>();
@@ -41,5 +41,12 @@ namespace Xunit
             return items;
         }
         #endregion
+
+        static Exception NewNoArgumentsDetectedException()
+        {
+            return new Exception(@"No arguments detected for method with parameters.
+This is most likely caused by using a parameter that Xunit cannot serialize.
+Instead pass in a simple type as a parameter and construct the complex object inside the test.");
+        }
     }
 }
