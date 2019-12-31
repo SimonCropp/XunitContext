@@ -19,7 +19,6 @@ Uses [AsyncLocal](https://docs.microsoft.com/en-us/dotnet/api/system.threading.a
 <!-- toc -->
 ## Contents
 
-  * [NuGet package](#nuget-package)
   * [ClassBeingTested](#classbeingtested)
   * [XunitContextBase](#xunitcontextbase)
   * [Logging](#logging)

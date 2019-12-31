@@ -10,7 +10,7 @@
     <PackageReference Include="ModuleInit.Fody" Version="2.1.0" PrivateAssets="All" />
     <PackageReference Include="Nullable" Version="1.2.0" PrivateAssets="All" />
     <PackageReference Include="xunit.abstractions" Version="2.0.3" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.37" PrivateAssets="All" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.39" PrivateAssets="All" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
     <PackageReference Include="xunit.extensibility.execution" Version="2.4.1" />
   </ItemGroup>
