@@ -7,12 +7,12 @@ public class SkipDispose :
     XunitContextBase
 {
     [Fact]
-    public void Dispose_should_flush()
+    public Task Dispose_should_flush()
     {
         Write("part1");
         Write(" part2");
         base.Dispose();
-        ObjectApprover.Verify(Logs);
+        return Verifier.Verify(Logs);
     }
 
     [Fact]
