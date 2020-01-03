@@ -16,7 +16,8 @@ public class StaticConstructor
     {
         Assert.EndsWith("StaticConstructor.cs", XunitContext.Context.SourceFile);
         var logs = XunitContext.Flush();
-        ObjectApprover.Verify(logs);
+
+        Assert.Contains("aFoo" + Environment.NewLine, logs);
     }
 
     public StaticConstructor(ITestOutputHelper testOutput)
