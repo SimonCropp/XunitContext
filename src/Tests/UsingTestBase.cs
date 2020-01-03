@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -11,14 +12,14 @@ public class UsingTestBase :
     }
 
     [Fact]
-    public void Write_lines()
+    public Task Write_lines()
     {
         Write("part1");
         Write(" part2");
         WriteLine();
         WriteLine("part3");
         WriteLine("ignored");
-        ObjectApprover.Verify(Logs);
+        return Verifier.Verify(Logs);
     }
 
     [Fact]
