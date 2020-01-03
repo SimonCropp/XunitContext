@@ -7,7 +7,7 @@ using Xunit.Abstractions;
 public class UsingStatic
 {
     [Fact]
-    public void Counters()
+    public Task Counters()
     {
         var context = XunitContext.Context;
         var foo = new
@@ -23,7 +23,7 @@ public class UsingStatic
             guid1 = context.NextGuid(),
             guid2 = context.NextGuid(),
         };
-        ObjectApprover.Verify(foo);
+        return Verifier.Verify(foo);
     }
 
     [Fact]
