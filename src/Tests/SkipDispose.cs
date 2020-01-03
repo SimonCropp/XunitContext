@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -15,11 +16,12 @@ public class SkipDispose :
     }
 
     [Fact]
-    public void Write_after_dispose_should_throw()
+    public Task Write_after_dispose_should_throw()
     {
         base.Dispose();
         var exception = Assert.Throws<Exception>(WriteLine);
-        ObjectApprover.Verify(exception);
+
+        return Verifier.Verify(exception);
     }
 
     public SkipDispose(ITestOutputHelper testOutput) :
