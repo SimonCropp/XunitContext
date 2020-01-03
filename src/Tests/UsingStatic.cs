@@ -33,7 +33,9 @@ public class UsingStatic
         Debug.WriteLine("from Debug");
         Trace.WriteLine("from Trace");
         var logs = XunitContext.Flush();
-        ObjectApprover.Verify(logs);
+        Assert.Contains("from Console", logs);
+        Assert.Contains("from Debug", logs);
+        Assert.Contains("from Trace", logs);
     }
 
     [Fact]
