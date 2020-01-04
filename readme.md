@@ -951,8 +951,8 @@ public class ComplexParameterSample :
     XunitContextBase
 {
     [Theory]
-    [MemberData(nameof(GetDataComplex))]
-    public void MemberDataComplex(ComplexClass arg)
+    [MemberData(nameof(GetData))]
+    public void UseComplexMemberData(ComplexClass arg)
     {
         UseParameters(arg);
         var parameter = Context.Parameters.Single();
@@ -961,7 +961,7 @@ public class ComplexParameterSample :
         Assert.Equal(arg, parameter.Value);
     }
 
-    public static IEnumerable<object[]> GetDataComplex()
+    public static IEnumerable<object[]> GetData()
     {
         yield return new object[] {new ComplexClass("Value1")};
         yield return new object[] {new ComplexClass("Value2")};
