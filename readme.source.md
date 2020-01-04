@@ -142,6 +142,11 @@ snippet: XunitContextCustomBase
 
 Provided the parameters passed to the current test when using a `[Theory]`.
 
+Use cases:
+
+ * To derive the [unique test name](#uniquetestname).
+ * In extensibility scenarios for example [Verify file naming](https://github.com/SimonCropp/Verify/blob/master/docs/naming.md).
+
 Usage:
 
 snippet: ParametersSample.cs
