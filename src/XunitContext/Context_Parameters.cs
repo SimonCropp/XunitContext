@@ -31,7 +31,7 @@ namespace Xunit
             return GetParameters(testCase, testCase.TestMethodArguments);
         }
 
-        private static List<Parameter> GetParameters(ITestCase testCase, object[] arguments)
+        static List<Parameter> GetParameters(ITestCase testCase, object[] arguments)
         {
             var method = testCase.TestMethod;
             var infos = method.Method.GetParameters().ToList();
