@@ -7,7 +7,7 @@ using Xunit.Abstractions;
 public class UsingStatic
 {
     [Fact]
-    public void Counters()
+    public Task Counters()
     {
         var context = XunitContext.Context;
         var foo = new
@@ -23,17 +23,17 @@ public class UsingStatic
             guid1 = context.NextGuid(),
             guid2 = context.NextGuid(),
         };
-        ObjectApprover.Verify(foo);
+        return Verifier.Verify(foo);
     }
 
     [Fact]
-    public void Overwrites()
+    public Task Overwrites()
     {
         Console.WriteLine("from Console");
         Debug.WriteLine("from Debug");
         Trace.WriteLine("from Trace");
-        var logs = XunitContext.Flush();
-        ObjectApprover.Verify(logs);
+        var logs = XunitContext.Flush(false);
+        return Verifier.Verify(logs);
     }
 
     [Fact]
@@ -43,7 +43,7 @@ public class UsingStatic
     }
 
     [Fact]
-    public void Null()
+    public Task Null()
     {
         XunitContext.WriteLine("XunitLogger.WriteLine");
         XunitContext.WriteLine();
@@ -59,19 +59,19 @@ public class UsingStatic
         Trace.WriteLine(null);
         XunitContext.WriteLine("Trace.Write(null)");
         Trace.Write(null);
-        var logs = XunitContext.Flush();
-        ObjectApprover.Verify(logs);
+        var logs = XunitContext.Flush(false);
+        return Verifier.Verify(logs);
     }
 
     [Fact]
-    public void Write_lines()
+    public Task Write_lines()
     {
         XunitContext.Write("part1");
         XunitContext.Write(" part2");
         XunitContext.WriteLine();
         XunitContext.WriteLine("part3");
-        var logs = XunitContext.Flush();
-        ObjectApprover.Verify(logs);
+        var logs = XunitContext.Flush(false);
+        return Verifier.Verify(logs);
     }
 
     [Fact]
@@ -82,8 +82,8 @@ public class UsingStatic
         await Task.Delay(1).ConfigureAwait(false);
         XunitContext.WriteLine("part2");
         await Task.Delay(1).ConfigureAwait(false);
-        var logs = XunitContext.Flush();
-        ObjectApprover.Verify(logs);
+        var logs = XunitContext.Flush(false);
+        await Verifier.Verify(logs);
     }
 
     public UsingStatic(ITestOutputHelper testOutput)

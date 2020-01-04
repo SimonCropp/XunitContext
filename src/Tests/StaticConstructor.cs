@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -12,11 +13,11 @@ public class StaticConstructor
     }
 
     [Fact]
-    public void Verify()
+    public Task Verify()
     {
         Assert.EndsWith("StaticConstructor.cs", XunitContext.Context.SourceFile);
-        var logs = XunitContext.Flush();
-        ObjectApprover.Verify(logs);
+        var logs = XunitContext.Flush(false);
+        return Verifier.Verify(logs);
     }
 
     public StaticConstructor(ITestOutputHelper testOutput)

@@ -119,7 +119,7 @@ namespace Xunit
             Context.WriteLine(value);
         }
 
-        public static IReadOnlyList<string> Flush()
+        public static IReadOnlyList<string> Flush(bool clearAsyncLocal = true)
         {
             var context = local.Value;
             if (context == null)
@@ -129,7 +129,11 @@ namespace Xunit
 
             context.Flush();
             var messages = context.LogMessages;
-            local.Value = null;
+            if (clearAsyncLocal)
+            {
+                local.Value = null;
+            }
+
             return messages;
         }
 
