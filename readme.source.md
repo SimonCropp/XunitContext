@@ -151,6 +151,17 @@ Implementation:
 snippet: Parameters
 
 
+#### Complex parameters
+
+Only simple types (string, int, DateTime etc) can use the above automated approach. If a complex type is used the following exception will be thrown
+
+include: NoArgumentsDetectedException
+
+To use complex types override the parameter resolution using `XunitContextBase.UseParameters`:
+
+snippet: ComplexParameterSample.cs
+
+
 ### UniqueTestName
 
 Provided a string that uniquely identifies a test case.

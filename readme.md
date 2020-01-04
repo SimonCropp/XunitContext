@@ -891,15 +891,20 @@ Implementation:
 ```cs
 static List<Parameter> GetParameters(ITestCase testCase)
 {
+    return GetParameters(testCase, testCase.TestMethodArguments);
+}
+
+private static List<Parameter> GetParameters(ITestCase testCase, object[] arguments)
+{
     var method = testCase.TestMethod;
     var infos = method.Method.GetParameters().ToList();
-    var arguments = testCase.TestMethodArguments;
     if (arguments == null || !arguments.Any())
     {
         if (infos.Count == 0)
         {
             return empty;
         }
+
         throw NewNoArgumentsDetectedException();
     }
 
@@ -913,7 +918,67 @@ static List<Parameter> GetParameters(ITestCase testCase)
     return items;
 }
 ```
-<sup><a href='/src/XunitContext/Context_Parameters.cs#L19-L43' title='File snippet `parameters` was extracted from'>snippet source</a> | <a href='#snippet-parameters' title='Navigate to start of snippet `parameters`'>anchor</a></sup>
+<sup><a href='/src/XunitContext/Context_Parameters.cs#L28-L57' title='File snippet `parameters` was extracted from'>snippet source</a> | <a href='#snippet-parameters' title='Navigate to start of snippet `parameters`'>anchor</a></sup>
+<!-- endsnippet -->
+
+
+#### Complex parameters
+
+Only simple types (string, int, DateTime etc) can use the above automated approach. If a complex type is used the following exception will be thrown
+
+ <!-- include: NoArgumentsDetectedException. path: /src/Tests/NoArgumentsDetectedException.include.md -->
+> No arguments detected for method with parameters.
+> This is most likely caused by using a parameter that Xunit cannot serialize.
+> Instead pass in a simple type as a parameter and construct the complex object inside the test.
+ <!-- end include: NoArgumentsDetectedException. path: /src/Tests/NoArgumentsDetectedException.include.md -->
+
+To use complex types override the parameter resolution using `XunitContextBase.UseParameters`:
+
+<!-- snippet: ComplexParameterSample.cs -->
+<a id='snippet-ComplexParameterSample.cs'/></a>
+```cs
+using System.Collections.Generic;
+using System.Linq;
+using Xunit;
+using Xunit.Abstractions;
+
+public class ComplexParameterSample :
+    XunitContextBase
+{
+    [Theory]
+    [MemberData(nameof(GetDataComplex))]
+    public void MemberDataComplex(ComplexClass arg)
+    {
+        UseParameters(arg);
+        var parameter = Context.Parameters.Single();
+        var parameterInfo = parameter.Info;
+        Assert.Equal("arg", parameterInfo.Name);
+        Assert.Equal(arg, parameter.Value);
+    }
+
+    public static IEnumerable<object[]> GetDataComplex()
+    {
+        yield return new object[] {new ComplexClass("Value1")};
+        yield return new object[] {new ComplexClass("Value2")};
+    }
+
+    public ComplexParameterSample(ITestOutputHelper output) :
+        base(output)
+    {
+    }
+
+    public class ComplexClass
+    {
+        public string Value { get; }
+
+        public ComplexClass(string value)
+        {
+            Value = value;
+        }
+    }
+}
+```
+<sup><a href='/src/Tests/Snippets/ComplexParameterSample.cs#L1-L40' title='File snippet `ComplexParameterSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-ComplexParameterSample.cs' title='Navigate to start of snippet `ComplexParameterSample.cs`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

@@ -14,20 +14,34 @@ namespace Xunit
             get => parameters ??= GetParameters(Test.TestCase);
         }
 
+        /// <summary>
+        /// Override the default parameter resolution.
+        /// </summary>
+        public void UseParameters(params object[] parameters)
+        {
+            Guard.AgainstNull(parameters, nameof(parameters));
+            this.parameters = GetParameters(Test.TestCase,parameters);
+        }
+
         static List<Parameter> empty = new List<Parameter>();
 
         #region Parameters
         static List<Parameter> GetParameters(ITestCase testCase)
         {
+            return GetParameters(testCase, testCase.TestMethodArguments);
+        }
+
+        private static List<Parameter> GetParameters(ITestCase testCase, object[] arguments)
+        {
             var method = testCase.TestMethod;
             var infos = method.Method.GetParameters().ToList();
-            var arguments = testCase.TestMethodArguments;
             if (arguments == null || !arguments.Any())
             {
                 if (infos.Count == 0)
                 {
                     return empty;
                 }
+
                 throw NewNoArgumentsDetectedException();
             }
 

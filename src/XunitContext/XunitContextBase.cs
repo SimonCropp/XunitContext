@@ -104,5 +104,14 @@ namespace Xunit
         {
             get => Context.SolutionDirectory;
         }
+
+        /// <summary>
+        /// Override the default parameter resolution.
+        /// </summary>
+        public void UseParameters(params object[] parameters)
+        {
+            Guard.AgainstNull(parameters, nameof(parameters));
+            Context.UseParameters(parameters);
+        }
     }
 }
