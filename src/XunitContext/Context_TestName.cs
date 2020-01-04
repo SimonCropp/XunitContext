@@ -33,7 +33,7 @@ namespace Xunit
                 return name;
             }
 
-            var builder = new StringBuilder();
+            var builder = new StringBuilder($"{name}_");
             foreach (var parameter in Parameters)
             {
                 builder.Append($"{parameter.Info.Name}=");
@@ -48,7 +48,7 @@ namespace Xunit
 
             builder.Length -= 1;
 
-            return $"{name}_{builder}";
+            return builder.ToString();
         }
         #endregion
     }

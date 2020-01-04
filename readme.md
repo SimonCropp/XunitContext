@@ -1033,7 +1033,7 @@ string GetUniqueTestName(ITestCase testCase)
         return name;
     }
 
-    var builder = new StringBuilder();
+    var builder = new StringBuilder($"{name}_");
     foreach (var parameter in Parameters)
     {
         builder.Append($"{parameter.Info.Name}=");
@@ -1048,7 +1048,7 @@ string GetUniqueTestName(ITestCase testCase)
 
     builder.Length -= 1;
 
-    return $"{name}_{builder}";
+    return builder.ToString();
 }
 ```
 <sup><a href='/src/XunitContext/Context_TestName.cs#L26-L53' title='File snippet `uniquetestname` was extracted from'>snippet source</a> | <a href='#snippet-uniquetestname' title='Navigate to start of snippet `uniquetestname`'>anchor</a></sup>
