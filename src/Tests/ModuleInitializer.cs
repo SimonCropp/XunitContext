@@ -9,7 +9,6 @@ public static class ModuleInitializer
             message => new XunitException(message),
             input => XunitContext.Context.IntOrNext(input),
             input => XunitContext.Context.IntOrNext(input),
-            input => XunitContext.Context.IntOrNext(input),
-            Assert.Equal);
+            input => XunitContext.Context.IntOrNext(input));
     }
 }
