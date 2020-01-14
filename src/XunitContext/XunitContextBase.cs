@@ -32,6 +32,14 @@ namespace Xunit
         }
 
         /// <summary>
+        /// Writes a value to the current <see cref="ITestOutputHelper"/>.
+        /// </summary>
+        public void WriteLine(object value)
+        {
+            Context.WriteLine(value);
+        }
+
+        /// <summary>
         /// Writes a line to the current <see cref="ITestOutputHelper"/>.
         /// </summary>
         public void WriteLine(string value)
@@ -53,6 +61,14 @@ namespace Xunit
         public void WriteLine()
         {
             Context.WriteLine();
+        }
+
+        /// <summary>
+        /// Writes a value to the current <see cref="ITestOutputHelper"/>.
+        /// </summary>
+        public void Write(object value)
+        {
+            Context.Write(value);
         }
 
         /// <summary>
