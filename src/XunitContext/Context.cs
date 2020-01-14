@@ -102,6 +102,15 @@ namespace Xunit
         }
 
         /// <summary>
+        /// Writes a value to the current <see cref="ITestOutputHelper"/>.
+        /// </summary>
+        public void Write(object value)
+        {
+            Guard.AgainstNull(value, nameof(value));
+            Write(value.ToString());
+        }
+
+        /// <summary>
         /// Writes a string to the current <see cref="ITestOutputHelper"/>.
         /// </summary>
         public void Write(string value)
@@ -170,6 +179,15 @@ namespace Xunit
                     Builder.AppendLine();
                 }
             }
+        }
+
+        /// <summary>
+        /// Writes a line to the current <see cref="ITestOutputHelper"/>.
+        /// </summary>
+        public void WriteLine(object value)
+        {
+            Guard.AgainstNull(value, nameof(value));
+            WriteLine(value.ToString());
         }
 
         /// <summary>

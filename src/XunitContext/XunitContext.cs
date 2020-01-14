@@ -86,7 +86,11 @@ namespace Xunit
 
         public static void Write(string value)
         {
-            Guard.AgainstNull(value, nameof(value));
+            Context.Write(value);
+        }
+
+        public static void Write(object value)
+        {
             Context.Write(value);
         }
 
@@ -115,6 +119,11 @@ namespace Xunit
         }
 
         public static void WriteLine(string value)
+        {
+            Context.WriteLine(value);
+        }
+
+        public static void WriteLine(object value)
         {
             Context.WriteLine(value);
         }
