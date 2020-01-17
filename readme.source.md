@@ -194,6 +194,13 @@ Alternatives to this approach:
  * Having a single base class that all tests inherit from, and place any configuration code in the static constructor of that type.
 
 
+## Security contact information
+
+  To report a security vulnerability, please use the
+  [Tidelift security contact](https://tidelift.com/security).
+  Tidelift will coordinate the fix and disclosure.
+
+
 ## Release Notes
 
 See [closed milestones](../../milestones?state=closed).

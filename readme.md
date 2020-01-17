@@ -31,7 +31,8 @@ Uses [AsyncLocal](https://docs.microsoft.com/en-us/dotnet/api/system.threading.a
     * [Base Class](#base-class)
     * [Parameters](#parameters)
     * [UniqueTestName](#uniquetestname)
-  * [Global Setup](#global-setup)<!-- endtoc -->
+  * [Global Setup](#global-setup)
+  * [Security contact information](#security-contact-information)<!-- endtoc -->
 
 
 ## NuGet package
@@ -1084,6 +1085,13 @@ Alternatives to this approach:
 
  * Using a [module initializer ](https://github.com/Fody/ModuleInit).
  * Having a single base class that all tests inherit from, and place any configuration code in the static constructor of that type.
+
+
+## Security contact information
+
+  To report a security vulnerability, please use the
+  [Tidelift security contact](https://tidelift.com/security).
+  Tidelift will coordinate the fix and disclosure.
 
 
 ## Release Notes
