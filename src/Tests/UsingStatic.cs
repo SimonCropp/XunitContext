@@ -79,9 +79,9 @@ public class UsingStatic
     {
         await Task.Delay(1);
         XunitContext.WriteLine("part1");
-        await Task.Delay(1).ConfigureAwait(false);
+        await Task.Delay(1);
         XunitContext.WriteLine("part2");
-        await Task.Delay(1).ConfigureAwait(false);
+        await Task.Delay(1);
         var logs = XunitContext.Flush(false);
         await Verifier.Verify(logs);
     }
