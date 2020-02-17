@@ -9,6 +9,8 @@ Redirects [Trace.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagn
 
 Uses [AsyncLocal](https://docs.microsoft.com/en-us/dotnet/api/system.threading.asynclocal-1) to track state.
 
+Support is available via a [Tidelift Subscription](https://tidelift.com/subscription/pkg/nuget-xunitcontext?utm_source=nuget-xunitcontext&utm_medium=referral&utm_campaign=enterprise).
+
 toc
 
 
