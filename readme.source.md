@@ -26,7 +26,7 @@ snippet: ClassBeingTested.cs
 
 ## XunitContextBase
 
-`XunitContextBase` is an abstract base class for tests. It exposes logging methods for use from unit tests, and handle the flushing of longs in its `Dispose` method. `XunitContextBase` is actually a thin wrapper over `XunitContext`. `XunitContext`s `Write*` methods can also be use inside a test inheriting from `XunitContextBase`.
+`XunitContextBase` is an abstract base class for tests. It exposes logging methods for use from unit tests, and handle the flushing of logs in its `Dispose` method. `XunitContextBase` is actually a thin wrapper over `XunitContext`. `XunitContext`s `Write*` methods can also be use inside a test inheriting from `XunitContextBase`.
 
 snippet: TestBaseSample.cs
 
