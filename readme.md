@@ -1008,9 +1008,9 @@ public class UniqueTestNameSample :
     [Fact]
     public void Usage()
     {
-        var currentGuid = Context.UniqueTestName;
+        var testName = Context.UniqueTestName;
 
-        Context.WriteLine(currentGuid);
+        Context.WriteLine(testName);
     }
 
     public UniqueTestNameSample(ITestOutputHelper output) :
@@ -1054,7 +1054,7 @@ string GetUniqueTestName(ITestCase testCase)
     return builder.ToString();
 }
 ```
-<sup><a href='/src/XunitContext/Context_TestName.cs#L26-L53' title='File snippet `uniquetestname` was extracted from'>snippet source</a> | <a href='#snippet-uniquetestname' title='Navigate to start of snippet `uniquetestname`'>anchor</a></sup>
+<sup><a href='/src/XunitContext/Context_TestName.cs#L34-L61' title='File snippet `uniquetestname` was extracted from'>snippet source</a> | <a href='#snippet-uniquetestname' title='Navigate to start of snippet `uniquetestname`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

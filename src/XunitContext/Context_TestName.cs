@@ -20,7 +20,15 @@ namespace Xunit
 
         public string UniqueTestName
         {
-            get => uniqueTestName ??= GetUniqueTestName(Test.TestCase);
+            get
+            {
+                if (uniqueTestName == null)
+                {
+                    uniqueTestName = GetUniqueTestName(Test.TestCase);
+                }
+
+                return uniqueTestName;
+            }
         }
 
         #region UniqueTestName

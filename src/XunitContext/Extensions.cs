@@ -11,7 +11,7 @@ static class Extensions
     public static string ClassName(this ITypeInfo value)
     {
         var name = value.Name;
-        var indexOf = name.IndexOf('.');
+        var indexOf = name.LastIndexOf('.');
         if (indexOf == -1)
         {
             return name;

@@ -7,9 +7,9 @@ public class UniqueTestNameSample :
     [Fact]
     public void Usage()
     {
-        var currentGuid = Context.UniqueTestName;
+        var testName = Context.UniqueTestName;
 
-        Context.WriteLine(currentGuid);
+        Context.WriteLine(testName);
     }
 
     public UniqueTestNameSample(ITestOutputHelper output) :
