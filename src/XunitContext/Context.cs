@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using Xunit.Abstractions;
+using Xunit.Sdk;
 
 namespace Xunit
 {
@@ -50,24 +53,30 @@ namespace Xunit
         {
             get
             {
-                if (Exception?.InnerException == null)
+                if (Exception == null)
                 {
                     return null;
                 }
-                var stackTrace = new StackTrace(Exception?.InnerException,false);
-                var stackFrame = stackTrace.GetFrame(stackTrace.FrameCount-1);
-                var methodBase = stackFrame.GetMethod();
-                var declaringType = methodBase.DeclaringType;
-                var testMethod = Test.TestCase.TestMethod;
-                if (testMethod.Method.Name != methodBase.Name)
+
+                if (Exception is XunitException)
                 {
-                    return null;
+                    return Exception;
                 }
-                if (testMethod.TestClass.Class.Name != declaringType.FullName)
+                var outerTrace = new StackTrace(Exception, false);
+                var firstFrame = outerTrace.GetFrame(outerTrace.FrameCount - 1);
+                var firstMethod = firstFrame.GetMethod();
+
+                var root = firstMethod.DeclaringType.DeclaringType;
+                if (root != null && root == typeof(ExceptionAggregator))
                 {
-                    return null;
+                    if (Exception is TargetInvocationException targetInvocationException)
+                    {
+                        return targetInvocationException.InnerException;
+                    }
+                    return Exception;
                 }
-                return Exception?.InnerException;
+
+                return null;
             }
         }
 
