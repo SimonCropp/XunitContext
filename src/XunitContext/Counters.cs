@@ -1,4 +1,6 @@
-﻿using System;
+﻿#pragma warning disable CS3002 // Return type is not CLS-compliant
+#pragma warning disable CS3003 // Type is not CLS-compliant
+using System;
 
 namespace Xunit
 {
