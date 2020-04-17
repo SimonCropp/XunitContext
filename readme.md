@@ -583,8 +583,6 @@ var localNext = counter.Next();
 <!-- snippet: Context_Counters.cs -->
 <a id='snippet-Context_Counters.cs'/></a>
 ```cs
-#pragma warning disable CS3002 // Return type is not CLS-compliant
-#pragma warning disable CS3003 // Type is not CLS-compliant
 using System;
 
 namespace Xunit
@@ -711,14 +709,12 @@ namespace Xunit
     }
 }
 ```
-<sup><a href='/src/XunitContext/Context_Counters.cs#L1-L127' title='File snippet `Context_Counters.cs` was extracted from'>snippet source</a> | <a href='#snippet-Context_Counters.cs' title='Navigate to start of snippet `Context_Counters.cs`'>anchor</a></sup>
+<sup><a href='/src/XunitContext/Context_Counters.cs#L1-L125' title='File snippet `Context_Counters.cs` was extracted from'>snippet source</a> | <a href='#snippet-Context_Counters.cs' title='Navigate to start of snippet `Context_Counters.cs`'>anchor</a></sup>
 <!-- endsnippet -->
 
 <!-- snippet: Counters.cs -->
 <a id='snippet-Counters.cs'/></a>
 ```cs
-#pragma warning disable CS3002 // Return type is not CLS-compliant
-#pragma warning disable CS3003 // Type is not CLS-compliant
 using System;
 
 namespace Xunit
@@ -783,7 +779,7 @@ namespace Xunit
     }
 }
 ```
-<sup><a href='/src/XunitContext/Counters.cs#L1-L65' title='File snippet `Counters.cs` was extracted from'>snippet source</a> | <a href='#snippet-Counters.cs' title='Navigate to start of snippet `Counters.cs`'>anchor</a></sup>
+<sup><a href='/src/XunitContext/Counters.cs#L1-L63' title='File snippet `Counters.cs` was extracted from'>snippet source</a> | <a href='#snippet-Counters.cs' title='Navigate to start of snippet `Counters.cs`'>anchor</a></sup>
 <!-- endsnippet -->
 
 <!-- snippet: GuidCounter.cs -->
