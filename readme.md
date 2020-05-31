@@ -932,7 +932,7 @@ static List<Parameter> GetParameters(ITestCase testCase, object[] arguments)
 
 #### Complex parameters
 
-Only simple types (string, int, DateTime etc) can use the above automated approach. If a complex type is used the following exception will be thrown
+Only core types (string, int, DateTime etc) can use the above automated approach. If a complex type is used the following exception will be thrown
 
  <!-- include: NoArgumentsDetectedException. path: /src/Tests/NoArgumentsDetectedException.include.md -->
 > No arguments detected for method with parameters.

@@ -160,7 +160,7 @@ snippet: Parameters
 
 #### Complex parameters
 
-Only simple types (string, int, DateTime etc) can use the above automated approach. If a complex type is used the following exception will be thrown
+Only core types (string, int, DateTime etc) can use the above automated approach. If a complex type is used the following exception will be thrown
 
 include: NoArgumentsDetectedException
 
