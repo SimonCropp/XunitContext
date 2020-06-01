@@ -184,7 +184,7 @@ snippet: UniqueTestName
 
 ## Global Setup
 
-Xunit has no way to run code once prior to any tests executing. XUnitContext adds this feature via an attribute.
+Xunit has no way to run code once before any tests executing. XUnitContext adds this feature via an attribute.
 
 snippet: GlobalSetup.cs
 
