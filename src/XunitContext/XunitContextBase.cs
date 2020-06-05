@@ -8,6 +8,11 @@ namespace Xunit
     public abstract class XunitContextBase :
         IDisposable
     {
+        static XunitContextBase()
+        {
+            GlobalSetupRunner.Run();
+        }
+
         /// <summary>
         /// The current <see cref="ITestOutputHelper"/>.
         /// </summary>
@@ -85,6 +90,14 @@ namespace Xunit
         }
 
         /// <summary>
+        /// The <see cref="Exception"/> for the current test if it failed.
+        /// </summary>
+        public Exception? TestException
+        {
+            get => Context.TestException;
+        }
+
+        /// <summary>
         /// The source file that the current test exists in.
         /// </summary>
         public string SourceFile
@@ -98,6 +111,14 @@ namespace Xunit
         public string SourceDirectory
         {
             get => Context.SourceDirectory;
+        }
+
+        /// <summary>
+        /// The current solution directory. Obtained by walking up the directory tree from <see cref="SourceDirectory"/>.
+        /// </summary>
+        public string SolutionDirectory
+        {
+            get => Context.SolutionDirectory;
         }
 
         /// <summary>

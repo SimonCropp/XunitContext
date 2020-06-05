@@ -9,7 +9,38 @@ namespace Xunit
 {
     public static class XunitContext
     {
+        static XunitContext()
+        {
+            GlobalSetupRunner.Run();
+        }
+
         static AsyncLocal<Context?> local = new AsyncLocal<Context?>();
+        static bool enableExceptionCapture;
+
+        public static void EnableExceptionCapture()
+        {
+            if (enableExceptionCapture)
+            {
+                return;
+            }
+
+            enableExceptionCapture = true;
+            AppDomain.CurrentDomain.FirstChanceException += (sender, e) =>
+            {
+                if (local.Value == null)
+                {
+                    return;
+                }
+
+                if (local.Value.flushed)
+                {
+                    return;
+                }
+
+                local.Value.Exception = e.Exception;
+            };
+        }
+
 
         public static void Init()
         {
@@ -19,12 +50,7 @@ namespace Xunit
             Trace.UseGlobalLock = useGlobalLock;
         }
 
-        public static string TrimTrailingNewline(this string value)
-        {
-            return value.Substring(0, value.Length - Environment.NewLine.Length);
-        }
-
-        static void InnerInit()
+        private static void InnerInit()
         {
             #region writeRedirects
 
