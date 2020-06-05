@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Reflection;
 using System.Text;
 using Xunit.Abstractions;
-using Xunit.Sdk;
 
 namespace Xunit
 {
@@ -26,15 +23,6 @@ namespace Xunit
         {
             get => Path.GetDirectoryName(SourceFile);
         }
-        string? solutionDirectory;
-
-        /// <summary>
-        /// The current solution directory. Obtained by walking up the directory tree from <see cref="SourceDirectory"/>.
-        /// </summary>
-        public string SolutionDirectory
-        {
-            get => solutionDirectory ??= SolutionDirectoryFinder.Find(SourceDirectory);
-        }
 
         List<string> logMessages = new List<string>();
         object locker = new object();
@@ -43,41 +31,6 @@ namespace Xunit
         /// All log message that have been written to the current <see cref="ITestOutputHelper"/>.
         /// </summary>
         public IReadOnlyList<string> LogMessages => logMessages;
-        internal Exception? Exception;
-
-        /// <summary>
-        /// The <see cref="Exception"/> for the current test if it failed.
-        /// </summary>
-        public Exception? TestException
-        {
-            get
-            {
-                if (Exception == null)
-                {
-                    return null;
-                }
-
-                if (Exception is XunitException)
-                {
-                    return Exception;
-                }
-                var outerTrace = new StackTrace(Exception, false);
-                var firstFrame = outerTrace.GetFrame(outerTrace.FrameCount - 1);
-                var firstMethod = firstFrame.GetMethod();
-
-                var root = firstMethod.DeclaringType.DeclaringType;
-                if (root != null && root == typeof(ExceptionAggregator))
-                {
-                    if (Exception is TargetInvocationException targetInvocationException)
-                    {
-                        return targetInvocationException.InnerException;
-                    }
-                    return Exception;
-                }
-
-                return null;
-            }
-        }
 
         public StringBuilder? Builder;
 
@@ -166,11 +119,6 @@ namespace Xunit
                 {
                     var message = Builder.ToString();
                     Builder = null;
-                    if (Filters.ShouldFilterOut(message))
-                    {
-                        return;
-                    }
-
                     logMessages.Add(message);
                     TestOutput.WriteLine(message);
                     return;
@@ -210,11 +158,6 @@ namespace Xunit
 
                 if (Builder == null && TestOutput == null)
                 {
-                    if (Filters.ShouldFilterOut(value))
-                    {
-                        return;
-                    }
-
                     Builder = new StringBuilder();
                     Builder.AppendLine(value);
                     logMessages.Add(value);
@@ -226,11 +169,6 @@ namespace Xunit
                     Builder.AppendLine(value);
                     var message = Builder.ToString();
                     Builder = null;
-                    if (Filters.ShouldFilterOut(message))
-                    {
-                        return;
-                    }
-
                     logMessages.Add(message);
                     TestOutput.WriteLine(message);
                     return;
@@ -238,11 +176,6 @@ namespace Xunit
 
                 if (Builder == null && TestOutput != null)
                 {
-                    if (Filters.ShouldFilterOut(value))
-                    {
-                        return;
-                    }
-
                     logMessages.Add(value);
                     TestOutput.WriteLine(value);
                     return;
@@ -271,11 +204,6 @@ namespace Xunit
 
                 var message = Builder.ToString();
                 Builder = null;
-                if (Filters.ShouldFilterOut(message))
-                {
-                    return;
-                }
-
                 logMessages.Add(message);
                 if (TestOutput == null)
                 {
