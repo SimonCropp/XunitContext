@@ -13,6 +13,7 @@ namespace TheNamespace
             var counter = new GuidCounter();
             Assert.Equal(counter.Current, counter.Current);
         }
+
         [Fact]
         public void Next()
         {
