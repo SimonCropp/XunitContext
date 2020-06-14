@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
+using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
+[UsesVerify]
 public class StaticConstructor
 {
     static StaticConstructor()

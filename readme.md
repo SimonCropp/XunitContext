@@ -29,7 +29,6 @@ Support is available via a [Tidelift Subscription](https://tidelift.com/subscrip
   * [Context](#context)
     * [Current Test](#current-test)
     * [Test Failure](#test-failure)
-    * [Counters](#counters)
     * [Base Class](#base-class)
     * [Parameters](#parameters)
     * [UniqueTestName](#uniquetestname)
@@ -262,10 +261,6 @@ public class ContextSample  :
     [Fact]
     public void Usage()
     {
-        var currentGuid = Context.CurrentGuid;
-
-        var nextGuid = Context.NextGuid();
-
         Context.WriteLine("Some message");
 
         var currentLogMessages = Context.LogMessages;
@@ -289,7 +284,7 @@ public class ContextSample  :
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/ContextSample.cs#L1-L35' title='File snippet `ContextSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-ContextSample.cs' title='Navigate to start of snippet `ContextSample.cs`'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/ContextSample.cs#L1-L31' title='File snippet `ContextSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-ContextSample.cs' title='Navigate to start of snippet `ContextSample.cs`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Some members are pushed down to the be accessible directly from `XunitContextBase`:
@@ -344,10 +339,6 @@ public class ContextStaticSample :
     [Fact]
     public void StaticUsage()
     {
-        var currentGuid = XunitContext.Context.CurrentGuid;
-
-        var nextGuid = XunitContext.Context.NextGuid();
-
         XunitContext.Context.WriteLine("Some message");
 
         var currentLogMessages = XunitContext.Context.LogMessages;
@@ -371,7 +362,7 @@ public class ContextStaticSample :
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/ContextStaticSample.cs#L1-L35' title='File snippet `ContextStaticSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-ContextStaticSample.cs' title='Navigate to start of snippet `ContextStaticSample.cs`'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/ContextStaticSample.cs#L1-L31' title='File snippet `ContextStaticSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-ContextStaticSample.cs' title='Navigate to start of snippet `ContextStaticSample.cs`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -550,276 +541,7 @@ public static class GlobalSetup
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/TestExceptionSample.cs#L8-L44' title='File snippet `testexceptionsample` was extracted from'>snippet source</a> | <a href='#snippet-testexceptionsample' title='Navigate to start of snippet `testexceptionsample`'>anchor</a></sup>
-<!-- endsnippet -->
-
-
-### Counters
-
-Provide access to predicable and incrementing values for the following types: `Guid`, `Int`, `Long`, `UInt`, and `ULong`.
-
-
-#### Non Test Context usage
-
-Counters can also be used outside of the current test context:
-
-<!-- snippet: NonTestContextUsage -->
-<a id='snippet-nontestcontextusage'/></a>
-```cs
-var current = Counters.CurrentGuid;
-
-var next = Counters.NextGuid();
-
-var counter = new GuidCounter();
-var localCurrent = counter.Current;
-var localNext = counter.Next();
-```
-<sup><a href='/src/Tests/Snippets/CountersSample.cs#L8-L16' title='File snippet `nontestcontextusage` was extracted from'>snippet source</a> | <a href='#snippet-nontestcontextusage' title='Navigate to start of snippet `nontestcontextusage`'>anchor</a></sup>
-<!-- endsnippet -->
-
-
-#### Implementation
-
-<!-- snippet: Context_Counters.cs -->
-<a id='snippet-Context_Counters.cs'/></a>
-```cs
-using System;
-
-namespace Xunit
-{
-    public partial class Context
-    {
-        GuidCounter GuidCounter = new GuidCounter();
-        IntCounter IntCounter = new IntCounter();
-        LongCounter LongCounter = new LongCounter();
-        UIntCounter UIntCounter = new UIntCounter();
-        ULongCounter ULongCounter = new ULongCounter();
-        DateTimeOffsetCounter DateTimeOffsetCounter = new DateTimeOffsetCounter();
-        DateTimeCounter DateTimeCounter = new DateTimeCounter();
-
-        public uint CurrentUInt
-        {
-            get => UIntCounter.Current;
-        }
-
-        public int CurrentInt
-        {
-            get => IntCounter.Current;
-        }
-
-        public long CurrentLong
-        {
-            get => LongCounter.Current;
-        }
-
-        public ulong CurrentULong
-        {
-            get => ULongCounter.Current;
-        }
-
-        public Guid CurrentGuid
-        {
-            get => GuidCounter.Current;
-        }
-
-        public DateTime CurrentDateTime
-        {
-            get => DateTimeCounter.Current;
-        }
-
-        public DateTimeOffset CurrentDateTimeOffset
-        {
-            get => DateTimeOffsetCounter.Current;
-        }
-
-        public int IntOrNext<T>(T input)
-        {
-            if (input is Guid guidInput)
-            {
-                return GuidCounter.IntOrNext(guidInput);
-            }
-
-            if (input is int intInput)
-            {
-                return IntCounter.IntOrNext(intInput);
-            }
-
-            if (input is uint uIntInput)
-            {
-                return UIntCounter.IntOrNext(uIntInput);
-            }
-
-            if (input is ulong ulongInput)
-            {
-                return ULongCounter.IntOrNext(ulongInput);
-            }
-
-            if (input is long longInput)
-            {
-                return LongCounter.IntOrNext(longInput);
-            }
-
-            if (input is DateTime dateTimeInput)
-            {
-                return DateTimeCounter.IntOrNext(dateTimeInput);
-            }
-
-            if (input is DateTimeOffset dateTimeOffsetInput)
-            {
-                return DateTimeOffsetCounter.IntOrNext(dateTimeOffsetInput);
-            }
-
-            throw new Exception($"Unknown type {typeof(T).FullName}");
-        }
-
-        public uint NextUInt()
-        {
-            return UIntCounter.Next();
-        }
-
-        public int NextInt()
-        {
-            return IntCounter.Next();
-        }
-
-        public long NextLong()
-        {
-            return LongCounter.Next();
-        }
-
-        public ulong NextULong()
-        {
-            return ULongCounter.Next();
-        }
-
-        public Guid NextGuid()
-        {
-            return GuidCounter.Next();
-        }
-
-        public DateTime NextDateTime()
-        {
-            return DateTimeCounter.Next();
-        }
-
-        public DateTimeOffset NextTimeOffset()
-        {
-            return DateTimeOffsetCounter.Next();
-        }
-    }
-}
-```
-<sup><a href='/src/XunitContext/Context_Counters.cs#L1-L125' title='File snippet `Context_Counters.cs` was extracted from'>snippet source</a> | <a href='#snippet-Context_Counters.cs' title='Navigate to start of snippet `Context_Counters.cs`'>anchor</a></sup>
-<!-- endsnippet -->
-
-<!-- snippet: Counters.cs -->
-<a id='snippet-Counters.cs'/></a>
-```cs
-using System;
-
-namespace Xunit
-{
-    public static class Counters
-    {
-        static GuidCounter GuidCounter = new GuidCounter();
-        static IntCounter IntCounter = new IntCounter();
-        static LongCounter LongCounter = new LongCounter();
-        static UIntCounter UIntCounter = new UIntCounter();
-        static ULongCounter ULongCounter = new ULongCounter();
-
-        public static uint CurrentUInt
-        {
-            get => UIntCounter.Current;
-        }
-
-        public static int CurrentInt
-        {
-            get => IntCounter.Current;
-        }
-
-        public static long CurrentLong
-        {
-            get => LongCounter.Current;
-        }
-
-        public static ulong CurrentULong
-        {
-            get => ULongCounter.Current;
-        }
-
-        public static Guid CurrentGuid
-        {
-            get => GuidCounter.Current;
-        }
-
-        public static uint NextUInt()
-        {
-            return UIntCounter.Next();
-        }
-
-        public static int NextInt()
-        {
-            return IntCounter.Next();
-        }
-
-        public static long NextLong()
-        {
-            return LongCounter.Next();
-        }
-
-        public static ulong NextULong()
-        {
-            return ULongCounter.Next();
-        }
-
-        public static Guid NextGuid()
-        {
-            return GuidCounter.Next();
-        }
-    }
-}
-```
-<sup><a href='/src/XunitContext/Counters.cs#L1-L63' title='File snippet `Counters.cs` was extracted from'>snippet source</a> | <a href='#snippet-Counters.cs' title='Navigate to start of snippet `Counters.cs`'>anchor</a></sup>
-<!-- endsnippet -->
-
-<!-- snippet: GuidCounter.cs -->
-<a id='snippet-GuidCounter.cs'/></a>
-```cs
-using System;
-
-namespace Xunit
-{
-    public class GuidCounter :
-        Counter<Guid>
-    {
-        protected override Guid Convert(int i)
-        {
-            var bytes = new byte[16];
-            BitConverter.GetBytes(i).CopyTo(bytes, 0);
-            return new Guid(bytes);
-        }
-    }
-}
-```
-<sup><a href='/src/XunitContext/Counters/GuidCounter.cs#L1-L15' title='File snippet `GuidCounter.cs` was extracted from'>snippet source</a> | <a href='#snippet-GuidCounter.cs' title='Navigate to start of snippet `GuidCounter.cs`'>anchor</a></sup>
-<!-- endsnippet -->
-
-<!-- snippet: LongCounter.cs -->
-<a id='snippet-LongCounter.cs'/></a>
-```cs
-namespace Xunit
-{
-    public class LongCounter :
-        Counter<long>
-    {
-        protected override long Convert(int i)
-        {
-            return i;
-        }
-    }
-}
-```
-<sup><a href='/src/XunitContext/Counters/LongCounter.cs#L1-L11' title='File snippet `LongCounter.cs` was extracted from'>snippet source</a> | <a href='#snippet-LongCounter.cs' title='Navigate to start of snippet `LongCounter.cs`'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/TestExceptionSample.cs#L8-L43' title='File snippet `testexceptionsample` was extracted from'>snippet source</a> | <a href='#snippet-testexceptionsample' title='Navigate to start of snippet `testexceptionsample`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

@@ -7,7 +7,6 @@ namespace TestExceptionSample
 
     #region TestExceptionSample
 
-
     public class TestExceptionSample :
         XunitContextBase
     {

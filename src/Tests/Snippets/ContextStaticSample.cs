@@ -7,10 +7,6 @@ public class ContextStaticSample :
     [Fact]
     public void StaticUsage()
     {
-        var currentGuid = XunitContext.Context.CurrentGuid;
-
-        var nextGuid = XunitContext.Context.NextGuid();
-
         XunitContext.Context.WriteLine("Some message");
 
         var currentLogMessages = XunitContext.Context.LogMessages;

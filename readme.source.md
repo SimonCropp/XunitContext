@@ -110,29 +110,6 @@ One common case is to perform some logic, based on the existence of the exceptio
 snippet: TestExceptionSample
 
 
-### Counters
-
-Provide access to predicable and incrementing values for the following types: `Guid`, `Int`, `Long`, `UInt`, and `ULong`.
-
-
-#### Non Test Context usage
-
-Counters can also be used outside of the current test context:
-
-snippet: NonTestContextUsage
-
-
-#### Implementation
-
-snippet: Context_Counters.cs
-
-snippet: Counters.cs
-
-snippet: GuidCounter.cs
-
-snippet: LongCounter.cs
-
-
 ### Base Class
 
 When creating a custom base class for other tests, it is necessary to pass through the source file path to `XunitContextBase` via the constructor.

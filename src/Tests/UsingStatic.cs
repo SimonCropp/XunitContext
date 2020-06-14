@@ -1,31 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
+[UsesVerify]
 public class UsingStatic
 {
-    [Fact]
-    public Task Counters()
-    {
-        var context = XunitContext.Context;
-        var foo = new
-        {
-            int1 = context.NextInt(),
-            int2 = context.NextInt(),
-            uint1 = context.NextUInt(),
-            uint2 = context.NextUInt(),
-            long1 = context.NextLong(),
-            long2 = context.NextLong(),
-            ulong1 = context.NextULong(),
-            ulong2 = context.NextULong(),
-            guid1 = context.NextGuid(),
-            guid2 = context.NextGuid(),
-        };
-        return Verifier.Verify(foo);
-    }
-
     [Fact]
     public Task Overwrites()
     {

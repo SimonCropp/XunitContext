@@ -7,10 +7,6 @@ public class ContextSample  :
     [Fact]
     public void Usage()
     {
-        var currentGuid = Context.CurrentGuid;
-
-        var nextGuid = Context.NextGuid();
-
         Context.WriteLine("Some message");
 
         var currentLogMessages = Context.LogMessages;
