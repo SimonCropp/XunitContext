@@ -80,7 +80,9 @@ public class UsingStatic
         XunitContext.Write('\r');
         XunitContext.Write('\n');
         XunitContext.Write("\r\n");
-        XunitContext.Write('G');
+        XunitContext.Write("G\r\nH\nI");
+        XunitContext.Write("\n\r\n");
+        XunitContext.Write('J');
         var logs = XunitContext.Flush(false);
         // Verifier normalises '\r' characters, so we need to manually detect embedded '\r' from above
         Assert.Equal("DE\rF", logs[2]);
