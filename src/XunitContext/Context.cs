@@ -127,8 +127,38 @@ namespace Xunit
             lock (locker)
             {
                 ThrowIfFlushed(value);
+
+                // Split on '\n'
+                var start = 0;
+                do
+                {
+                    var pos = value.IndexOf('\n', start);
+                    if (pos < 0)
+                    {
+                        // No more '\n' characters.
+                        break;
+                    }
+
+                    if (pos < 1)
+                    {
+                        // Trim any trailing '\r' in Builder
+                        var end = (Builder?.Length ?? 0) - 1;
+                        if (end > -1 && Builder![Builder.Length - 1] == '\r')
+                        {
+                            Builder.Remove(end, 1);
+                        }
+                    }
+                    var count = (pos > start && value[pos - 1] == '\r' ? pos - 1 : pos) - start;
+
+                    WriteLine(count > 0 ? value.Substring(start, count) : string.Empty);
+                    start = pos + 1;
+                } while (start < value.Length);
+
+                if (start >= value.Length)
+                    return;
+
                 InitBuilder();
-                Builder?.Append(value);
+                Builder?.Append(start > 0 ? value.Substring(start) : value);
             }
         }
 
@@ -140,6 +170,17 @@ namespace Xunit
             lock (locker)
             {
                 ThrowIfFlushed(value.ToString());
+                if (value == '\n')
+                {
+                    // Trim any trailing '\r'
+                    var end = (Builder?.Length ?? 0) - 1;
+                    if (end > -1 && Builder![Builder.Length - 1] == '\r')
+                    {
+                        Builder.Remove(end, 1);
+                    }
+                    WriteLine();
+                    return;
+                }
                 InitBuilder();
                 Builder?.Append(value);
             }
@@ -223,7 +264,7 @@ namespace Xunit
 
                 if (Builder != null && TestOutput != null)
                 {
-                    Builder.AppendLine(value);
+                    Builder.Append(value);
                     var message = Builder.ToString();
                     Builder = null;
                     if (Filters.ShouldFilterOut(message))
