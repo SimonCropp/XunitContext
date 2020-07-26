@@ -68,6 +68,27 @@ public class UsingStatic
         await Verifier.Verify(logs);
     }
 
+    [Fact]
+    public Task Split_Lines()
+    {
+        XunitContext.Write("A\nB");
+        XunitContext.Write("C\r\nD");
+        XunitContext.Write("E\rF\r");
+        XunitContext.Write("\n");
+        XunitContext.Write('\n');
+        XunitContext.Write('\n');
+        XunitContext.Write('\r');
+        XunitContext.Write('\n');
+        XunitContext.Write("\r\n");
+        XunitContext.Write("G\r\nH\nI");
+        XunitContext.Write("\n\r\n");
+        XunitContext.Write('J');
+        var logs = XunitContext.Flush(false);
+        // Verifier normalises '\r' characters, so we need to manually detect embedded '\r' from above
+        Assert.Equal("DE\rF", logs[2]);
+        return Verifier.Verify(logs);
+    }
+
     public UsingStatic(ITestOutputHelper testOutput)
     {
         XunitContext.Register(testOutput);
