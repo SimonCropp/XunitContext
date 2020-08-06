@@ -44,7 +44,7 @@ https://nuget.org/packages/XunitContext/
 ## ClassBeingTested
 
 <!-- snippet: ClassBeingTested.cs -->
-<a id='snippet-ClassBeingTested.cs'/></a>
+<a id='snippet-ClassBeingTested.cs'></a>
 ```cs
 using System;
 using System.Diagnostics;
@@ -69,7 +69,7 @@ static class ClassBeingTested
 `XunitContextBase` is an abstract base class for tests. It exposes logging methods for use from unit tests, and handle the flushing of logs in its `Dispose` method. `XunitContextBase` is actually a thin wrapper over `XunitContext`. `XunitContext`s `Write*` methods can also be use inside a test inheriting from `XunitContextBase`.
 
 <!-- snippet: TestBaseSample.cs -->
-<a id='snippet-TestBaseSample.cs'/></a>
+<a id='snippet-TestBaseSample.cs'></a>
 ```cs
 using Xunit;
 using Xunit.Abstractions;
@@ -107,7 +107,7 @@ public class TestBaseSample  :
 `XunitContext` provides static access to the logging state for tests. It exposes logging methods for use from unit tests, however registration of [ITestOutputHelper](https://xunit.net/docs/capturing-output) and flushing of logs must be handled explicitly.
 
 <!-- snippet: XunitLoggerSample.cs -->
-<a id='snippet-XunitLoggerSample.cs'/></a>
+<a id='snippet-XunitLoggerSample.cs'></a>
 ```cs
 using System;
 using Xunit;
@@ -149,7 +149,7 @@ public class XunitLoggerSample :
 `XunitContext` redirects [Trace.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.trace.write), [Console.Write](https://docs.microsoft.com/en-us/dotnet/api/system.console.write), and [Debug.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.debug.write) in its static constructor.
 
 <!-- snippet: writeRedirects -->
-<a id='snippet-writeredirects'/></a>
+<a id='snippet-writeredirects'></a>
 ```cs
 Trace.Listeners.Clear();
 Trace.Listeners.Add(new TraceListener());
@@ -197,7 +197,7 @@ Approaches to routing common logging libraries to Diagnostics.Trace:
 `XunitContext.Filters` can be used to filter out unwanted lines:
 
 <!-- snippet: FilterSample.cs -->
-<a id='snippet-FilterSample.cs'/></a>
+<a id='snippet-FilterSample.cs'></a>
 ```cs
 using Xunit;
 using Xunit.Abstractions;
@@ -250,7 +250,7 @@ For every tests there is a contextual API to perform several operations.
  * `Context.TestException`: Access to the exception if the current test has failed. See [Test Failure](test-failure).
 
 <!-- snippet: ContextSample.cs -->
-<a id='snippet-ContextSample.cs'/></a>
+<a id='snippet-ContextSample.cs'></a>
 ```cs
 using Xunit;
 using Xunit.Abstractions;
@@ -290,7 +290,7 @@ public class ContextSample  :
 Some members are pushed down to the be accessible directly from `XunitContextBase`:
 
 <!-- snippet: ContextPushedDownSample.cs -->
-<a id='snippet-ContextPushedDownSample.cs'/></a>
+<a id='snippet-ContextPushedDownSample.cs'></a>
 ```cs
 using Xunit;
 using Xunit.Abstractions;
@@ -328,7 +328,7 @@ public class ContextPushedDownSample  :
 Context can accessed via a static API:
 
 <!-- snippet: ContextStaticSample.cs -->
-<a id='snippet-ContextStaticSample.cs'/></a>
+<a id='snippet-ContextStaticSample.cs'></a>
 ```cs
 using Xunit;
 using Xunit.Abstractions;
@@ -375,7 +375,7 @@ To work around this, this project exposes the current instance of `ITest` via re
 Usage:
 
 <!-- snippet: CurrentTestSample.cs -->
-<a id='snippet-CurrentTestSample.cs'/></a>
+<a id='snippet-CurrentTestSample.cs'></a>
 ```cs
 using Xunit;
 using Xunit.Abstractions;
@@ -411,7 +411,7 @@ public class CurrentTestSample :
 Implementation:
 
 <!-- snippet: Context_CurrentTest.cs -->
-<a id='snippet-Context_CurrentTest.cs'/></a>
+<a id='snippet-Context_CurrentTest.cs'></a>
 ```cs
 using System;
 using System.Reflection;
@@ -506,7 +506,7 @@ When a test fails it is expressed as an exception. The exception can be viewed b
 One common case is to perform some logic, based on the existence of the exception, in the `Dispose` of a test.
 
 <!-- snippet: TestExceptionSample -->
-<a id='snippet-testexceptionsample'/></a>
+<a id='snippet-testexceptionsample'></a>
 ```cs
 public class TestExceptionSample :
     XunitContextBase
@@ -550,7 +550,7 @@ public static class GlobalSetup
 When creating a custom base class for other tests, it is necessary to pass through the source file path to `XunitContextBase` via the constructor.
 
 <!-- snippet: XunitContextCustomBase -->
-<a id='snippet-xunitcontextcustombase'/></a>
+<a id='snippet-xunitcontextcustombase'></a>
 ```cs
 public class CustomBase :
     XunitContextBase
@@ -579,7 +579,7 @@ Use cases:
 Usage:
 
 <!-- snippet: ParametersSample.cs -->
-<a id='snippet-ParametersSample.cs'/></a>
+<a id='snippet-ParametersSample.cs'></a>
 ```cs
 using System.Collections.Generic;
 using System.Linq;
@@ -617,7 +617,7 @@ public class ParametersSample :
 Implementation:
 
 <!-- snippet: Parameters -->
-<a id='snippet-parameters'/></a>
+<a id='snippet-parameters'></a>
 ```cs
 static List<Parameter> GetParameters(ITestCase testCase)
 {
@@ -666,7 +666,7 @@ Only core types (string, int, DateTime etc) can use the above automated approach
 To use complex types override the parameter resolution using `XunitContextBase.UseParameters`:
 
 <!-- snippet: ComplexParameterSample.cs -->
-<a id='snippet-ComplexParameterSample.cs'/></a>
+<a id='snippet-ComplexParameterSample.cs'></a>
 ```cs
 using System.Collections.Generic;
 using System.Linq;
@@ -720,7 +720,7 @@ Provided a string that uniquely identifies a test case.
 Usage:
 
 <!-- snippet: UniqueTestNameSample.cs -->
-<a id='snippet-UniqueTestNameSample.cs'/></a>
+<a id='snippet-UniqueTestNameSample.cs'></a>
 ```cs
 using Xunit;
 using Xunit.Abstractions;
@@ -748,7 +748,7 @@ public class UniqueTestNameSample :
 Implementation:
 
 <!-- snippet: UniqueTestName -->
-<a id='snippet-uniquetestname'/></a>
+<a id='snippet-uniquetestname'></a>
 ```cs
 string GetUniqueTestName(ITestCase testCase)
 {
@@ -786,7 +786,7 @@ string GetUniqueTestName(ITestCase testCase)
 Xunit has no way to run code once before any tests executing. XUnitContext adds this feature via an attribute.
 
 <!-- snippet: GlobalSetup.cs -->
-<a id='snippet-GlobalSetup.cs'/></a>
+<a id='snippet-GlobalSetup.cs'></a>
 ```cs
 using Xunit;
 
