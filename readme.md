@@ -33,7 +33,7 @@ Support is available via a [Tidelift Subscription](https://tidelift.com/subscrip
     * [Parameters](#parameters)
     * [UniqueTestName](#uniquetestname)
   * [Global Setup](#global-setup)
-  * [Security contact information](#security-contact-information)<!-- endtoc -->
+  * [Security contact information](#security-contact-information)<!-- endToc -->
 
 
 ## NuGet package
@@ -61,7 +61,7 @@ static class ClassBeingTested
 }
 ```
 <sup><a href='/src/Tests/Snippets/ClassBeingTested.cs#L1-L13' title='File snippet `ClassBeingTested.cs` was extracted from'>snippet source</a> | <a href='#snippet-ClassBeingTested.cs' title='Navigate to start of snippet `ClassBeingTested.cs`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 ## XunitContextBase
@@ -99,7 +99,7 @@ public class TestBaseSample  :
 }
 ```
 <sup><a href='/src/Tests/Snippets/TestBaseSample.cs#L1-L26' title='File snippet `TestBaseSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-TestBaseSample.cs' title='Navigate to start of snippet `TestBaseSample.cs`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 ## Logging
@@ -144,7 +144,7 @@ public class XunitLoggerSample :
 }
 ```
 <sup><a href='/src/Tests/Snippets/XunitLoggerSample.cs#L1-L33' title='File snippet `XunitLoggerSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-XunitLoggerSample.cs' title='Navigate to start of snippet `XunitLoggerSample.cs`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 `XunitContext` redirects [Trace.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.trace.write), [Console.Write](https://docs.microsoft.com/en-us/dotnet/api/system.console.write), and [Debug.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.debug.write) in its static constructor.
 
@@ -179,7 +179,7 @@ Console.SetOut(writer);
 Console.SetError(writer);
 ```
 <sup><a href='/src/XunitContext/XunitContext.cs#L55-L84' title='File snippet `writeredirects` was extracted from'>snippet source</a> | <a href='#snippet-writeredirects' title='Navigate to start of snippet `writeredirects`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 These API calls are then routed to the correct xUnit [ITestOutputHelper](https://xunit.net/docs/capturing-output) via a static [AsyncLocal](https://docs.microsoft.com/en-us/dotnet/api/system.threading.asynclocal-1).
 
@@ -230,7 +230,7 @@ public class FilterSample :
 }
 ```
 <sup><a href='/src/Tests/Snippets/FilterSample.cs#L1-L29' title='File snippet `FilterSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-FilterSample.cs' title='Navigate to start of snippet `FilterSample.cs`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 Filters are static and shared for all tests.
 
@@ -285,7 +285,7 @@ public class ContextSample  :
 }
 ```
 <sup><a href='/src/Tests/Snippets/ContextSample.cs#L1-L31' title='File snippet `ContextSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-ContextSample.cs' title='Navigate to start of snippet `ContextSample.cs`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 Some members are pushed down to the be accessible directly from `XunitContextBase`:
 
@@ -323,7 +323,7 @@ public class ContextPushedDownSample  :
 }
 ```
 <sup><a href='/src/Tests/Snippets/ContextPushedDownSample.cs#L1-L29' title='File snippet `ContextPushedDownSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-ContextPushedDownSample.cs' title='Navigate to start of snippet `ContextPushedDownSample.cs`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 Context can accessed via a static API:
 
@@ -363,7 +363,7 @@ public class ContextStaticSample :
 }
 ```
 <sup><a href='/src/Tests/Snippets/ContextStaticSample.cs#L1-L31' title='File snippet `ContextStaticSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-ContextStaticSample.cs' title='Navigate to start of snippet `ContextStaticSample.cs`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 ### Current Test
@@ -406,7 +406,7 @@ public class CurrentTestSample :
 }
 ```
 <sup><a href='/src/Tests/Snippets/CurrentTestSample.cs#L1-L27' title='File snippet `CurrentTestSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-CurrentTestSample.cs' title='Navigate to start of snippet `CurrentTestSample.cs`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 Implementation:
 
@@ -496,7 +496,7 @@ namespace Xunit
 }
 ```
 <sup><a href='/src/XunitContext/Context_CurrentTest.cs#L1-L81' title='File snippet `Context_CurrentTest.cs` was extracted from'>snippet source</a> | <a href='#snippet-Context_CurrentTest.cs' title='Navigate to start of snippet `Context_CurrentTest.cs`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 ### Test Failure
@@ -542,7 +542,7 @@ public static class GlobalSetup
 }
 ```
 <sup><a href='/src/Tests/Snippets/TestExceptionSample.cs#L8-L43' title='File snippet `testexceptionsample` was extracted from'>snippet source</a> | <a href='#snippet-testexceptionsample' title='Navigate to start of snippet `testexceptionsample`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 ### Base Class
@@ -564,7 +564,7 @@ public class CustomBase :
 }
 ```
 <sup><a href='/src/Tests/Snippets/CustomBase.cs#L5-L16' title='File snippet `xunitcontextcustombase` was extracted from'>snippet source</a> | <a href='#snippet-xunitcontextcustombase' title='Navigate to start of snippet `xunitcontextcustombase`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 ### Parameters
@@ -612,7 +612,7 @@ public class ParametersSample :
 }
 ```
 <sup><a href='/src/Tests/Snippets/ParametersSample.cs#L1-L29' title='File snippet `ParametersSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-ParametersSample.cs' title='Navigate to start of snippet `ParametersSample.cs`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 Implementation:
 
@@ -649,7 +649,7 @@ static List<Parameter> GetParameters(ITestCase testCase, object[] arguments)
 }
 ```
 <sup><a href='/src/XunitContext/Context_Parameters.cs#L28-L57' title='File snippet `parameters` was extracted from'>snippet source</a> | <a href='#snippet-parameters' title='Navigate to start of snippet `parameters`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 #### Complex parameters
@@ -661,7 +661,7 @@ Only core types (string, int, DateTime etc) can use the above automated approach
 > This is most likely caused by using a parameter that Xunit cannot serialize.
 > Instead pass in a simple type as a parameter and construct the complex object inside the test.
 > Alternatively; override the current parameters using `UseParameters()` via the current test base class, or via `XunitContext.Current.UseParameters()`.
- <!-- end include: NoArgumentsDetectedException. path: /src/Tests/NoArgumentsDetectedException.include.md -->
+ <!-- endInclude -->
 
 To use complex types override the parameter resolution using `XunitContextBase.UseParameters`:
 
@@ -710,7 +710,7 @@ public class ComplexParameterSample :
 }
 ```
 <sup><a href='/src/Tests/Snippets/ComplexParameterSample.cs#L1-L40' title='File snippet `ComplexParameterSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-ComplexParameterSample.cs' title='Navigate to start of snippet `ComplexParameterSample.cs`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 ### UniqueTestName
@@ -743,7 +743,7 @@ public class UniqueTestNameSample :
 }
 ```
 <sup><a href='/src/Tests/Snippets/UniqueTestNameSample.cs#L1-L19' title='File snippet `UniqueTestNameSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-UniqueTestNameSample.cs' title='Navigate to start of snippet `UniqueTestNameSample.cs`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 Implementation:
 
@@ -778,7 +778,7 @@ string GetUniqueTestName(ITestCase testCase)
 }
 ```
 <sup><a href='/src/XunitContext/Context_TestName.cs#L34-L61' title='File snippet `uniquetestname` was extracted from'>snippet source</a> | <a href='#snippet-uniquetestname' title='Navigate to start of snippet `uniquetestname`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 ## Global Setup
@@ -802,7 +802,7 @@ public static class GlobalSetup
 }
 ```
 <sup><a href='/src/Tests/GlobalSetup/GlobalSetup.cs#L1-L12' title='File snippet `GlobalSetup.cs` was extracted from'>snippet source</a> | <a href='#snippet-GlobalSetup.cs' title='Navigate to start of snippet `GlobalSetup.cs`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 Multiple setups can be defined as nested classes and classes in namespaces are supported.
 
