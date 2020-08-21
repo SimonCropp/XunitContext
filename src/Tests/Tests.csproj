@@ -5,11 +5,11 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Verify.Xunit" Version="6.8.0" />
+    <PackageReference Include="Verify.Xunit" Version="6.9.0" />
     <PackageReference Include="Xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3" />
-    <PackageReference Include="MarkdownSnippets.MsBuild" Version="19.2.0" PrivateAssets="all" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
+    <PackageReference Include="MarkdownSnippets.MsBuild" Version="20.0.0" PrivateAssets="all" />
     <PackageReference Include="ProjectDefaults" Version="1.0.43" PrivateAssets="All" />
     <ProjectReference Include="..\XunitContext\XunitContext.csproj" />
   </ItemGroup>
