@@ -37,7 +37,7 @@ https://nuget.org/packages/XunitContext/
 ## ClassBeingTested
 
 <!-- snippet: ClassBeingTested.cs -->
-<a id='76b2f0b3'></a>
+<a id='ClassBeingTested.cs'></a>
 ```cs
 using System;
 using System.Diagnostics;
@@ -53,7 +53,7 @@ static class ClassBeingTested
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/ClassBeingTested.cs#L1-L13' title='Snippet source file'>snippet source</a> | <a href='#76b2f0b3' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/ClassBeingTested.cs#L1-L13' title='Snippet source file'>snippet source</a> | <a href='#ClassBeingTested.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -62,7 +62,7 @@ static class ClassBeingTested
 `XunitContextBase` is an abstract base class for tests. It exposes logging methods for use from unit tests, and handle the flushing of logs in its `Dispose` method. `XunitContextBase` is actually a thin wrapper over `XunitContext`. `XunitContext`s `Write*` methods can also be use inside a test inheriting from `XunitContextBase`.
 
 <!-- snippet: TestBaseSample.cs -->
-<a id='dcbc3499'></a>
+<a id='TestBaseSample.cs'></a>
 ```cs
 using Xunit;
 using Xunit.Abstractions;
@@ -91,7 +91,7 @@ public class TestBaseSample  :
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/TestBaseSample.cs#L1-L26' title='Snippet source file'>snippet source</a> | <a href='#dcbc3499' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/TestBaseSample.cs#L1-L26' title='Snippet source file'>snippet source</a> | <a href='#TestBaseSample.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -100,7 +100,7 @@ public class TestBaseSample  :
 `XunitContext` provides static access to the logging state for tests. It exposes logging methods for use from unit tests, however registration of [ITestOutputHelper](https://xunit.net/docs/capturing-output) and flushing of logs must be handled explicitly.
 
 <!-- snippet: XunitLoggerSample.cs -->
-<a id='6e5b0275'></a>
+<a id='XunitLoggerSample.cs'></a>
 ```cs
 using System;
 using Xunit;
@@ -136,13 +136,13 @@ public class XunitLoggerSample :
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/XunitLoggerSample.cs#L1-L33' title='Snippet source file'>snippet source</a> | <a href='#6e5b0275' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/XunitLoggerSample.cs#L1-L33' title='Snippet source file'>snippet source</a> | <a href='#XunitLoggerSample.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 `XunitContext` redirects [Trace.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.trace.write), [Console.Write](https://docs.microsoft.com/en-us/dotnet/api/system.console.write), and [Debug.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.debug.write) in its static constructor.
 
 <!-- snippet: writeRedirects -->
-<a id='561b5731'></a>
+<a id='writeredirects'></a>
 ```cs
 Trace.Listeners.Clear();
 Trace.Listeners.Add(new TraceListener());
@@ -171,7 +171,7 @@ var writer = new TestWriter();
 Console.SetOut(writer);
 Console.SetError(writer);
 ```
-<sup><a href='/src/XunitContext/XunitContext.cs#L55-L84' title='Snippet source file'>snippet source</a> | <a href='#561b5731' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/XunitContext/XunitContext.cs#L55-L84' title='Snippet source file'>snippet source</a> | <a href='#writeredirects' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 These API calls are then routed to the correct xUnit [ITestOutputHelper](https://xunit.net/docs/capturing-output) via a static [AsyncLocal](https://docs.microsoft.com/en-us/dotnet/api/system.threading.asynclocal-1).
@@ -190,7 +190,7 @@ Approaches to routing common logging libraries to Diagnostics.Trace:
 `XunitContext.Filters` can be used to filter out unwanted lines:
 
 <!-- snippet: FilterSample.cs -->
-<a id='fc2b0ea5'></a>
+<a id='FilterSample.cs'></a>
 ```cs
 using Xunit;
 using Xunit.Abstractions;
@@ -222,7 +222,7 @@ public class FilterSample :
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/FilterSample.cs#L1-L29' title='Snippet source file'>snippet source</a> | <a href='#fc2b0ea5' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/FilterSample.cs#L1-L29' title='Snippet source file'>snippet source</a> | <a href='#FilterSample.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Filters are static and shared for all tests.
@@ -243,7 +243,7 @@ For every tests there is a contextual API to perform several operations.
  * `Context.TestException`: Access to the exception if the current test has failed. See [Test Failure](test-failure).
 
 <!-- snippet: ContextSample.cs -->
-<a id='6fa1251a'></a>
+<a id='ContextSample.cs'></a>
 ```cs
 using Xunit;
 using Xunit.Abstractions;
@@ -277,13 +277,13 @@ public class ContextSample  :
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/ContextSample.cs#L1-L31' title='Snippet source file'>snippet source</a> | <a href='#6fa1251a' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/ContextSample.cs#L1-L31' title='Snippet source file'>snippet source</a> | <a href='#ContextSample.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Some members are pushed down to the be accessible directly from `XunitContextBase`:
 
 <!-- snippet: ContextPushedDownSample.cs -->
-<a id='cbd25618'></a>
+<a id='ContextPushedDownSample.cs'></a>
 ```cs
 using Xunit;
 using Xunit.Abstractions;
@@ -315,13 +315,13 @@ public class ContextPushedDownSample  :
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/ContextPushedDownSample.cs#L1-L29' title='Snippet source file'>snippet source</a> | <a href='#cbd25618' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/ContextPushedDownSample.cs#L1-L29' title='Snippet source file'>snippet source</a> | <a href='#ContextPushedDownSample.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Context can accessed via a static API:
 
 <!-- snippet: ContextStaticSample.cs -->
-<a id='94fe9862'></a>
+<a id='ContextStaticSample.cs'></a>
 ```cs
 using Xunit;
 using Xunit.Abstractions;
@@ -355,7 +355,7 @@ public class ContextStaticSample :
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/ContextStaticSample.cs#L1-L31' title='Snippet source file'>snippet source</a> | <a href='#94fe9862' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/ContextStaticSample.cs#L1-L31' title='Snippet source file'>snippet source</a> | <a href='#ContextStaticSample.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -368,7 +368,7 @@ To work around this, this project exposes the current instance of `ITest` via re
 Usage:
 
 <!-- snippet: CurrentTestSample.cs -->
-<a id='63fd1b0f'></a>
+<a id='CurrentTestSample.cs'></a>
 ```cs
 using Xunit;
 using Xunit.Abstractions;
@@ -398,13 +398,13 @@ public class CurrentTestSample :
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/CurrentTestSample.cs#L1-L27' title='Snippet source file'>snippet source</a> | <a href='#63fd1b0f' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/CurrentTestSample.cs#L1-L27' title='Snippet source file'>snippet source</a> | <a href='#CurrentTestSample.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Implementation:
 
 <!-- snippet: Context_CurrentTest.cs -->
-<a id='112b2e03'></a>
+<a id='Context_CurrentTest.cs'></a>
 ```cs
 using System;
 using System.Reflection;
@@ -488,7 +488,7 @@ namespace Xunit
     }
 }
 ```
-<sup><a href='/src/XunitContext/Context_CurrentTest.cs#L1-L81' title='Snippet source file'>snippet source</a> | <a href='#112b2e03' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/XunitContext/Context_CurrentTest.cs#L1-L81' title='Snippet source file'>snippet source</a> | <a href='#Context_CurrentTest.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -499,7 +499,7 @@ When a test fails it is expressed as an exception. The exception can be viewed b
 One common case is to perform some logic, based on the existence of the exception, in the `Dispose` of a test.
 
 <!-- snippet: TestExceptionSample -->
-<a id='34203b91'></a>
+<a id='testexceptionsample'></a>
 ```cs
 public class TestExceptionSample :
     XunitContextBase
@@ -534,7 +534,7 @@ public static class GlobalSetup
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/TestExceptionSample.cs#L8-L43' title='Snippet source file'>snippet source</a> | <a href='#34203b91' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/TestExceptionSample.cs#L8-L43' title='Snippet source file'>snippet source</a> | <a href='#testexceptionsample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -543,7 +543,7 @@ public static class GlobalSetup
 When creating a custom base class for other tests, it is necessary to pass through the source file path to `XunitContextBase` via the constructor.
 
 <!-- snippet: XunitContextCustomBase -->
-<a id='40d4b61d'></a>
+<a id='xunitcontextcustombase'></a>
 ```cs
 public class CustomBase :
     XunitContextBase
@@ -556,7 +556,7 @@ public class CustomBase :
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/CustomBase.cs#L5-L16' title='Snippet source file'>snippet source</a> | <a href='#40d4b61d' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/CustomBase.cs#L5-L16' title='Snippet source file'>snippet source</a> | <a href='#xunitcontextcustombase' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -572,7 +572,7 @@ Use cases:
 Usage:
 
 <!-- snippet: ParametersSample.cs -->
-<a id='5be444c0'></a>
+<a id='ParametersSample.cs'></a>
 ```cs
 using System.Collections.Generic;
 using System.Linq;
@@ -604,13 +604,13 @@ public class ParametersSample :
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/ParametersSample.cs#L1-L29' title='Snippet source file'>snippet source</a> | <a href='#5be444c0' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/ParametersSample.cs#L1-L29' title='Snippet source file'>snippet source</a> | <a href='#ParametersSample.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Implementation:
 
 <!-- snippet: Parameters -->
-<a id='f1f1425b'></a>
+<a id='parameters'></a>
 ```cs
 static List<Parameter> GetParameters(ITestCase testCase)
 {
@@ -641,7 +641,7 @@ static List<Parameter> GetParameters(ITestCase testCase, object[] arguments)
     return items;
 }
 ```
-<sup><a href='/src/XunitContext/Context_Parameters.cs#L28-L57' title='Snippet source file'>snippet source</a> | <a href='#f1f1425b' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/XunitContext/Context_Parameters.cs#L28-L57' title='Snippet source file'>snippet source</a> | <a href='#parameters' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -659,7 +659,7 @@ Only core types (string, int, DateTime etc) can use the above automated approach
 To use complex types override the parameter resolution using `XunitContextBase.UseParameters`:
 
 <!-- snippet: ComplexParameterSample.cs -->
-<a id='a22cf0e6'></a>
+<a id='ComplexParameterSample.cs'></a>
 ```cs
 using System.Collections.Generic;
 using System.Linq;
@@ -702,7 +702,7 @@ public class ComplexParameterSample :
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/ComplexParameterSample.cs#L1-L40' title='Snippet source file'>snippet source</a> | <a href='#a22cf0e6' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/ComplexParameterSample.cs#L1-L40' title='Snippet source file'>snippet source</a> | <a href='#ComplexParameterSample.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -713,7 +713,7 @@ Provided a string that uniquely identifies a test case.
 Usage:
 
 <!-- snippet: UniqueTestNameSample.cs -->
-<a id='98dbb6c5'></a>
+<a id='UniqueTestNameSample.cs'></a>
 ```cs
 using Xunit;
 using Xunit.Abstractions;
@@ -735,13 +735,13 @@ public class UniqueTestNameSample :
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/UniqueTestNameSample.cs#L1-L19' title='Snippet source file'>snippet source</a> | <a href='#98dbb6c5' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/UniqueTestNameSample.cs#L1-L19' title='Snippet source file'>snippet source</a> | <a href='#UniqueTestNameSample.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Implementation:
 
 <!-- snippet: UniqueTestName -->
-<a id='c76ce062'></a>
+<a id='uniquetestname'></a>
 ```cs
 string GetUniqueTestName(ITestCase testCase)
 {
@@ -770,7 +770,7 @@ string GetUniqueTestName(ITestCase testCase)
     return builder.ToString();
 }
 ```
-<sup><a href='/src/XunitContext/Context_TestName.cs#L34-L61' title='Snippet source file'>snippet source</a> | <a href='#c76ce062' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/XunitContext/Context_TestName.cs#L34-L61' title='Snippet source file'>snippet source</a> | <a href='#uniquetestname' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -779,7 +779,7 @@ string GetUniqueTestName(ITestCase testCase)
 Xunit has no way to run code once before any tests executing. XUnitContext adds this feature via an attribute.
 
 <!-- snippet: GlobalSetup.cs -->
-<a id='7e0eb7b8'></a>
+<a id='GlobalSetup.cs'></a>
 ```cs
 using Xunit;
 
@@ -794,7 +794,7 @@ public static class GlobalSetup
     public static bool Called;
 }
 ```
-<sup><a href='/src/Tests/GlobalSetup/GlobalSetup.cs#L1-L12' title='Snippet source file'>snippet source</a> | <a href='#7e0eb7b8' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/GlobalSetup/GlobalSetup.cs#L1-L12' title='Snippet source file'>snippet source</a> | <a href='#GlobalSetup.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Multiple setups can be defined as nested classes and classes in namespaces are supported.
