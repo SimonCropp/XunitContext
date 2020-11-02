@@ -18,11 +18,11 @@ public class UsingStatic
         return Verifier.Verify(logs);
     }
 
-    [Fact]
-    public void CurrentTest()
-    {
-        Assert.Equal("CurrentTest", XunitContext.Context.Test.DisplayName);
-    }
+    //[Fact]
+    //public void CurrentTest()
+    //{
+    //    Assert.Equal("CurrentTest", XunitContext.Context.Test.DisplayName);
+    //}
 
     [Fact]
     public Task Null()
