@@ -21,7 +21,7 @@ public class UsingStatic
     [Fact]
     public void CurrentTest()
     {
-        Assert.Equal("UsingStatic.CurrentTest", XunitContext.Context.Test.DisplayName);
+        Assert.Equal("CurrentTest", XunitContext.Context.Test.DisplayName);
     }
 
     [Fact]

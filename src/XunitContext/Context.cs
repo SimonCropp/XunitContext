@@ -103,10 +103,7 @@ namespace Xunit
 
         void InitBuilder()
         {
-            if (Builder == null)
-            {
-                Builder = new StringBuilder();
-            }
+            Builder ??= new StringBuilder();
         }
 
         /// <summary>

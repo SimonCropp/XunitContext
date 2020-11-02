@@ -171,7 +171,7 @@ var writer = new TestWriter();
 Console.SetOut(writer);
 Console.SetError(writer);
 ```
-<sup><a href='/src/XunitContext/XunitContext.cs#L55-L84' title='Snippet source file'>snippet source</a> | <a href='#snippet-writeredirects' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/XunitContext/XunitContext.cs#L50-L79' title='Snippet source file'>snippet source</a> | <a href='#snippet-writeredirects' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 These API calls are then routed to the correct xUnit [ITestOutputHelper](https://xunit.net/docs/capturing-output) via a static [AsyncLocal](https://docs.microsoft.com/en-us/dotnet/api/system.threading.asynclocal-1).
@@ -501,6 +501,16 @@ One common case is to perform some logic, based on the existence of the exceptio
 <!-- snippet: TestExceptionSample -->
 <a id='snippet-testexceptionsample'></a>
 ```cs
+public static class GlobalSetup
+{
+    [System.Runtime.CompilerServices.ModuleInitializer]
+    public static void Setup()
+    {
+        XunitContext.EnableExceptionCapture();
+    }
+}
+
+[Trait("Category", "Integration")]
 public class TestExceptionSample :
     XunitContextBase
 {
@@ -524,17 +534,8 @@ public class TestExceptionSample :
         base.Dispose();
     }
 }
-
-[GlobalSetUp]
-public static class GlobalSetup
-{
-    public static void Setup()
-    {
-        XunitContext.EnableExceptionCapture();
-    }
-}
 ```
-<sup><a href='/src/Tests/Snippets/TestExceptionSample.cs#L8-L43' title='Snippet source file'>snippet source</a> | <a href='#snippet-testexceptionsample' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/TestExceptionSample.cs#L5-L40' title='Snippet source file'>snippet source</a> | <a href='#snippet-testexceptionsample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -776,32 +777,10 @@ string GetUniqueTestName(ITestCase testCase)
 
 ## Global Setup
 
-Xunit has no way to run code once before any tests executing. XUnitContext adds this feature via an attribute.
+Xunit has no way to run code once before any tests executing. So use one of the following:
 
-<!-- snippet: GlobalSetup.cs -->
-<a id='snippet-GlobalSetup.cs'></a>
-```cs
-using Xunit;
-
-[GlobalSetUp]
-public static class GlobalSetup
-{
-    public static void Setup()
-    {
-        Called = true;
-    }
-
-    public static bool Called;
-}
-```
-<sup><a href='/src/Tests/GlobalSetup/GlobalSetup.cs#L1-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-GlobalSetup.cs' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
-
-Multiple setups can be defined as nested classes and classes in namespaces are supported.
-
-Alternatives to this approach:
-
- * Using a [module initializer](https://github.com/Fody/ModuleInit).
+ * [C# 9 Module Initializer](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-9.0/module-initializers).
+ * [Fody Module Initializer](https://github.com/Fody/ModuleInit).
  * Having a single base class that all tests inherit from, and place any configuration code in the static constructor of that type.
 
 

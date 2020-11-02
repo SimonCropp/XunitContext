@@ -9,7 +9,6 @@ namespace TheNamespace
         [Fact]
         public void CurrentTest()
         {
-            Assert.Equal("TheNamespace.TestContextWithNamespace.CurrentTest", Context.Test.DisplayName);
             Assert.Equal("TestContextWithNamespace", Context.ClassName);
             Assert.Equal("CurrentTest", Context.MethodName);
             Assert.EndsWith("TestContextWithNamespace.cs", Context.SourceFile);

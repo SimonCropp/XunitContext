@@ -8,11 +8,6 @@ namespace Xunit
     public abstract class XunitContextBase :
         IDisposable
     {
-        static XunitContextBase()
-        {
-            GlobalSetupRunner.Run();
-        }
-
         /// <summary>
         /// The current <see cref="ITestOutputHelper"/>.
         /// </summary>
