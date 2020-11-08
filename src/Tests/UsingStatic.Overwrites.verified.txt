@@ -1,5 +1,5 @@
 [
-  'from Console',
-  'from Debug',
-  'from Trace'
+  from Console,
+  from Debug,
+  from Trace
 ]

@@ -1,4 +1,4 @@
 {
-  Type: 'Exception',
-  Message: 'Context has been flushed. Could not write the string: Environment.NewLine'
+  Type: Exception,
+  Message: Context has been flushed. Could not write the string: Environment.NewLine
 }
