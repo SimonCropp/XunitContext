@@ -9,7 +9,7 @@ namespace Xunit
 {
     public static class XunitContext
     {
-        static AsyncLocal<Context?> local = new AsyncLocal<Context?>();
+        static AsyncLocal<Context?> local = new();
         static bool enableExceptionCapture;
 
         public static void EnableExceptionCapture()
@@ -20,7 +20,7 @@ namespace Xunit
             }
 
             enableExceptionCapture = true;
-            AppDomain.CurrentDomain.FirstChanceException += (sender, e) =>
+            AppDomain.CurrentDomain.FirstChanceException += (_, e) =>
             {
                 if (local.Value == null)
                 {

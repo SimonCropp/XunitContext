@@ -36,8 +36,8 @@ namespace Xunit
             get => solutionDirectory ??= SolutionDirectoryFinder.Find(SourceDirectory);
         }
 
-        List<string> logMessages = new List<string>();
-        object locker = new object();
+        List<string> logMessages = new();
+        object locker = new();
 
         /// <summary>
         /// All log message that have been written to the current <see cref="ITestOutputHelper"/>.

@@ -9,7 +9,7 @@ static class Extensions
     {
         return value.Substring(0, value.Length - Environment.NewLine.Length);
     }
-    
+
     public static MethodBase GetRealMethod(this MethodBase method)
     {
         var declaringType = method.DeclaringType;

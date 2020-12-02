@@ -5,7 +5,7 @@ namespace Xunit
 {
     public static class Filters
     {
-        static ConcurrentBag<Func<string, bool>> items = new ConcurrentBag<Func<string, bool>>();
+        static ConcurrentBag<Func<string, bool>> items = new();
 
         public static void Add(Func<string, bool> filter)
         {
