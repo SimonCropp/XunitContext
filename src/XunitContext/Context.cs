@@ -61,7 +61,7 @@ namespace Xunit
                 {
                     return Exception;
                 }
-                var outerTrace = new StackTrace(Exception, false);
+                StackTrace outerTrace = new(Exception, false);
                 var firstFrame = outerTrace.GetFrame(outerTrace.FrameCount - 1);
                 var firstMethod = firstFrame.GetMethod();
 

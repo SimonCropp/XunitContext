@@ -44,7 +44,7 @@ public class TestException_Sync :
 
     static void MethodThatThrows()
     {
-        throw new ("nested");
+        throw new("nested");
     }
 
     public TestException_Sync(ITestOutputHelper output) :
