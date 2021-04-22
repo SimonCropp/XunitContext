@@ -167,7 +167,7 @@ text =>
 Debug.Listeners.Clear();
 Debug.Listeners.Add(new TraceListener());
 #endif
-var writer = new TestWriter();
+TestWriter writer = new();
 Console.SetOut(writer);
 Console.SetError(writer);
 ```
@@ -468,7 +468,7 @@ namespace Xunit
         {
             if (TestOutput == null)
             {
-                throw new Exception(MissingTestOutput);
+                throw new(MissingTestOutput);
             }
 
             if (cachedTestMember != null)
@@ -480,7 +480,7 @@ namespace Xunit
             cachedTestMember = testOutputType.GetField("test", BindingFlags.Instance | BindingFlags.NonPublic);
             if (cachedTestMember == null)
             {
-                throw new Exception($"Unable to find 'test' field on {testOutputType.FullName}");
+                throw new($"Unable to find 'test' field on {testOutputType.FullName}");
             }
 
             return cachedTestMember;
@@ -632,11 +632,11 @@ static List<Parameter> GetParameters(ITestCase testCase, object[] arguments)
         throw NewNoArgumentsDetectedException();
     }
 
-    var items = new List<Parameter>();
+    List<Parameter> items = new();
 
     for (var index = 0; index < infos.Count; index++)
     {
-        items.Add(new Parameter(infos[index], arguments[index]));
+        items.Add(new(infos[index], arguments[index]));
     }
 
     return items;
@@ -753,7 +753,7 @@ string GetUniqueTestName(ITestCase testCase)
         return name;
     }
 
-    var builder = new StringBuilder($"{name}_");
+    StringBuilder builder = new($"{name}_");
     foreach (var parameter in Parameters)
     {
         builder.Append($"{parameter.Info.Name}=");

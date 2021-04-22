@@ -85,7 +85,7 @@ namespace Xunit
         {
             if (flushed)
             {
-                throw new Exception($"Context has been flushed. Could not write the string: {logText}");
+                throw new($"Context has been flushed. Could not write the string: {logText}");
             }
         }
 
@@ -103,7 +103,7 @@ namespace Xunit
 
         void InitBuilder()
         {
-            Builder ??= new StringBuilder();
+            Builder ??= new();
         }
 
         /// <summary>
@@ -194,7 +194,7 @@ namespace Xunit
 
                 if (Builder == null && TestOutput == null)
                 {
-                    Builder = new StringBuilder();
+                    Builder = new();
                     Builder.AppendLine();
                     logMessages.Add(string.Empty);
                     return;
@@ -253,7 +253,7 @@ namespace Xunit
                         return;
                     }
 
-                    Builder = new StringBuilder();
+                    Builder = new();
                     Builder.AppendLine(value);
                     logMessages.Add(value);
                     return;
@@ -317,7 +317,7 @@ namespace Xunit
                 logMessages.Add(message);
                 if (TestOutput == null)
                 {
-                    throw new Exception("No ITestOutputHelper to flush to.");
+                    throw new("No ITestOutputHelper to flush to.");
                 }
                 TestOutput.WriteLine(message);
             }

@@ -41,7 +41,7 @@ namespace Xunit
                 return name;
             }
 
-            var builder = new StringBuilder($"{name}_");
+            StringBuilder builder = new($"{name}_");
             foreach (var parameter in Parameters)
             {
                 builder.Append($"{parameter.Info.Name}=");

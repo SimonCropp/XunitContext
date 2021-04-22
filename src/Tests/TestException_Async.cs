@@ -13,7 +13,7 @@ public class TestException_Async:
     public async Task Root()
     {
         await Task.Delay(1);
-        throw new Exception("root");
+        throw new("root");
     }
 
     [Fact]
@@ -52,7 +52,7 @@ public class TestException_Async:
 
     static void MethodThatThrows()
     {
-        throw new Exception("nested");
+        throw new("nested");
     }
 
     public TestException_Async(ITestOutputHelper output) :

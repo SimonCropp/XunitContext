@@ -60,7 +60,7 @@ namespace Xunit
         {
             if (TestOutput == null)
             {
-                throw new Exception(MissingTestOutput);
+                throw new(MissingTestOutput);
             }
 
             if (cachedTestMember != null)
@@ -72,7 +72,7 @@ namespace Xunit
             cachedTestMember = testOutputType.GetField("test", BindingFlags.Instance | BindingFlags.NonPublic);
             if (cachedTestMember == null)
             {
-                throw new Exception($"Unable to find 'test' field on {testOutputType.FullName}");
+                throw new($"Unable to find 'test' field on {testOutputType.FullName}");
             }
 
             return cachedTestMember;

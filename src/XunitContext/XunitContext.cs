@@ -72,7 +72,7 @@ namespace Xunit
             Debug.Listeners.Clear();
             Debug.Listeners.Add(new TraceListener());
 #endif
-            var writer = new TestWriter();
+            TestWriter writer = new();
             Console.SetOut(writer);
             Console.SetError(writer);
 
@@ -96,7 +96,7 @@ namespace Xunit
                 var context = local.Value;
                 if (context == null)
                 {
-                    throw new Exception("No current context.");
+                    throw new("No current context.");
                 }
 
                 return context.LogMessages;
@@ -128,7 +128,7 @@ namespace Xunit
             var context = local.Value;
             if (context == null)
             {
-                throw new Exception("No context to flush.");
+                throw new("No context to flush.");
             }
 
             context.Flush();
@@ -151,7 +151,7 @@ namespace Xunit
                     return context;
                 }
 
-                context = new Context();
+                context = new();
                 local.Value = context;
                 return context;
             }
@@ -167,14 +167,14 @@ namespace Xunit
 
             if (existingContext == null)
             {
-                var context = new Context(output, sourceFile);
+                Context context = new(output, sourceFile);
                 local.Value = context;
                 return context;
             }
 
             if (existingContext.TestOutput != null)
             {
-                throw new Exception("A ITestOutputHelper has already been registered.");
+                throw new("A ITestOutputHelper has already been registered.");
             }
 
             existingContext.TestOutput = output;

@@ -45,11 +45,11 @@ namespace Xunit
                 throw NewNoArgumentsDetectedException();
             }
 
-            var items = new List<Parameter>();
+            List<Parameter> items = new();
 
             for (var index = 0; index < infos.Count; index++)
             {
-                items.Add(new Parameter(infos[index], arguments[index]));
+                items.Add(new(infos[index], arguments[index]));
             }
 
             return items;

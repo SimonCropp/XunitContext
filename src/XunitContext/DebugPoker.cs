@@ -25,6 +25,6 @@ static class DebugPoker
             }
         }
 
-        throw new Exception("Unable to find s_WriteCore field in either Debug nor DebugProvider. It is possible the current runtime is not supported.");
+        throw new("Unable to find s_WriteCore field in either Debug nor DebugProvider. It is possible the current runtime is not supported.");
     }
 }

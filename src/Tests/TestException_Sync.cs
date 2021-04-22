@@ -9,7 +9,7 @@ public class TestException_Sync :
     [Fact]
     public void Root()
     {
-        throw new Exception("root");
+        throw new("root");
     }
 
     [Fact]
@@ -44,7 +44,7 @@ public class TestException_Sync :
 
     static void MethodThatThrows()
     {
-        throw new Exception("nested");
+        throw new ("nested");
     }
 
     public TestException_Sync(ITestOutputHelper output) :

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 
@@ -9,7 +8,7 @@ static class SolutionDirectoryFinder
     {
         if (!TryFind(testDirectory, out var solutionDirectory))
         {
-            throw new Exception("Could not find solution directory");
+            throw new("Could not find solution directory");
         }
 
         return solutionDirectory;
