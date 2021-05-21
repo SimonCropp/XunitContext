@@ -9,25 +9,6 @@ Redirects [Trace.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagn
 
 Uses [AsyncLocal](https://docs.microsoft.com/en-us/dotnet/api/system.threading.asynclocal-1) to track state.
 
-Support is available via a [Tidelift Subscription](https://tidelift.com/subscription/pkg/nuget-xunitcontext?utm_source=nuget-xunitcontext&utm_medium=referral&utm_campaign=enterprise).
-
-<!-- toc -->
-## Contents
-
-  * [ClassBeingTested](#classbeingtested)
-  * [XunitContextBase](#xunitcontextbase)
-  * [Logging](#logging)
-    * [Logging Libs](#logging-libs)
-  * [Filters](#filters)
-  * [Context](#context)
-    * [Current Test](#current-test)
-    * [Test Failure](#test-failure)
-    * [Base Class](#base-class)
-    * [Parameters](#parameters)
-    * [UniqueTestName](#uniquetestname)
-  * [Global Setup](#global-setup)
-  * [Security contact information](#security-contact-information)<!-- endToc -->
-
 
 ## NuGet package
 
@@ -783,10 +764,6 @@ Xunit has no way to run code once before any tests executing. So use one of the 
  * [Fody Module Initializer](https://github.com/Fody/ModuleInit).
  * Having a single base class that all tests inherit from, and place any configuration code in the static constructor of that type.
 
-
-## Security contact information
-
-To report a security vulnerability, use the [Tidelift security contact](https://tidelift.com/security). Tidelift will coordinate the fix and disclosure.
 
 
 ## Icon
