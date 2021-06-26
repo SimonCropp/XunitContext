@@ -8,7 +8,7 @@
     <Content Include="build\XunitContext.targets" PackagePath="build\XunitContext.targets" />
     <PackageReference Include="Nullable" Version="1.3.0" PrivateAssets="All" />
     <PackageReference Include="xunit.abstractions" Version="2.0.3" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.54" PrivateAssets="All" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.56" PrivateAssets="All" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
     <PackageReference Include="xunit.assert" Version="2.4.1" />
     <PackageReference Include="xunit.extensibility.execution" Version="2.4.1" />
