@@ -765,6 +765,35 @@ Xunit has no way to run code once before any tests executing. So use one of the 
  * Having a single base class that all tests inherit from, and place any configuration code in the static constructor of that type.
 
 
+## Integration testing in ASP.NET Core
+If you are doing integration testing with ASP.NET Core [as described here](https://docs.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-5.0) using the `WebApplicationFactory` and `TestServer` you will need to do an extra step.
+Normally the ExcecutionContext isn't synchronized with the Test server, so you will only see partial logs.
+You can fix this by setting [TestServer.PreserveExecutionPolicy](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.testhost.testserver.preserveexecutioncontext?view=aspnetcore-5.0#Microsoft_AspNetCore_TestHost_TestServer_PreserveExecutionContext) boolean. 
+
+A test class could look like this:
+```csharp
+public class YourTest : XunitContextBase, IClassFixture<WebApplicationFactory<AssetSimulation.Startup>>
+{
+    private readonly WebApplicationFactory<AssetSimulation.Startup> _factory;
+
+    public YourTest(WebApplicationFactory<Startup> factory, ITestOutputHelper output) : base(output)
+    {
+        _factory = factory;
+    }
+
+    [Fact]
+    public async Task YourTestCase()
+    {
+        // Assuming that the global logging has been setup like described in "Global Setup" section.
+
+        // Set this boolean to be true - that will make the log output correct from the server
+        _factory.Server.PreserveExecutionContext = true;
+
+        // Then write your test like you would normally.
+        var httpClient = _factory.CreateClient();
+    }
+}
+```
 
 ## Icon
 
