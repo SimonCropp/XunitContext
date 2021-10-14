@@ -20,9 +20,6 @@ https://nuget.org/packages/XunitContext/
 <!-- snippet: ClassBeingTested.cs -->
 <a id='snippet-ClassBeingTested.cs'></a>
 ```cs
-using System;
-using System.Diagnostics;
-
 static class ClassBeingTested
 {
     public static void Method()
@@ -34,7 +31,7 @@ static class ClassBeingTested
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/ClassBeingTested.cs#L1-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-ClassBeingTested.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/ClassBeingTested.cs#L1-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-ClassBeingTested.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -83,7 +80,6 @@ public class TestBaseSample  :
 <!-- snippet: XunitLoggerSample.cs -->
 <a id='snippet-XunitLoggerSample.cs'></a>
 ```cs
-using System;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -117,7 +113,7 @@ public class XunitLoggerSample :
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/XunitLoggerSample.cs#L1-L33' title='Snippet source file'>snippet source</a> | <a href='#snippet-XunitLoggerSample.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/XunitLoggerSample.cs#L1-L32' title='Snippet source file'>snippet source</a> | <a href='#snippet-XunitLoggerSample.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 `XunitContext` redirects [Trace.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.trace.write), [Console.Write](https://docs.microsoft.com/en-us/dotnet/api/system.console.write), and [Debug.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.debug.write) in its static constructor.
@@ -129,21 +125,21 @@ Trace.Listeners.Clear();
 Trace.Listeners.Add(new TraceListener());
 #if (NETSTANDARD)
 DebugPoker.Overwrite(
-text =>
-{
-    if (string.IsNullOrEmpty(text))
+    text =>
     {
-        return;
-    }
+        if (string.IsNullOrEmpty(text))
+        {
+            return;
+        }
 
-    if (text.EndsWith(Environment.NewLine))
-    {
-        WriteLine(text.TrimTrailingNewline());
-        return;
-    }
+        if (text.EndsWith(Environment.NewLine))
+        {
+            WriteLine(text.TrimTrailingNewline());
+            return;
+        }
 
-    Write(text);
-});
+        Write(text);
+    });
 #else
 Debug.Listeners.Clear();
 Debug.Listeners.Add(new TraceListener());
@@ -152,7 +148,7 @@ TestWriter writer = new();
 Console.SetOut(writer);
 Console.SetError(writer);
 ```
-<sup><a href='/src/XunitContext/XunitContext.cs#L50-L79' title='Snippet source file'>snippet source</a> | <a href='#snippet-writeredirects' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/XunitContext/XunitContext.cs#L45-L74' title='Snippet source file'>snippet source</a> | <a href='#snippet-writeredirects' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 These API calls are then routed to the correct xUnit [ITestOutputHelper](https://xunit.net/docs/capturing-output) via a static [AsyncLocal](https://docs.microsoft.com/en-us/dotnet/api/system.threading.asynclocal-1).
@@ -387,89 +383,86 @@ Implementation:
 <!-- snippet: Context_CurrentTest.cs -->
 <a id='snippet-Context_CurrentTest.cs'></a>
 ```cs
-using System;
-using System.Reflection;
 using Xunit.Abstractions;
 using Xunit.Sdk;
 
-namespace Xunit
+namespace Xunit;
+
+public partial class Context
 {
-    public partial class Context
+    ITest? test;
+
+    static FieldInfo? cachedTestMember;
+
+    public ITest Test
     {
-        ITest? test;
-
-        static FieldInfo? cachedTestMember;
-
-        public ITest Test
+        get
         {
-            get
-            {
-                InitTest();
+            InitTest();
 
-                return test!;
-            }
+            return test!;
+        }
+    }
+
+    MethodInfo? methodInfo;
+    public MethodInfo MethodInfo
+    {
+        get
+        {
+            InitTest();
+            return methodInfo!;
+        }
+    }
+
+    Type? testType;
+    public Type TestType
+    {
+        get
+        {
+            InitTest();
+            return testType!;
+        }
+    }
+
+    void InitTest()
+    {
+        if (test != null)
+        {
+            return;
+        }
+        test = (ITest) GetTestMethod().GetValue(TestOutput);
+        var method = (ReflectionMethodInfo) test.TestCase.TestMethod.Method;
+        var type = (ReflectionTypeInfo) test.TestCase.TestMethod.TestClass.Class;
+        methodInfo = method.MethodInfo;
+        testType = type.Type;
+    }
+
+    public static string MissingTestOutput = "ITestOutputHelper has not been set. It is possible that the call to `XunitContext.Register()` is missing, or the current test does not inherit from `XunitContextBase`.";
+
+    FieldInfo GetTestMethod()
+    {
+        if (TestOutput == null)
+        {
+            throw new(MissingTestOutput);
         }
 
-        MethodInfo? methodInfo;
-        public MethodInfo MethodInfo
+        if (cachedTestMember != null)
         {
-            get
-            {
-                InitTest();
-                return methodInfo!;
-            }
-        }
-
-        Type? testType;
-        public Type TestType
-        {
-            get
-            {
-                InitTest();
-                return testType!;
-            }
-        }
-
-        void InitTest()
-        {
-            if (test != null)
-            {
-                return;
-            }
-            test = (ITest) GetTestMethod().GetValue(TestOutput);
-            var method = (ReflectionMethodInfo) test.TestCase.TestMethod.Method;
-            var type = (ReflectionTypeInfo) test.TestCase.TestMethod.TestClass.Class;
-            methodInfo = method.MethodInfo;
-            testType = type.Type;
-        }
-
-        public static string MissingTestOutput = "ITestOutputHelper has not been set. It is possible that the call to `XunitContext.Register()` is missing, or the current test does not inherit from `XunitContextBase`.";
-
-        FieldInfo GetTestMethod()
-        {
-            if (TestOutput == null)
-            {
-                throw new(MissingTestOutput);
-            }
-
-            if (cachedTestMember != null)
-            {
-                return cachedTestMember;
-            }
-
-            var testOutputType = TestOutput.GetType();
-            cachedTestMember = testOutputType.GetField("test", BindingFlags.Instance | BindingFlags.NonPublic);
-            if (cachedTestMember == null)
-            {
-                throw new($"Unable to find 'test' field on {testOutputType.FullName}");
-            }
-
             return cachedTestMember;
         }
+
+        var testOutputType = TestOutput.GetType();
+        cachedTestMember = testOutputType.GetField("test", BindingFlags.Instance | BindingFlags.NonPublic);
+        if (cachedTestMember == null)
+        {
+            throw new($"Unable to find 'test' field on {testOutputType.FullName}");
+        }
+
+        return cachedTestMember;
     }
 }
 ```
-<sup><a href='/src/XunitContext/Context_CurrentTest.cs#L1-L81' title='Snippet source file'>snippet source</a> | <a href='#snippet-Context_CurrentTest.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/XunitContext/Context_CurrentTest.cs#L1-L78' title='Snippet source file'>snippet source</a> | <a href='#snippet-Context_CurrentTest.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -538,7 +531,7 @@ public class CustomBase :
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/CustomBase.cs#L5-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitcontextcustombase' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/CustomBase.cs#L4-L15' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitcontextcustombase' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -556,8 +549,6 @@ Usage:
 <!-- snippet: ParametersSample.cs -->
 <a id='snippet-ParametersSample.cs'></a>
 ```cs
-using System.Collections.Generic;
-using System.Linq;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -586,7 +577,7 @@ public class ParametersSample :
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/ParametersSample.cs#L1-L29' title='Snippet source file'>snippet source</a> | <a href='#snippet-ParametersSample.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/ParametersSample.cs#L1-L27' title='Snippet source file'>snippet source</a> | <a href='#snippet-ParametersSample.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Implementation:
@@ -623,7 +614,7 @@ static List<Parameter> GetParameters(ITestCase testCase, object[] arguments)
     return items;
 }
 ```
-<sup><a href='/src/XunitContext/Context_Parameters.cs#L28-L57' title='Snippet source file'>snippet source</a> | <a href='#snippet-parameters' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/XunitContext/Context_Parameters.cs#L25-L54' title='Snippet source file'>snippet source</a> | <a href='#snippet-parameters' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -643,8 +634,6 @@ To use complex types override the parameter resolution using `XunitContextBase.U
 <!-- snippet: ComplexParameterSample.cs -->
 <a id='snippet-ComplexParameterSample.cs'></a>
 ```cs
-using System.Collections.Generic;
-using System.Linq;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -684,7 +673,7 @@ public class ComplexParameterSample :
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/ComplexParameterSample.cs#L1-L40' title='Snippet source file'>snippet source</a> | <a href='#snippet-ComplexParameterSample.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/ComplexParameterSample.cs#L1-L38' title='Snippet source file'>snippet source</a> | <a href='#snippet-ComplexParameterSample.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -752,7 +741,7 @@ string GetUniqueTestName(ITestCase testCase)
     return builder.ToString();
 }
 ```
-<sup><a href='/src/XunitContext/Context_TestName.cs#L34-L61' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniquetestname' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/XunitContext/Context_TestName.cs#L32-L59' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniquetestname' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
