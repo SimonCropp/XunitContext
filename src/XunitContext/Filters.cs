@@ -1,33 +1,37 @@
-﻿namespace Xunit;
+﻿using System;
+using System.Collections.Concurrent;
 
-public static class Filters
+namespace Xunit
 {
-    static ConcurrentBag<Func<string, bool>> items = new();
-
-    public static void Add(Func<string, bool> filter)
+    public static class Filters
     {
-        Guard.AgainstNull(filter, nameof(filter));
-        items.Add(filter);
-    }
+        static ConcurrentBag<Func<string, bool>> items = new();
 
-    public static void Clear()
-    {
-        while (!items.IsEmpty)
+        public static void Add(Func<string, bool> filter)
         {
-            items.TryTake(out _);
+            Guard.AgainstNull(filter, nameof(filter));
+            items.Add(filter);
         }
-    }
 
-    internal static bool ShouldFilterOut(string message)
-    {
-        foreach (var filter in items)
+        public static void Clear()
         {
-            if (!filter(message))
+            while (!items.IsEmpty)
             {
-                return true;
+                items.TryTake(out _);
             }
         }
 
-        return false;
+        internal static bool ShouldFilterOut(string message)
+        {
+            foreach (var filter in items)
+            {
+                if (!filter(message))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }

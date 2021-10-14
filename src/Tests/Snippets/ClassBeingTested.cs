@@ -1,4 +1,7 @@
-﻿static class ClassBeingTested
+﻿using System;
+using System.Diagnostics;
+
+static class ClassBeingTested
 {
     public static void Method()
     {

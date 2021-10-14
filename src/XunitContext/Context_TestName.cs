@@ -1,60 +1,63 @@
-﻿using Xunit.Abstractions;
+﻿using System.Linq;
+using System.Text;
+using Xunit.Abstractions;
 
-namespace Xunit;
-
-public partial class Context
+namespace Xunit
 {
-    string? uniqueTestName;
-
-    public string ClassName
+    public partial class Context
     {
-        get => Test.TestCase.TestMethod.TestClass.Class.ClassName();
-    }
+        string? uniqueTestName;
 
-    public string MethodName
-    {
-        get => Test.TestCase.TestMethod.Method.Name;
-    }
-
-    public string UniqueTestName
-    {
-        get
+        public string ClassName
         {
-            if (uniqueTestName == null)
+            get => Test.TestCase.TestMethod.TestClass.Class.ClassName();
+        }
+
+        public string MethodName
+        {
+            get => Test.TestCase.TestMethod.Method.Name;
+        }
+
+        public string UniqueTestName
+        {
+            get
             {
-                uniqueTestName = GetUniqueTestName(Test.TestCase);
+                if (uniqueTestName == null)
+                {
+                    uniqueTestName = GetUniqueTestName(Test.TestCase);
+                }
+
+                return uniqueTestName;
+            }
+        }
+
+        #region UniqueTestName
+        string GetUniqueTestName(ITestCase testCase)
+        {
+            var method = testCase.TestMethod;
+            var name = $"{method.TestClass.Class.ClassName()}.{method.Method.Name}";
+            if (!Parameters.Any())
+            {
+                return name;
             }
 
-            return uniqueTestName;
-        }
-    }
-
-    #region UniqueTestName
-    string GetUniqueTestName(ITestCase testCase)
-    {
-        var method = testCase.TestMethod;
-        var name = $"{method.TestClass.Class.ClassName()}.{method.Method.Name}";
-        if (!Parameters.Any())
-        {
-            return name;
-        }
-
-        StringBuilder builder = new($"{name}_");
-        foreach (var parameter in Parameters)
-        {
-            builder.Append($"{parameter.Info.Name}=");
-            if (parameter.Value == null)
+            StringBuilder builder = new($"{name}_");
+            foreach (var parameter in Parameters)
             {
-                builder.Append("null_");
-                continue;
+                builder.Append($"{parameter.Info.Name}=");
+                if (parameter.Value == null)
+                {
+                    builder.Append("null_");
+                    continue;
+                }
+
+                builder.Append($"{parameter.Value}_");
             }
 
-            builder.Append($"{parameter.Value}_");
+            builder.Length -= 1;
+
+            return builder.ToString();
         }
-
-        builder.Length -= 1;
-
-        return builder.ToString();
+        #endregion
     }
-    #endregion
 }

@@ -1,19 +1,20 @@
 ﻿using Xunit;
 using Xunit.Abstractions;
 
-namespace MyNamespace.Bar;
-
-public class InNamespaceTest :
-    XunitContextBase
+namespace MyNamespace.Bar
 {
-    [Fact]
-    public void Usage()
+    public class InNamespaceTest :
+        XunitContextBase
     {
-        Assert.Equal("InNamespaceTest.Usage", Context.UniqueTestName);
-    }
+        [Fact]
+        public void Usage()
+        {
+            Assert.Equal("InNamespaceTest.Usage", Context.UniqueTestName);
+        }
 
-    public InNamespaceTest(ITestOutputHelper output) :
-        base(output)
-    {
+        public InNamespaceTest(ITestOutputHelper output) :
+            base(output)
+        {
+        }
     }
 }
