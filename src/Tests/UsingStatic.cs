@@ -1,7 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using VerifyXunit;
+﻿using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 

@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using Xunit;
+﻿using Xunit;
 
 static class ModuleInit
 {

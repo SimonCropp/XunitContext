@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using Xunit;
+﻿using Xunit;
 using Xunit.Abstractions;
 
 #region XunitContextCustomBase
