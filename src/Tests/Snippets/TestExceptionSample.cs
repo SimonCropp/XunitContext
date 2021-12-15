@@ -1,8 +1,4 @@
-﻿using Xunit;
-using Xunit.Abstractions;
-
-
-#region TestExceptionSample
+﻿#region TestExceptionSample
 
 public static class GlobalSetup
 {

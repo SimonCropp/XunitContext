@@ -1,10 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using VerifyXunit;
-using Xunit;
-using Xunit.Abstractions;
-
-[UsesVerify]
+﻿[UsesVerify]
 public class StaticConstructor
 {
     static StaticConstructor()

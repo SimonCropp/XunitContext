@@ -1,8 +1,4 @@
-﻿using VerifyXunit;
-using Xunit;
-using Xunit.Abstractions;
-
-[UsesVerify]
+﻿[UsesVerify]
 public class UsingCurrentException :
     XunitContextBase
 {

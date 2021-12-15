@@ -1,10 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using VerifyXunit;
-using Xunit;
-using Xunit.Abstractions;
-
-[UsesVerifyAttribute]
+﻿[UsesVerifyAttribute]
 public class SkipDispose :
     XunitContextBase
 {

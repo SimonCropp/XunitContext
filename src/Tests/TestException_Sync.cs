@@ -1,8 +1,4 @@
-﻿using System;
-using Xunit;
-using Xunit.Abstractions;
-
-[Trait("Category", "Integration")]
+﻿[Trait("Category", "Integration")]
 public class TestException_Sync :
     XunitContextBase
 {

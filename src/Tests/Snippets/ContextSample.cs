@@ -1,7 +1,4 @@
-﻿using Xunit;
-using Xunit.Abstractions;
-
-public class ContextSample  :
+﻿public class ContextSample  :
     XunitContextBase
 {
     [Fact]

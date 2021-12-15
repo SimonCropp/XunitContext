@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Xunit;
-using Xunit.Abstractions;
-
-public class ParametersTests :
+﻿public class ParametersTests :
     XunitContextBase
 {
     [Theory]

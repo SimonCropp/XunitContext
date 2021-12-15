@@ -1,7 +1,4 @@
-﻿using System;
-using Xunit;
-
-public class MissingRegister
+﻿public class MissingRegister
 {
     [Fact]
     public void CurrentTest()

@@ -1,7 +1,4 @@
-﻿using System.IO;
-using System.Text;
-using System.Threading.Tasks;
-using Xunit;
+﻿using Xunit;
 
 class TestWriter :
     TextWriter

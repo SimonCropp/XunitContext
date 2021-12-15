@@ -1,11 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using VerifyXunit;
-using Xunit;
-using Xunit.Abstractions;
-
-[UsesVerify]
+﻿[UsesVerify]
 public class UsingStatic
 {
     [Fact]

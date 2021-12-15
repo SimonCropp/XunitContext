@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Xunit;
-using Xunit.Abstractions;
-
-public class ComplexParameterSample :
+﻿public class ComplexParameterSample :
     XunitContextBase
 {
     [Theory]

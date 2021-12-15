@@ -1,8 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.Reflection;
-
-static class DebugPoker
+﻿static class DebugPoker
 {
     public static void Overwrite(Action<string> action)
     {

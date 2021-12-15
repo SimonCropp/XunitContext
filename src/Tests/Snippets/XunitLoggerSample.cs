@@ -1,8 +1,4 @@
-﻿using System;
-using Xunit;
-using Xunit.Abstractions;
-
-public class XunitLoggerSample :
+﻿public class XunitLoggerSample :
     IDisposable
 {
     [Fact]

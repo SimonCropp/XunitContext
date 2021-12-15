@@ -1,7 +1,4 @@
-﻿using Xunit;
-using Xunit.Abstractions;
-
-public class FilterSample :
+﻿public class FilterSample :
     XunitContextBase
 {
     static FilterSample()
