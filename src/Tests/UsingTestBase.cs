@@ -15,7 +15,7 @@ public class UsingTestBase :
         WriteLine();
         WriteLine("part3");
         WriteLine("ignored");
-        return Verifier.Verify(Logs);
+        return Verify(Logs);
     }
 
     [Fact]

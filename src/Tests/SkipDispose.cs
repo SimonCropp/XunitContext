@@ -8,7 +8,7 @@ public class SkipDispose :
         Write("part1");
         Write(" part2");
         base.Dispose();
-        return Verifier.Verify(Logs);
+        return Verify(Logs);
     }
 
     [Fact]
@@ -17,7 +17,7 @@ public class SkipDispose :
         base.Dispose();
         var exception = Assert.Throws<Exception>(WriteLine);
 
-        return Verifier.Verify(exception);
+        return Verify(exception);
     }
 
     public SkipDispose(ITestOutputHelper testOutput) :

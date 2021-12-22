@@ -13,7 +13,7 @@ public class StaticConstructor
     {
         Assert.EndsWith("StaticConstructor.cs", XunitContext.Context.SourceFile);
         var logs = XunitContext.Flush(false);
-        return Verifier.Verify(logs);
+        return Verify(logs);
     }
 
     public StaticConstructor(ITestOutputHelper testOutput)

@@ -8,7 +8,7 @@ public class UsingStatic
         Debug.WriteLine("from Debug");
         Trace.WriteLine("from Trace");
         var logs = XunitContext.Flush(false);
-        return Verifier.Verify(logs);
+        return Verify(logs);
     }
 
     //[Fact]
@@ -35,7 +35,7 @@ public class UsingStatic
         XunitContext.WriteLine("Trace.Write(null)");
         Trace.Write(null);
         var logs = XunitContext.Flush(false);
-        return Verifier.Verify(logs);
+        return Verify(logs);
     }
 
     [Fact]
@@ -46,7 +46,7 @@ public class UsingStatic
         XunitContext.WriteLine();
         XunitContext.WriteLine("part3");
         var logs = XunitContext.Flush(false);
-        return Verifier.Verify(logs);
+        return Verify(logs);
     }
 
     [Fact]
@@ -58,7 +58,7 @@ public class UsingStatic
         XunitContext.WriteLine("part2");
         await Task.Delay(1);
         var logs = XunitContext.Flush(false);
-        await Verifier.Verify(logs);
+        await Verify(logs);
     }
 
     [Fact]
@@ -79,7 +79,7 @@ public class UsingStatic
         var logs = XunitContext.Flush(false);
         // Verifier normalises '\r' characters, so we need to manually detect embedded '\r' from above
         Assert.Equal("DE\rF", logs[2]);
-        return Verifier.Verify(logs);
+        return Verify(logs);
     }
 
     public UsingStatic(ITestOutputHelper testOutput)
