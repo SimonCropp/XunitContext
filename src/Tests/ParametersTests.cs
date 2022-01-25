@@ -34,7 +34,7 @@
     [MemberData(nameof(GetEnumerableData))]
     public void EnumerableMemberData(string arg1, string[] arg2)
     {
-        Assert.Equal("ParametersTests.EnumerableMemberData_arg1=Value1_arg2=Value2_Value3_null", Context.UniqueTestName);
+        Assert.Equal("ParametersTests.EnumerableMemberData_arg1=Value1_arg2=Value2,Value3,null", Context.UniqueTestName);
     }
 
     public static IEnumerable<object?[]> GetEnumerableData()

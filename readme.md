@@ -697,7 +697,7 @@ string GetUniqueTestName(ITestCase testCase)
     foreach (var parameter in Parameters)
     {
         builder.Append($"{parameter.Info.Name}=");
-        builder.Append(string.Join("_", SplitParams(parameter.Value)));
+        builder.Append(string.Join(",", SplitParams(parameter.Value)));
         builder.Append('_');
     }
 
