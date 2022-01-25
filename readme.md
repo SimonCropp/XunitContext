@@ -456,7 +456,7 @@ One common case is to perform some logic, based on the existence of the exceptio
 ```cs
 public static class GlobalSetup
 {
-    [System.Runtime.CompilerServices.ModuleInitializer]
+    [ModuleInitializer]
     public static void Setup()
     {
         XunitContext.EnableExceptionCapture();
@@ -697,21 +697,46 @@ string GetUniqueTestName(ITestCase testCase)
     foreach (var parameter in Parameters)
     {
         builder.Append($"{parameter.Info.Name}=");
-        if (parameter.Value == null)
-        {
-            builder.Append("null_");
-            continue;
-        }
-
-        builder.Append($"{parameter.Value}_");
+        builder.Append(string.Join("_", SplitParams(parameter.Value)));
+        builder.Append('_');
     }
 
     builder.Length -= 1;
 
     return builder.ToString();
 }
+
+static IEnumerable<string> SplitParams(object? parameter)
+{
+    if (parameter == null)
+    {
+        yield return "null";
+        yield break;
+    }
+
+    if (parameter is string stringValue)
+    {
+        yield return stringValue;
+        yield break;
+    }
+
+    if (parameter is IEnumerable enumerable)
+    {
+        foreach (var item in enumerable)
+        {
+            foreach (var sub in SplitParams(item))
+            {
+                yield return sub;
+            }
+        }
+
+        yield break;
+    }
+
+    yield return parameter.ToString();
+}
 ```
-<sup><a href='/src/XunitContext/Context_TestName.cs#L32-L59' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniquetestname' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/XunitContext/Context_TestName.cs#L32-L84' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniquetestname' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

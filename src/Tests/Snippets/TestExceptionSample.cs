@@ -2,7 +2,7 @@
 
 public static class GlobalSetup
 {
-    [System.Runtime.CompilerServices.ModuleInitializer]
+    [ModuleInitializer]
     public static void Setup()
     {
         XunitContext.EnableExceptionCapture();

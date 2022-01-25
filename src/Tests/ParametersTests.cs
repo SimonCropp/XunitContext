@@ -10,6 +10,7 @@
         var parameterInfo = parameter.Info;
         Assert.Equal("arg", parameterInfo.Name);
         Assert.Equal(arg, parameter.Value);
+        Assert.Equal($"ParametersTests.InlineData_arg={arg}", Context.UniqueTestName);
     }
 
     [Theory]
@@ -20,12 +21,25 @@
         var parameterInfo = parameter.Info;
         Assert.Equal("arg", parameterInfo.Name);
         Assert.Equal(arg, parameter.Value);
+        Assert.Equal($"ParametersTests.MemberData_arg={arg}", Context.UniqueTestName);
     }
 
     public static IEnumerable<object[]> GetData()
     {
         yield return new object[] {"Value1"};
         yield return new object[] {"Value2"};
+    }
+
+    [Theory]
+    [MemberData(nameof(GetEnumerableData))]
+    public void EnumerableMemberData(string arg1, string[] arg2)
+    {
+        Assert.Equal("ParametersTests.EnumerableMemberData_arg1=Value1_arg2=Value2_Value3_null", Context.UniqueTestName);
+    }
+
+    public static IEnumerable<object?[]> GetEnumerableData()
+    {
+        yield return new object?[] {"Value1", new[] {"Value2","Value3", null}};
     }
 
     [Theory]

@@ -9,7 +9,7 @@ public class StaticConstructor
     }
 
     [Fact]
-    public Task Verify()
+    public Task VerifyLogs()
     {
         Assert.EndsWith("StaticConstructor.cs", XunitContext.Context.SourceFile);
         var logs = XunitContext.Flush(false);

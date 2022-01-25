@@ -2,11 +2,6 @@
 public class UsingCurrentException :
     XunitContextBase
 {
-    static UsingCurrentException()
-    {
-        XunitContext.EnableExceptionCapture();
-    }
-
     [Fact]
     [Trait("Category", "Integration")]
     public void Fails()

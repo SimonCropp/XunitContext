@@ -43,18 +43,43 @@ public partial class Context
         foreach (var parameter in Parameters)
         {
             builder.Append($"{parameter.Info.Name}=");
-            if (parameter.Value == null)
-            {
-                builder.Append("null_");
-                continue;
-            }
-
-            builder.Append($"{parameter.Value}_");
+            builder.Append(string.Join("_", SplitParams(parameter.Value)));
+            builder.Append('_');
         }
 
         builder.Length -= 1;
 
         return builder.ToString();
+    }
+
+    static IEnumerable<string> SplitParams(object? parameter)
+    {
+        if (parameter == null)
+        {
+            yield return "null";
+            yield break;
+        }
+
+        if (parameter is string stringValue)
+        {
+            yield return stringValue;
+            yield break;
+        }
+
+        if (parameter is IEnumerable enumerable)
+        {
+            foreach (var item in enumerable)
+            {
+                foreach (var sub in SplitParams(item))
+                {
+                    yield return sub;
+                }
+            }
+
+            yield break;
+        }
+
+        yield return parameter.ToString();
     }
     #endregion
 }

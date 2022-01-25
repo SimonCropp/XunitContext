@@ -17,7 +17,7 @@ public partial class Context
     public void UseParameters(params object[] parameters)
     {
         Guard.AgainstNull(parameters, nameof(parameters));
-        this.parameters = GetParameters(Test.TestCase,parameters);
+        this.parameters = GetParameters(Test.TestCase, parameters);
     }
 
     static List<Parameter> empty = new();
