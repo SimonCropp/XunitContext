@@ -113,6 +113,11 @@ public abstract class XunitContextBase :
         get => Context.SolutionDirectory;
     }
 
+    public string UniqueTestName
+    {
+        get => Context.UniqueTestName;
+    }
+
     /// <summary>
     /// Override the default parameter resolution.
     /// </summary>
