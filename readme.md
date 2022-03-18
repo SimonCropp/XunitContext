@@ -96,18 +96,14 @@ public class XunitLoggerSample :
         Assert.Contains("From Console Error", logs);
     }
 
-    public XunitLoggerSample(ITestOutputHelper testOutput)
-    {
+    public XunitLoggerSample(ITestOutputHelper testOutput) =>
         XunitContext.Register(testOutput);
-    }
 
-    public void Dispose()
-    {
+    public void Dispose() =>
         XunitContext.Flush();
-    }
 }
 ```
-<sup><a href='/src/Tests/Snippets/XunitLoggerSample.cs#L1-L29' title='Snippet source file'>snippet source</a> | <a href='#snippet-XunitLoggerSample.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/XunitLoggerSample.cs#L1-L25' title='Snippet source file'>snippet source</a> | <a href='#snippet-XunitLoggerSample.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 `XunitContext` redirects [Trace.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.trace.write), [Console.Write](https://docs.microsoft.com/en-us/dotnet/api/system.console.write), and [Debug.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.debug.write) in its static constructor.
@@ -142,7 +138,7 @@ TestWriter writer = new();
 Console.SetOut(writer);
 Console.SetError(writer);
 ```
-<sup><a href='/src/XunitContext/XunitContext.cs#L45-L74' title='Snippet source file'>snippet source</a> | <a href='#snippet-writeredirects' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/XunitContext/XunitContext.cs#L43-L72' title='Snippet source file'>snippet source</a> | <a href='#snippet-writeredirects' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 These API calls are then routed to the correct xUnit [ITestOutputHelper](https://xunit.net/docs/capturing-output) via a static [AsyncLocal](https://docs.microsoft.com/en-us/dotnet/api/system.threading.asynclocal-1).
@@ -166,10 +162,8 @@ Approaches to routing common logging libraries to Diagnostics.Trace:
 public class FilterSample :
     XunitContextBase
 {
-    static FilterSample()
-    {
+    static FilterSample() =>
         Filters.Add(x => x != null && !x.Contains("ignored"));
-    }
 
     [Fact]
     public void Write_lines()
@@ -190,7 +184,7 @@ public class FilterSample :
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/FilterSample.cs#L1-L26' title='Snippet source file'>snippet source</a> | <a href='#snippet-FilterSample.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/FilterSample.cs#L1-L24' title='Snippet source file'>snippet source</a> | <a href='#snippet-FilterSample.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Filters are static and shared for all tests.
@@ -362,7 +356,6 @@ Implementation:
 <!-- snippet: Context_CurrentTest.cs -->
 <a id='snippet-Context_CurrentTest.cs'></a>
 ```cs
-using Xunit.Abstractions;
 using Xunit.Sdk;
 
 namespace Xunit;
@@ -441,7 +434,7 @@ public partial class Context
     }
 }
 ```
-<sup><a href='/src/XunitContext/Context_CurrentTest.cs#L1-L78' title='Snippet source file'>snippet source</a> | <a href='#snippet-Context_CurrentTest.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/XunitContext/Context_CurrentTest.cs#L1-L77' title='Snippet source file'>snippet source</a> | <a href='#snippet-Context_CurrentTest.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -457,10 +450,8 @@ One common case is to perform some logic, based on the existence of the exceptio
 public static class GlobalSetup
 {
     [ModuleInitializer]
-    public static void Setup()
-    {
+    public static void Setup() =>
         XunitContext.EnableExceptionCapture();
-    }
 }
 
 [Trait("Category", "Integration")]
@@ -468,11 +459,9 @@ public class TestExceptionSample :
     XunitContextBase
 {
     [Fact]
-    public void Usage()
-    {
+    public void Usage() =>
         //This tests will fail
         Assert.False(true);
-    }
 
     public TestExceptionSample(ITestOutputHelper output) :
         base(output)
@@ -488,7 +477,7 @@ public class TestExceptionSample :
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/TestExceptionSample.cs#L1-L36' title='Snippet source file'>snippet source</a> | <a href='#snippet-testexceptionsample' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/TestExceptionSample.cs#L1-L32' title='Snippet source file'>snippet source</a> | <a href='#snippet-testexceptionsample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -561,10 +550,8 @@ Implementation:
 <!-- snippet: Parameters -->
 <a id='snippet-parameters'></a>
 ```cs
-static List<Parameter> GetParameters(ITestCase testCase)
-{
-    return GetParameters(testCase, testCase.TestMethodArguments);
-}
+static List<Parameter> GetParameters(ITestCase testCase) =>
+    GetParameters(testCase, testCase.TestMethodArguments);
 
 static List<Parameter> GetParameters(ITestCase testCase, object[] arguments)
 {
@@ -590,7 +577,7 @@ static List<Parameter> GetParameters(ITestCase testCase, object[] arguments)
     return items;
 }
 ```
-<sup><a href='/src/XunitContext/Context_Parameters.cs#L25-L54' title='Snippet source file'>snippet source</a> | <a href='#snippet-parameters' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/XunitContext/Context_Parameters.cs#L20-L47' title='Snippet source file'>snippet source</a> | <a href='#snippet-parameters' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -639,14 +626,12 @@ public class ComplexParameterSample :
     {
         public string Value { get; }
 
-        public ComplexClass(string value)
-        {
+        public ComplexClass(string value) =>
             Value = value;
-        }
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/ComplexParameterSample.cs#L1-L35' title='Snippet source file'>snippet source</a> | <a href='#snippet-ComplexParameterSample.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/ComplexParameterSample.cs#L1-L33' title='Snippet source file'>snippet source</a> | <a href='#snippet-ComplexParameterSample.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -736,7 +721,7 @@ static IEnumerable<string> SplitParams(object? parameter)
     yield return parameter.ToString();
 }
 ```
-<sup><a href='/src/XunitContext/Context_TestName.cs#L32-L84' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniquetestname' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/XunitContext/Context_TestName.cs#L24-L76' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniquetestname' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
