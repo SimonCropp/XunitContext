@@ -1,6 +1,4 @@
-﻿using Xunit.Abstractions;
-
-namespace Xunit;
+﻿namespace Xunit;
 
 public class Parameter
 {

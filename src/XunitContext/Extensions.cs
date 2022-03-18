@@ -1,11 +1,7 @@
-﻿using Xunit.Abstractions;
-
-static class Extensions
+﻿static class Extensions
 {
-    public static string TrimTrailingNewline(this string value)
-    {
-        return value.Substring(0, value.Length - Environment.NewLine.Length);
-    }
+    public static string TrimTrailingNewline(this string value) =>
+        value.Substring(0, value.Length - Environment.NewLine.Length);
 
     public static MethodBase GetRealMethod(this MethodBase method)
     {

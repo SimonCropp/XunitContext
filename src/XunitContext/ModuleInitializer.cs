@@ -1,10 +1,6 @@
-﻿using Xunit;
-
-static class ModuleInit
+﻿static class ModuleInit
 {
     [ModuleInitializer]
-    public static void Initialize()
-    {
+    public static void Initialize() =>
         XunitContext.Init();
-    }
 }

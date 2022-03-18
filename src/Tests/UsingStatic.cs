@@ -82,8 +82,6 @@ public class UsingStatic
         return Verify(logs);
     }
 
-    public UsingStatic(ITestOutputHelper testOutput)
-    {
+    public UsingStatic(ITestOutputHelper testOutput) =>
         XunitContext.Register(testOutput);
-    }
 }

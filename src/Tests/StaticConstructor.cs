@@ -16,8 +16,6 @@ public class StaticConstructor
         return Verify(logs);
     }
 
-    public StaticConstructor(ITestOutputHelper testOutput)
-    {
+    public StaticConstructor(ITestOutputHelper testOutput) =>
         XunitContext.Register(testOutput);
-    }
 }

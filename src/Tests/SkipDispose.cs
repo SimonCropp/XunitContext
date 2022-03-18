@@ -1,4 +1,4 @@
-﻿[UsesVerifyAttribute]
+﻿[UsesVerify]
 public class SkipDispose :
     XunitContextBase
 {

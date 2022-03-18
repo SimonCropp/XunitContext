@@ -3,10 +3,8 @@
 public static class GlobalSetup
 {
     [ModuleInitializer]
-    public static void Setup()
-    {
+    public static void Setup() =>
         XunitContext.EnableExceptionCapture();
-    }
 }
 
 [Trait("Category", "Integration")]
@@ -14,11 +12,9 @@ public class TestExceptionSample :
     XunitContextBase
 {
     [Fact]
-    public void Usage()
-    {
+    public void Usage() =>
         //This tests will fail
         Assert.False(true);
-    }
 
     public TestExceptionSample(ITestOutputHelper output) :
         base(output)

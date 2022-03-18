@@ -1,24 +1,16 @@
-﻿using Xunit;
-
-class TestWriter :
+﻿class TestWriter :
     TextWriter
 {
     public override Encoding Encoding { get; } = Encoding.UTF8;
 
-    public override void Write(char value)
-    {
+    public override void Write(char value) =>
         XunitContext.Write(value);
-    }
 
-    public override void Write(string value)
-    {
+    public override void Write(string value) =>
         XunitContext.Write(value);
-    }
 
-    public override void WriteLine()
-    {
+    public override void WriteLine() =>
         XunitContext.WriteLine();
-    }
 
     public override void WriteLine(string value)
     {

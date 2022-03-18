@@ -44,10 +44,8 @@ public class TestException_Async:
         MethodThatThrows();
     }
 
-    static void MethodThatThrows()
-    {
+    static void MethodThatThrows() =>
         throw new("nested");
-    }
 
     public TestException_Async(ITestOutputHelper output) :
         base(output)

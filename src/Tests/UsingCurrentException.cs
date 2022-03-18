@@ -4,10 +4,8 @@ public class UsingCurrentException :
 {
     [Fact]
     [Trait("Category", "Integration")]
-    public void Fails()
-    {
+    public void Fails() =>
         Assert.True(false);
-    }
 
     [Fact]
     public void Passes()

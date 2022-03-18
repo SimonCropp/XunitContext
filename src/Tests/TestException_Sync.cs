@@ -3,16 +3,12 @@ public class TestException_Sync :
     XunitContextBase
 {
     [Fact]
-    public void Root()
-    {
+    public void Root() =>
         throw new("root");
-    }
 
     [Fact]
-    public void AssertThrows()
-    {
+    public void AssertThrows() =>
         Assert.Throws<Exception>(MethodThatThrows);
-    }
 
     [Fact]
     public void Caught()
@@ -27,21 +23,15 @@ public class TestException_Sync :
     }
 
     [Fact]
-    public void FailedAssert()
-    {
+    public void FailedAssert() =>
         Assert.True(false);
-    }
 
     [Fact]
-    public void Nested()
-    {
+    public void Nested() =>
         MethodThatThrows();
-    }
 
-    static void MethodThatThrows()
-    {
+    static void MethodThatThrows() =>
         throw new("nested");
-    }
 
     public TestException_Sync(ITestOutputHelper output) :
         base(output)

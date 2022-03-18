@@ -1,5 +1,4 @@
-﻿using Xunit.Abstractions;
-using Xunit.Sdk;
+﻿using Xunit.Sdk;
 
 namespace Xunit;
 
@@ -16,19 +15,14 @@ public partial class Context
     /// <summary>
     /// The source directory that the current test exists in.
     /// </summary>
-    public string SourceDirectory
-    {
-        get => Path.GetDirectoryName(SourceFile);
-    }
+    public string SourceDirectory => Path.GetDirectoryName(SourceFile);
+
     string? solutionDirectory;
 
     /// <summary>
     /// The current solution directory. Obtained by walking up the directory tree from <see cref="SourceDirectory"/>.
     /// </summary>
-    public string SolutionDirectory
-    {
-        get => solutionDirectory ??= SolutionDirectoryFinder.Find(SourceDirectory);
-    }
+    public string SolutionDirectory => solutionDirectory ??= SolutionDirectoryFinder.Find(SourceDirectory);
 
     List<string> logMessages = new();
     object locker = new();
@@ -95,10 +89,8 @@ public partial class Context
     {
     }
 
-    void InitBuilder()
-    {
+    void InitBuilder() =>
         Builder ??= new();
-    }
 
     /// <summary>
     /// Writes a value to the current <see cref="ITestOutputHelper"/>.
@@ -146,7 +138,9 @@ public partial class Context
             } while (start < value.Length);
 
             if (start >= value.Length)
+            {
                 return;
+            }
 
             InitBuilder();
             Builder?.Append(start > 0 ? value.Substring(start) : value);

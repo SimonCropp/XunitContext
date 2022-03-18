@@ -1,6 +1,4 @@
-﻿using Xunit.Abstractions;
-
-namespace Xunit;
+﻿namespace Xunit;
 
 public static class XunitContext
 {
@@ -74,15 +72,11 @@ public static class XunitContext
         #endregion
     }
 
-    public static void Write(string value)
-    {
+    public static void Write(string value) =>
         Context.Write(value);
-    }
 
-    public static void Write(object value)
-    {
+    public static void Write(object value) =>
         Context.Write(value);
-    }
 
     public static IReadOnlyList<string> Logs
     {
@@ -98,25 +92,17 @@ public static class XunitContext
         }
     }
 
-    public static void Write(char value)
-    {
+    public static void Write(char value) =>
         Context.Write(value);
-    }
 
-    public static void WriteLine()
-    {
+    public static void WriteLine() =>
         Context.WriteLine();
-    }
 
-    public static void WriteLine(string value)
-    {
+    public static void WriteLine(string value) =>
         Context.WriteLine(value);
-    }
 
-    public static void WriteLine(object value)
-    {
+    public static void WriteLine(object value) =>
         Context.WriteLine(value);
-    }
 
     public static IReadOnlyList<string> Flush(bool clearAsyncLocal = true)
     {

@@ -1,10 +1,8 @@
 ﻿public class FilterSample :
     XunitContextBase
 {
-    static FilterSample()
-    {
+    static FilterSample() =>
         Filters.Add(x => x != null && !x.Contains("ignored"));
-    }
 
     [Fact]
     public void Write_lines()

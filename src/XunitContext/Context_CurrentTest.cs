@@ -1,5 +1,4 @@
-﻿using Xunit.Abstractions;
-using Xunit.Sdk;
+﻿using Xunit.Sdk;
 
 namespace Xunit;
 

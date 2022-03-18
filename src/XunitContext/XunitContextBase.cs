@@ -1,6 +1,4 @@
-﻿using Xunit.Abstractions;
-
-namespace Xunit;
+﻿namespace Xunit;
 
 public abstract class XunitContextBase :
     IDisposable
@@ -26,97 +24,68 @@ public abstract class XunitContextBase :
     /// <summary>
     /// Writes a value to the current <see cref="ITestOutputHelper"/>.
     /// </summary>
-    public void WriteLine(object value)
-    {
+    public void WriteLine(object value) =>
         Context.WriteLine(value);
-    }
 
     /// <summary>
     /// Writes a line to the current <see cref="ITestOutputHelper"/>.
     /// </summary>
-    public void WriteLine(string value)
-    {
+    public void WriteLine(string value) =>
         Context.WriteLine(value);
-    }
 
     /// <summary>
     /// Writes a <see cref="char"/> to the current <see cref="ITestOutputHelper"/>.
     /// </summary>
-    public void Write(char value)
-    {
+    public void Write(char value) =>
         Context.Write(value);
-    }
 
     /// <summary>
     /// Writes a line to the current <see cref="ITestOutputHelper"/>.
     /// </summary>
-    public void WriteLine()
-    {
+    public void WriteLine() =>
         Context.WriteLine();
-    }
 
     /// <summary>
     /// Writes a value to the current <see cref="ITestOutputHelper"/>.
     /// </summary>
-    public void Write(object value)
-    {
+    public void Write(object value) =>
         Context.Write(value);
-    }
 
     /// <summary>
     /// Writes a string to the current <see cref="ITestOutputHelper"/>.
     /// </summary>
-    public void Write(string value)
-    {
+    public void Write(string value) =>
         Context.Write(value);
-    }
 
     /// <summary>
     /// All log message that have been written to the current <see cref="ITestOutputHelper"/>.
     /// </summary>
     public IReadOnlyList<string> Logs => Context.LogMessages;
 
-    public virtual void Dispose()
-    {
+    public virtual void Dispose() =>
         Context.Flush();
-    }
 
     /// <summary>
     /// The <see cref="Exception"/> for the current test if it failed.
     /// </summary>
-    public Exception? TestException
-    {
-        get => Context.TestException;
-    }
+    public Exception? TestException => Context.TestException;
 
     /// <summary>
     /// The source file that the current test exists in.
     /// </summary>
-    public string SourceFile
-    {
-        get => Context.SourceFile;
-    }
+    public string SourceFile => Context.SourceFile;
 
     /// <summary>
     /// The source directory that the current test exists in.
     /// </summary>
-    public string SourceDirectory
-    {
-        get => Context.SourceDirectory;
-    }
+    public string SourceDirectory => Context.SourceDirectory;
 
     /// <summary>
     /// The current solution directory. Obtained by walking up the directory tree from <see cref="SourceDirectory"/>.
     /// </summary>
-    public string SolutionDirectory
-    {
-        get => Context.SolutionDirectory;
-    }
+    public string SolutionDirectory => Context.SolutionDirectory;
 
-    public string UniqueTestName
-    {
-        get => Context.UniqueTestName;
-    }
+    public string UniqueTestName => Context.UniqueTestName;
 
     /// <summary>
     /// Override the default parameter resolution.

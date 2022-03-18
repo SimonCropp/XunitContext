@@ -27,9 +27,7 @@
     {
         public string Value { get; }
 
-        public ComplexClass(string value)
-        {
+        public ComplexClass(string value) =>
             Value = value;
-        }
     }
 }

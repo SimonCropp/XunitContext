@@ -1,20 +1,12 @@
-﻿using Xunit.Abstractions;
-
-namespace Xunit;
+﻿namespace Xunit;
 
 public partial class Context
 {
     string? uniqueTestName;
 
-    public string ClassName
-    {
-        get => Test.TestCase.TestMethod.TestClass.Class.ClassName();
-    }
+    public string ClassName => Test.TestCase.TestMethod.TestClass.Class.ClassName();
 
-    public string MethodName
-    {
-        get => Test.TestCase.TestMethod.Method.Name;
-    }
+    public string MethodName => Test.TestCase.TestMethod.Method.Name;
 
     public string UniqueTestName
     {

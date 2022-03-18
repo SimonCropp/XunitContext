@@ -17,13 +17,9 @@
         Assert.Contains("From Console Error", logs);
     }
 
-    public XunitLoggerSample(ITestOutputHelper testOutput)
-    {
+    public XunitLoggerSample(ITestOutputHelper testOutput) =>
         XunitContext.Register(testOutput);
-    }
 
-    public void Dispose()
-    {
+    public void Dispose() =>
         XunitContext.Flush();
-    }
 }
