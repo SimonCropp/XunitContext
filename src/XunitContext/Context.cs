@@ -40,6 +40,11 @@ public partial class Context
     {
         get
         {
+            if (!XunitContext.enableExceptionCapture)
+            {
+                throw new("XunitContext.EnableExceptionCapture() must be called inside a [ModuleInitializer] to use TestException.");
+            }
+
             if (Exception == null)
             {
                 return null;
