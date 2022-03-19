@@ -3,7 +3,7 @@
 public static class XunitContext
 {
     static AsyncLocal<Context?> local = new();
-    static bool enableExceptionCapture;
+    internal static bool enableExceptionCapture;
 
     public static void EnableExceptionCapture()
     {
