@@ -1,4 +1,4 @@
-﻿[UsesVerify]
+[UsesVerify]
 public class UsingCurrentException :
     XunitContextBase
 {
@@ -6,6 +6,9 @@ public class UsingCurrentException :
     [Trait("Category", "Integration")]
     public void Fails() =>
         Assert.True(false);
+
+    [Fact]
+    public void Fails_CommonException() => throw new Exception();
 
     [Fact]
     public void Passes()
@@ -21,11 +24,11 @@ public class UsingCurrentException :
     {
         var contextTestException = Context.TestException;
         var methodName = Context.Test.TestCase.TestMethod.Method.Name;
-        if (methodName == "Passes")
+        if (methodName.Contains("Passes"))
         {
             Assert.Null(contextTestException);
         }
-        if (methodName == "Fails")
+        if (methodName.Contains("Fails"))
         {
             Assert.NotNull(contextTestException);
         }
