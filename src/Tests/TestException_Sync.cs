@@ -1,4 +1,4 @@
-﻿[Trait("Category", "Integration")]
+﻿#if DEBUG
 public class TestException_Sync :
     XunitContextBase
 {
@@ -44,3 +44,4 @@ public class TestException_Sync :
         base.Dispose();
     }
 }
+#endif

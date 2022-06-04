@@ -1,5 +1,4 @@
-﻿[UsesVerify]
-[Trait("Category", "Integration")]
+﻿#if DEBUG
 public class TestException_Async:
     XunitContextBase
 {
@@ -58,3 +57,4 @@ public class TestException_Async:
         base.Dispose();
     }
 }
+#endif

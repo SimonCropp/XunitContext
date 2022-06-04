@@ -1,14 +1,14 @@
-[UsesVerify]
+#if DEBUG
+
 public class UsingCurrentException :
     XunitContextBase
 {
     [Fact]
-    [Trait("Category", "Integration")]
     public void Fails() =>
         Assert.True(false);
 
     [Fact]
-    public void Fails_CommonException() => throw new Exception();
+    public void Fails_CommonException() => throw new();
 
     [Fact]
     public void Passes()
@@ -35,3 +35,5 @@ public class UsingCurrentException :
         base.Dispose();
     }
 }
+
+#endif
