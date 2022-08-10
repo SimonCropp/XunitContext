@@ -8,9 +8,6 @@ public class UsingCurrentException :
         Assert.True(false);
 
     [Fact]
-    public void Fails_CommonException() => throw new();
-
-    [Fact]
     public void Passes()
     {
     }
@@ -24,11 +21,11 @@ public class UsingCurrentException :
     {
         var contextTestException = Context.TestException;
         var methodName = Context.Test.TestCase.TestMethod.Method.Name;
-        if (methodName.Contains("Passes"))
+        if (methodName == "Passes")
         {
             Assert.Null(contextTestException);
         }
-        if (methodName.Contains("Fails"))
+        if (methodName == "Fails")
         {
             Assert.NotNull(contextTestException);
         }
