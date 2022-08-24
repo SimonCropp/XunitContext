@@ -2,3 +2,7 @@
 *.txt -text
 *.png binary
 *.snk binary
+
+*.verified.txt text eol=lf
+*.verified.xml text eol=lf
+*.verified.json text eol=lf
