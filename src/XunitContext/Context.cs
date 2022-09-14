@@ -1,4 +1,4 @@
-using Xunit.Sdk;
+﻿using Xunit.Sdk;
 
 namespace Xunit;
 
@@ -65,9 +65,10 @@ public partial class Context
                 {
                     return targetInvocationException.InnerException;
                 }
+                return Exception;
             }
 
-            return Exception;
+            return null;
         }
     }
 
