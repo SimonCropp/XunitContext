@@ -155,7 +155,7 @@ public static class XunitContext
 
         if (existingContext.TestOutput != null)
         {
-            throw new("A ITestOutputHelper has already been registered.");
+            throw new($"A ITestOutputHelper has already been registered. Existing SourceFile: {existingContext.SourceFile}");
         }
 
         existingContext.TestOutput = output;
