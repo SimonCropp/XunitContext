@@ -163,7 +163,7 @@ public class FilterSample :
     XunitContextBase
 {
     static FilterSample() =>
-        Filters.Add(x => x != null && !x.Contains("ignored"));
+        Filters.Add(_ => _ != null && !_.Contains("ignored"));
 
     [Fact]
     public void Write_lines()
