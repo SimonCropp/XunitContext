@@ -3,7 +3,7 @@ public class UsingTestBase :
     XunitContextBase
 {
     static UsingTestBase() =>
-        Filters.Add(x => x != "ignored");
+        Filters.Add(_ => _ != "ignored");
 
     [Fact]
     public Task Write_lines()
