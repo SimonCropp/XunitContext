@@ -70,6 +70,25 @@ public class TestBaseSample  :
 <!-- endSnippet -->
 
 
+## xunit Fixture
+
+In addition to `XunitContextBase` class approach, one is also possible to use  `IContextFixture` to gain access to `XunitContext` :
+```cs
+public class UsingClassFixture : IContextFixture
+{
+   private readonly Context context;
+
+    public UsingClassFixture(ITestOutputHelper helper, ContextFixture ctxFixture) =>
+        context = ctxFixture.Start(helper);
+     [Fact]
+    public void Usage()
+    {
+        Console.WriteLine("From Test");
+        Assert.Contains("From Test", context.Logs);
+    }    
+}
+```
+
 ## Logging
 
 `XunitContext` provides static access to the logging state for tests. It exposes logging methods for use from unit tests, however registration of [ITestOutputHelper](https://xunit.net/docs/capturing-output) and flushing of logs must be handled explicitly.
