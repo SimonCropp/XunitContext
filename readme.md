@@ -73,6 +73,9 @@ public class TestBaseSample  :
 ## xunit Fixture
 
 In addition to `XunitContextBase` class approach, one is also possible to use  `IContextFixture` to gain access to `XunitContext` :
+
+<!-- snippet: FixtureSample.cs -->
+<a id='snippet-FixtureSample.cs'></a>
 ```cs
 public class UsingClassFixture : IContextFixture
 {
@@ -88,6 +91,8 @@ public class UsingClassFixture : IContextFixture
     }    
 }
 ```
+<sup><a href='/src/Tests/Snippets/FixtureSample.cs#L1-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-FixtureSample.cs' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
 
 ## Logging
 

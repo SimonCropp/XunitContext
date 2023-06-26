@@ -1,7 +1,5 @@
 using Xunit.Fixture;
 
-namespace Tests;
-
 [UsesVerify]
 public class UsingClassFixture : IContextFixture
 {
