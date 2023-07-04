@@ -12,7 +12,7 @@
     public override void WriteLine() =>
         XunitContext.WriteLine();
 
-    public override void WriteLine(string value)
+    public override void WriteLine(string? value)
     {
         if (value == null)
         {

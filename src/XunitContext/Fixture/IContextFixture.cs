@@ -1,5 +1,6 @@
 namespace Xunit;
 
-public interface IContextFixture : IClassFixture<ContextFixture>
+public interface IContextFixture :
+    IClassFixture<ContextFixture>
 {
 }

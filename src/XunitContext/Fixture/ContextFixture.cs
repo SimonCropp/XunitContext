@@ -1,6 +1,7 @@
 namespace Xunit;
 
-public class ContextFixture : IDisposable
+public class ContextFixture :
+    IDisposable
 {
     Context? context;
 

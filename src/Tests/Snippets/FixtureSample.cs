@@ -1,4 +1,5 @@
-﻿public class FixtureSample : IContextFixture
+﻿public class FixtureSample :
+    IContextFixture
 {
     Context context;
 

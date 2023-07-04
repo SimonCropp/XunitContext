@@ -1,5 +1,6 @@
 [UsesVerify]
-public class UsingClassFixture : IContextFixture
+public class UsingClassFixture :
+    IContextFixture
 {
     static UsingClassFixture() =>
         Filters.Add(_ => _ != "ignored");
