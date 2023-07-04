@@ -77,7 +77,8 @@ In addition to `XunitContextBase` class approach, one is also possible to use  `
 <!-- snippet: FixtureSample.cs -->
 <a id='snippet-FixtureSample.cs'></a>
 ```cs
-public class FixtureSample : IContextFixture
+public class FixtureSample :
+    IContextFixture
 {
     Context context;
 
@@ -92,7 +93,7 @@ public class FixtureSample : IContextFixture
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/FixtureSample.cs#L1-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-FixtureSample.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/FixtureSample.cs#L1-L15' title='Snippet source file'>snippet source</a> | <a href='#snippet-FixtureSample.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
