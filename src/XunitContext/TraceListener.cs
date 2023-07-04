@@ -1,6 +1,6 @@
 ﻿class TraceListener : System.Diagnostics.TraceListener
 {
-    public override void Write(string value)
+    public override void Write(string? value)
     {
         if (value != null)
         {
@@ -8,7 +8,7 @@
         }
     }
 
-    public override void WriteLine(string value)
+    public override void WriteLine(string? value)
     {
         if (value == null)
         {

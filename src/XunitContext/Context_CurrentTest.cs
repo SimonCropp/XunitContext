@@ -44,7 +44,7 @@ public partial class Context
         {
             return;
         }
-        test = (ITest) GetTestMethod().GetValue(TestOutput);
+        test = (ITest) GetTestMethod().GetValue(TestOutput)!;
         var method = (ReflectionMethodInfo) test.TestCase.TestMethod.Method;
         var type = (ReflectionTypeInfo) test.TestCase.TestMethod.TestClass.Class;
         methodInfo = method.MethodInfo;

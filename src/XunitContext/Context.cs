@@ -15,7 +15,7 @@ public partial class Context
     /// <summary>
     /// The source directory that the current test exists in.
     /// </summary>
-    public string SourceDirectory => Path.GetDirectoryName(SourceFile);
+    public string SourceDirectory => Path.GetDirectoryName(SourceFile)!;
 
     string? solutionDirectory;
 
@@ -55,10 +55,10 @@ public partial class Context
                 return Exception;
             }
             StackTrace outerTrace = new(Exception, false);
-            var firstFrame = outerTrace.GetFrame(outerTrace.FrameCount - 1);
-            var firstMethod = firstFrame.GetMethod();
+            var firstFrame = outerTrace.GetFrame(outerTrace.FrameCount - 1)!;
+            var firstMethod = firstFrame.GetMethod()!;
 
-            var root = firstMethod.DeclaringType.DeclaringType;
+            var root = firstMethod.DeclaringType!.DeclaringType;
             if (root != null && root == typeof(ExceptionAggregator))
             {
                 if (Exception is TargetInvocationException targetInvocationException)
