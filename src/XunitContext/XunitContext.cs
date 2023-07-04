@@ -44,7 +44,10 @@ public static class XunitContext
 
         Trace.Listeners.Clear();
         Trace.Listeners.Add(new TraceListener());
-#if (NETSTANDARD)
+#if (NETFRAMEWORK)
+        Debug.Listeners.Clear();
+        Debug.Listeners.Add(new TraceListener());
+#else
         DebugPoker.Overwrite(
             text =>
             {
@@ -61,9 +64,6 @@ public static class XunitContext
 
                 Write(text);
             });
-#else
-        Debug.Listeners.Clear();
-        Debug.Listeners.Add(new TraceListener());
 #endif
         TestWriter writer = new();
         Console.SetOut(writer);
@@ -72,7 +72,7 @@ public static class XunitContext
         #endregion
     }
 
-    public static void Write(string value) =>
+    public static void Write(string? value) =>
         Context.Write(value);
 
     public static void Write(object value) =>

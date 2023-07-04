@@ -6,7 +6,7 @@
     public override void Write(char value) =>
         XunitContext.Write(value);
 
-    public override void Write(string value) =>
+    public override void Write(string? value) =>
         XunitContext.Write(value);
 
     public override void WriteLine() =>
@@ -30,13 +30,13 @@
         return Task.CompletedTask;
     }
 
-    public override Task WriteAsync(string value)
+    public override Task WriteAsync(string? value)
     {
         Write(value);
         return Task.CompletedTask;
     }
 
-    public override Task WriteLineAsync(string value)
+    public override Task WriteLineAsync(string? value)
     {
         WriteLine(value);
         return Task.CompletedTask;

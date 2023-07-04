@@ -5,12 +5,13 @@
 
     public static MethodBase GetRealMethod(this MethodBase method)
     {
-        var declaringType = method.DeclaringType;
+        var declaringType = method.DeclaringType!;
         if (!typeof(IAsyncStateMachine).IsAssignableFrom(declaringType))
         {
             return method;
         }
-        var realType = declaringType.DeclaringType;
+
+        var realType = declaringType.DeclaringType!;
         foreach (var methodInfo in realType.GetMethods(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic))
         {
             var stateMachineAttribute = methodInfo.GetCustomAttribute<AsyncStateMachineAttribute>();
@@ -18,6 +19,7 @@
             {
                 continue;
             }
+
             if (stateMachineAttribute.StateMachineType == declaringType)
             {
                 return methodInfo;
@@ -26,6 +28,7 @@
 
         return method;
     }
+
     public static string ClassName(this ITypeInfo value)
     {
         var name = value.Name;

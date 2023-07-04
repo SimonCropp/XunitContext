@@ -8,10 +8,12 @@ public partial class Context
     /// The current <see cref="ITestOutputHelper"/>.
     /// </summary>
     public ITestOutputHelper? TestOutput { get; internal set; }
+
     /// <summary>
     /// The source file that the current test exists in.
     /// </summary>
     public string SourceFile { get; internal set; } = null!;
+
     /// <summary>
     /// The source directory that the current test exists in.
     /// </summary>
@@ -31,6 +33,7 @@ public partial class Context
     /// All log message that have been written to the current <see cref="ITestOutputHelper"/>.
     /// </summary>
     public IReadOnlyList<string> LogMessages => logMessages;
+
     internal Exception? Exception;
 
     /// <summary>
@@ -54,7 +57,8 @@ public partial class Context
             {
                 return Exception;
             }
-            StackTrace outerTrace = new(Exception, false);
+
+            var outerTrace = new StackTrace(Exception, false);
             var firstFrame = outerTrace.GetFrame(outerTrace.FrameCount - 1)!;
             var firstMethod = firstFrame.GetMethod()!;
 
@@ -65,6 +69,7 @@ public partial class Context
                 {
                     return targetInvocationException.InnerException;
                 }
+
                 return Exception;
             }
 
@@ -100,18 +105,26 @@ public partial class Context
     /// <summary>
     /// Writes a value to the current <see cref="ITestOutputHelper"/>.
     /// </summary>
-    public void Write(object value)
+    public void Write(object? value)
     {
-        Guard.AgainstNull(value, nameof(value));
+        if (value == null)
+        {
+            return;
+        }
+
         Write(value.ToString());
     }
 
     /// <summary>
     /// Writes a string to the current <see cref="ITestOutputHelper"/>.
     /// </summary>
-    public void Write(string value)
+    public void Write(string? value)
     {
-        Guard.AgainstNull(value, nameof(value));
+        if (value == null)
+        {
+            return;
+        }
+
         lock (locker)
         {
             ThrowIfFlushed(value);
@@ -136,6 +149,7 @@ public partial class Context
                         Builder.Remove(end, 1);
                     }
                 }
+
                 var count = (pos > start && value[pos - 1] == '\r' ? pos - 1 : pos) - start;
 
                 WriteLine(count > 0 ? value.Substring(start, count) : string.Empty);
@@ -168,9 +182,11 @@ public partial class Context
                 {
                     Builder.Remove(end, 1);
                 }
+
                 WriteLine();
                 return;
             }
+
             InitBuilder();
             Builder?.Append(value);
         }
@@ -213,6 +229,7 @@ public partial class Context
                 TestOutput.WriteLine(string.Empty);
                 return;
             }
+
             if (Builder != null && TestOutput == null)
             {
                 Builder.AppendLine();
@@ -232,9 +249,13 @@ public partial class Context
     /// <summary>
     /// Writes a line to the current <see cref="ITestOutputHelper"/>.
     /// </summary>
-    public void WriteLine(string value)
+    public void WriteLine(string? value)
     {
-        Guard.AgainstNull(value, nameof(value));
+        if (value == null)
+        {
+            return;
+        }
+
         lock (locker)
         {
             ThrowIfFlushed(value);
@@ -278,6 +299,7 @@ public partial class Context
                 TestOutput.WriteLine(value);
                 return;
             }
+
             if (Builder != null && TestOutput == null)
             {
                 Builder.AppendLine(value);
@@ -312,6 +334,7 @@ public partial class Context
             {
                 throw new("No ITestOutputHelper to flush to.");
             }
+
             TestOutput.WriteLine(message);
         }
     }

@@ -77,7 +77,8 @@ In addition to `XunitContextBase` class approach, one is also possible to use  `
 <!-- snippet: FixtureSample.cs -->
 <a id='snippet-FixtureSample.cs'></a>
 ```cs
-public class FixtureSample : IContextFixture
+public class FixtureSample :
+    IContextFixture
 {
     Context context;
 
@@ -92,7 +93,7 @@ public class FixtureSample : IContextFixture
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/FixtureSample.cs#L1-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-FixtureSample.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/FixtureSample.cs#L1-L15' title='Snippet source file'>snippet source</a> | <a href='#snippet-FixtureSample.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -139,7 +140,10 @@ public class XunitLoggerSample :
 ```cs
 Trace.Listeners.Clear();
 Trace.Listeners.Add(new TraceListener());
-#if (NETSTANDARD)
+#if (NETFRAMEWORK)
+Debug.Listeners.Clear();
+Debug.Listeners.Add(new TraceListener());
+#else
 DebugPoker.Overwrite(
     text =>
     {
@@ -156,9 +160,6 @@ DebugPoker.Overwrite(
 
         Write(text);
     });
-#else
-Debug.Listeners.Clear();
-Debug.Listeners.Add(new TraceListener());
 #endif
 TestWriter writer = new();
 Console.SetOut(writer);
@@ -744,10 +745,18 @@ static IEnumerable<string> SplitParams(object? parameter)
         yield break;
     }
 
-    yield return parameter.ToString();
+    var toString = parameter.ToString();
+    if (toString == null)
+    {
+        yield return "null";
+    }
+    else
+    {
+        yield return toString;
+    }
 }
 ```
-<sup><a href='/src/XunitContext/Context_TestName.cs#L24-L76' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniquetestname' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/XunitContext/Context_TestName.cs#L24-L84' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniquetestname' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

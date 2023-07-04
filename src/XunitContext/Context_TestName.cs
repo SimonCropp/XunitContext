@@ -71,7 +71,15 @@ public partial class Context
             yield break;
         }
 
-        yield return parameter.ToString();
+        var toString = parameter.ToString();
+        if (toString == null)
+        {
+            yield return "null";
+        }
+        else
+        {
+            yield return toString;
+        }
     }
     #endregion
 }
