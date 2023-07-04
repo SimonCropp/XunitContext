@@ -1,8 +1,6 @@
-﻿using Xunit.Fixture;
-
-public class FixtureSample : IContextFixture
+﻿public class FixtureSample : IContextFixture
 {
-    private readonly Context context;
+    Context context;
 
     public FixtureSample(ITestOutputHelper helper, ContextFixture ctxFixture) =>
         context = ctxFixture.Start(helper);

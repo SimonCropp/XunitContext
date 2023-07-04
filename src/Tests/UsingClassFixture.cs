@@ -1,12 +1,10 @@
-using Xunit.Fixture;
-
 [UsesVerify]
 public class UsingClassFixture : IContextFixture
 {
     static UsingClassFixture() =>
         Filters.Add(_ => _ != "ignored");
 
-    private readonly Context context;
+    Context context;
 
     public UsingClassFixture(ITestOutputHelper helper, ContextFixture ctxFixture) =>
         context = ctxFixture.Start(helper);

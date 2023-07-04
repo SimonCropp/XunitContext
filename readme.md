@@ -77,22 +77,24 @@ In addition to `XunitContextBase` class approach, one is also possible to use  `
 <!-- snippet: FixtureSample.cs -->
 <a id='snippet-FixtureSample.cs'></a>
 ```cs
-public class UsingClassFixture : IContextFixture
+public class FixtureSample : IContextFixture
 {
-   private readonly Context context;
+    Context context;
 
-    public UsingClassFixture(ITestOutputHelper helper, ContextFixture ctxFixture) =>
+    public FixtureSample(ITestOutputHelper helper, ContextFixture ctxFixture) =>
         context = ctxFixture.Start(helper);
-     [Fact]
+
+    [Fact]
     public void Usage()
     {
         Console.WriteLine("From Test");
-        Assert.Contains("From Test", context.Logs);
-    }    
+        Assert.Contains("From Test", context.LogMessages);
+    }
 }
 ```
-<sup><a href='/src/Tests/Snippets/FixtureSample.cs#L1-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-FixtureSample.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/FixtureSample.cs#L1-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-FixtureSample.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
 
 ## Logging
 

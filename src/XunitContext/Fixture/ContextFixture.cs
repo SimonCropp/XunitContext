@@ -1,14 +1,11 @@
-namespace Xunit.Fixture;
+namespace Xunit;
 
 public class ContextFixture : IDisposable
 {
-    private Context? context;
+    Context? context;
 
-    public Context Start(ITestOutputHelper h, [CallerFilePath] string sourceFile = "")
-    {
-        context = XunitContext.Register(h, sourceFile);
-        return context;
-    }
+    public Context Start(ITestOutputHelper outputHelper, [CallerFilePath] string sourceFile = "") =>
+        context = XunitContext.Register(outputHelper, sourceFile);
 
     public void Dispose() =>
         context?.Flush();

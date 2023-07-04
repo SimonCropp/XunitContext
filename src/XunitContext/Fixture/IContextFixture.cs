@@ -1,4 +1,4 @@
-namespace Xunit.Fixture;
+namespace Xunit;
 
 public interface IContextFixture : IClassFixture<ContextFixture>
 {
