@@ -6,8 +6,6 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="build\*" />
-    <Using Include="Xunit.Abstractions" />
-    <Using Include="Xunit" />
     <Content Include="build\XunitContext.props" PackagePath="build\XunitContext.props" />
     <Content Include="build\XunitContext.targets" PackagePath="build\XunitContext.targets" />
     <PackageReference Include="Polyfill" Version="1.23.0" PrivateAssets="all" />
