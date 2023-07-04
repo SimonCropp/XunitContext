@@ -162,7 +162,7 @@ public partial class Context
             }
 
             InitBuilder();
-            Builder?.Append(start > 0 ? value.Substring(start) : value);
+            Builder?.Append(start > 0 ? value[start..] : value);
         }
     }
 

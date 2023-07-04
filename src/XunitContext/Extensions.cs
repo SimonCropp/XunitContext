@@ -1,7 +1,7 @@
 ﻿static class Extensions
 {
     public static string TrimTrailingNewline(this string value) =>
-        value.Substring(0, value.Length - Environment.NewLine.Length);
+        value[..^Environment.NewLine.Length];
 
     public static MethodBase GetRealMethod(this MethodBase method)
     {
