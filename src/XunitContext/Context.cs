@@ -62,7 +62,8 @@ public partial class Context
             var firstFrame = outerTrace.GetFrame(outerTrace.FrameCount - 1)!;
             var firstMethod = firstFrame.GetMethod()!;
 
-            var root = firstMethod.DeclaringType!.DeclaringType;
+            // firstMethod.DeclaringType can be null if the member was generated with reflection.
+            var root = firstMethod.DeclaringType?.DeclaringType;
             if (root != null && root == typeof(ExceptionAggregator))
             {
                 if (Exception is TargetInvocationException targetInvocationException)
