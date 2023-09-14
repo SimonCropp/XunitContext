@@ -1,5 +1,5 @@
-﻿public class FilterSample :
-    XunitContextBase
+﻿public class FilterSample(ITestOutputHelper output) :
+    XunitContextBase(output)
 {
     static FilterSample() =>
         Filters.Add(_ => _ != null && !_.Contains("ignored"));
@@ -15,10 +15,5 @@
         Assert.Contains("first", logs);
         Assert.DoesNotContain("with ignored string", logs);
         Assert.Contains("last", logs);
-    }
-
-    public FilterSample(ITestOutputHelper output) :
-        base(output)
-    {
     }
 }

@@ -186,8 +186,8 @@ Approaches to routing common logging libraries to Diagnostics.Trace:
 <!-- snippet: FilterSample.cs -->
 <a id='snippet-FilterSample.cs'></a>
 ```cs
-public class FilterSample :
-    XunitContextBase
+public class FilterSample(ITestOutputHelper output) :
+    XunitContextBase(output)
 {
     static FilterSample() =>
         Filters.Add(_ => _ != null && !_.Contains("ignored"));
@@ -204,14 +204,9 @@ public class FilterSample :
         Assert.DoesNotContain("with ignored string", logs);
         Assert.Contains("last", logs);
     }
-
-    public FilterSample(ITestOutputHelper output) :
-        base(output)
-    {
-    }
 }
 ```
-<sup><a href='/src/Tests/Snippets/FilterSample.cs#L1-L24' title='Snippet source file'>snippet source</a> | <a href='#snippet-FilterSample.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/FilterSample.cs#L1-L19' title='Snippet source file'>snippet source</a> | <a href='#snippet-FilterSample.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Filters are static and shared for all tests.
@@ -234,8 +229,9 @@ For every tests there is a contextual API to perform several operations.
 <!-- snippet: ContextSample.cs -->
 <a id='snippet-ContextSample.cs'></a>
 ```cs
-public class ContextSample  :
-    XunitContextBase
+// ReSharper disable UnusedVariable
+public class ContextSample(ITestOutputHelper output) :
+    XunitContextBase(output)
 {
     [Fact]
     public void Usage()
@@ -256,14 +252,9 @@ public class ContextSample  :
 
         var currentTestException = Context.TestException;
     }
-
-    public ContextSample(ITestOutputHelper output) :
-        base(output)
-    {
-    }
 }
 ```
-<sup><a href='/src/Tests/Snippets/ContextSample.cs#L1-L28' title='Snippet source file'>snippet source</a> | <a href='#snippet-ContextSample.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/ContextSample.cs#L1-L24' title='Snippet source file'>snippet source</a> | <a href='#snippet-ContextSample.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Some members are pushed down to the be accessible directly from `XunitContextBase`:
@@ -271,8 +262,9 @@ Some members are pushed down to the be accessible directly from `XunitContextBas
 <!-- snippet: ContextPushedDownSample.cs -->
 <a id='snippet-ContextPushedDownSample.cs'></a>
 ```cs
-public class ContextPushedDownSample  :
-    XunitContextBase
+// ReSharper disable UnusedVariable
+public class ContextPushedDownSample(ITestOutputHelper output) :
+    XunitContextBase(output)
 {
     [Fact]
     public void Usage()
@@ -291,14 +283,9 @@ public class ContextPushedDownSample  :
 
         var currentTestException = TestException;
     }
-
-    public ContextPushedDownSample(ITestOutputHelper output) :
-        base(output)
-    {
-    }
 }
 ```
-<sup><a href='/src/Tests/Snippets/ContextPushedDownSample.cs#L1-L26' title='Snippet source file'>snippet source</a> | <a href='#snippet-ContextPushedDownSample.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/ContextPushedDownSample.cs#L1-L22' title='Snippet source file'>snippet source</a> | <a href='#snippet-ContextPushedDownSample.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Context can accessed via a static API:
@@ -306,8 +293,9 @@ Context can accessed via a static API:
 <!-- snippet: ContextStaticSample.cs -->
 <a id='snippet-ContextStaticSample.cs'></a>
 ```cs
-public class ContextStaticSample :
-    XunitContextBase
+// ReSharper disable UnusedVariable
+public class ContextStaticSample(ITestOutputHelper output) :
+    XunitContextBase(output)
 {
     [Fact]
     public void StaticUsage()
@@ -328,14 +316,9 @@ public class ContextStaticSample :
 
         var currentTestException = XunitContext.Context.TestException;
     }
-
-    public ContextStaticSample(ITestOutputHelper output) :
-        base(output)
-    {
-    }
 }
 ```
-<sup><a href='/src/Tests/Snippets/ContextStaticSample.cs#L1-L28' title='Snippet source file'>snippet source</a> | <a href='#snippet-ContextStaticSample.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/ContextStaticSample.cs#L1-L24' title='Snippet source file'>snippet source</a> | <a href='#snippet-ContextStaticSample.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -350,8 +333,9 @@ Usage:
 <!-- snippet: CurrentTestSample.cs -->
 <a id='snippet-CurrentTestSample.cs'></a>
 ```cs
-public class CurrentTestSample :
-    XunitContextBase
+// ReSharper disable UnusedVariable
+public class CurrentTestSample(ITestOutputHelper output) :
+    XunitContextBase(output)
 {
     [Fact]
     public void Usage()
@@ -368,14 +352,9 @@ public class CurrentTestSample :
         // DisplayName will be 'TestNameSample.StaticUsage'
         var displayName = currentTest.DisplayName;
     }
-
-    public CurrentTestSample(ITestOutputHelper output) :
-        base(output)
-    {
-    }
 }
 ```
-<sup><a href='/src/Tests/Snippets/CurrentTestSample.cs#L1-L24' title='Snippet source file'>snippet source</a> | <a href='#snippet-CurrentTestSample.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/CurrentTestSample.cs#L1-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-CurrentTestSample.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Implementation:
@@ -474,6 +453,7 @@ One common case is to perform some logic, based on the existence of the exceptio
 <!-- snippet: TestExceptionSample -->
 <a id='snippet-testexceptionsample'></a>
 ```cs
+// ReSharper disable UnusedVariable
 public static class GlobalSetup
 {
     [ModuleInitializer]
@@ -504,7 +484,7 @@ public class TestExceptionSample :
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/TestExceptionSample.cs#L1-L32' title='Snippet source file'>snippet source</a> | <a href='#snippet-testexceptionsample' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/TestExceptionSample.cs#L1-L33' title='Snippet source file'>snippet source</a> | <a href='#snippet-testexceptionsample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -756,7 +736,7 @@ static IEnumerable<string> SplitParams(object? parameter)
     }
 }
 ```
-<sup><a href='/src/XunitContext/Context_TestName.cs#L24-L84' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniquetestname' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/XunitContext/Context_TestName.cs#L25-L85' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniquetestname' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

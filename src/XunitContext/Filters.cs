@@ -2,9 +2,9 @@
 
 public static class Filters
 {
-    static ConcurrentBag<Func<string, bool>> items = new();
+    static ConcurrentBag<Func<string?, bool>> items = new();
 
-    public static void Add(Func<string, bool> filter)
+    public static void Add(Func<string?, bool> filter)
     {
         Guard.AgainstNull(filter, nameof(filter));
         items.Add(filter);
@@ -18,7 +18,7 @@ public static class Filters
         }
     }
 
-    internal static bool ShouldFilterOut(string message)
+    internal static bool ShouldFilterOut(string? message)
     {
         foreach (var filter in items)
         {

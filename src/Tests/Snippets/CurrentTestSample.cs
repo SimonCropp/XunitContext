@@ -1,5 +1,6 @@
-﻿public class CurrentTestSample :
-    XunitContextBase
+﻿// ReSharper disable UnusedVariable
+public class CurrentTestSample(ITestOutputHelper output) :
+    XunitContextBase(output)
 {
     [Fact]
     public void Usage()
@@ -15,10 +16,5 @@
         var currentTest = XunitContext.Context.Test;
         // DisplayName will be 'TestNameSample.StaticUsage'
         var displayName = currentTest.DisplayName;
-    }
-
-    public CurrentTestSample(ITestOutputHelper output) :
-        base(output)
-    {
     }
 }

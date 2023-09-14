@@ -1,5 +1,5 @@
-﻿public class ParametersTests :
-    XunitContextBase
+﻿public class ParametersTests(ITestOutputHelper output) :
+    XunitContextBase(output)
 {
     [Theory]
     [InlineData("Value1")]
@@ -52,6 +52,7 @@
     {
         var exception = Assert.Throws<Exception>(() =>
         {
+            // ReSharper disable once UnusedVariable
             var parameter = Context.Parameters.Single();
         });
         var md = Path.Combine(SourceDirectory, "NoArgumentsDetectedException.include.md");
@@ -81,17 +82,9 @@
         yield return new object[] {new ComplexClass("Value1")};
         yield return new object[] {new ComplexClass("Value2")};
     }
-
-    public ParametersTests(ITestOutputHelper output) :
-        base(output)
-    {
-    }
 }
 
-public class ComplexClass
+public class ComplexClass(string value)
 {
-    public string Value { get; }
-
-    public ComplexClass(string value) =>
-        Value = value;
+    public string Value { get; } = value;
 }

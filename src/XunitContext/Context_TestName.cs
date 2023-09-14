@@ -1,4 +1,5 @@
-﻿namespace Xunit;
+﻿// ReSharper disable ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+namespace Xunit;
 
 public partial class Context
 {

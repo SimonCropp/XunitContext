@@ -1,5 +1,6 @@
 ﻿#region TestExceptionSample
 
+// ReSharper disable UnusedVariable
 public static class GlobalSetup
 {
     [ModuleInitializer]

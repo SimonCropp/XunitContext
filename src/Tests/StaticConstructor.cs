@@ -1,4 +1,5 @@
-﻿[UsesVerify]
+﻿// ReSharper disable UnusedVariable
+[UsesVerify]
 public class StaticConstructor
 {
     static StaticConstructor()

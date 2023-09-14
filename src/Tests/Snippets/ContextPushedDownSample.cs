@@ -1,5 +1,6 @@
-﻿public class ContextPushedDownSample  :
-    XunitContextBase
+﻿// ReSharper disable UnusedVariable
+public class ContextPushedDownSample(ITestOutputHelper output) :
+    XunitContextBase(output)
 {
     [Fact]
     public void Usage()
@@ -17,10 +18,5 @@
         var solutionDirectory = SolutionDirectory;
 
         var currentTestException = TestException;
-    }
-
-    public ContextPushedDownSample(ITestOutputHelper output) :
-        base(output)
-    {
     }
 }
