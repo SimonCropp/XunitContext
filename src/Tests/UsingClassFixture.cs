@@ -1,14 +1,11 @@
 [UsesVerify]
-public class UsingClassFixture :
+public class UsingClassFixture(ITestOutputHelper helper, ContextFixture fixture) :
     IContextFixture
 {
     static UsingClassFixture() =>
         Filters.Add(_ => _ != "ignored");
 
-    Context context;
-
-    public UsingClassFixture(ITestOutputHelper helper, ContextFixture ctxFixture) =>
-        context = ctxFixture.Start(helper);
+    Context context = fixture.Start(helper);
 
     [Fact]
     public void CurrentTest()

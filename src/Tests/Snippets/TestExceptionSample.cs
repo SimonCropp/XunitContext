@@ -9,18 +9,13 @@ public static class GlobalSetup
 }
 
 [Trait("Category", "Integration")]
-public class TestExceptionSample :
-    XunitContextBase
+public class TestExceptionSample(ITestOutputHelper output) :
+    XunitContextBase(output)
 {
     [Fact]
     public void Usage() =>
         //This tests will fail
         Assert.False(true);
-
-    public TestExceptionSample(ITestOutputHelper output) :
-        base(output)
-    {
-    }
 
     public override void Dispose()
     {

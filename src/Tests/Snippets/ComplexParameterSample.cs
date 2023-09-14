@@ -1,5 +1,5 @@
-﻿public class ComplexParameterSample :
-    XunitContextBase
+﻿public class ComplexParameterSample(ITestOutputHelper output) :
+    XunitContextBase(output)
 {
     [Theory]
     [MemberData(nameof(GetData))]
@@ -18,16 +18,8 @@
         yield return new object[] {new ComplexClass("Value2")};
     }
 
-    public ComplexParameterSample(ITestOutputHelper output) :
-        base(output)
+    public class ComplexClass(string value)
     {
-    }
-
-    public class ComplexClass
-    {
-        public string Value { get; }
-
-        public ComplexClass(string value) =>
-            Value = value;
+        public string Value { get; } = value;
     }
 }

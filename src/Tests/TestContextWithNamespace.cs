@@ -1,7 +1,7 @@
 ﻿namespace TheNamespace;
 
-public class TestContextWithNamespace :
-    XunitContextBase
+public class TestContextWithNamespace(ITestOutputHelper testOutput) :
+    XunitContextBase(testOutput)
 {
     [Fact]
     public void CurrentTest()
@@ -10,10 +10,5 @@ public class TestContextWithNamespace :
         Assert.Equal("CurrentTest", Context.MethodName);
         Assert.EndsWith("TestContextWithNamespace.cs", Context.SourceFile);
         Assert.EndsWith("TestContextWithNamespace.CurrentTest", Context.UniqueTestName);
-    }
-
-    public TestContextWithNamespace(ITestOutputHelper testOutput) :
-        base(testOutput)
-    {
     }
 }

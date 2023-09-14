@@ -1,6 +1,6 @@
 ﻿[UsesVerify]
-public class UsingTestBase :
-    XunitContextBase
+public class UsingTestBase(ITestOutputHelper testOutput) :
+    XunitContextBase(testOutput)
 {
     static UsingTestBase() =>
         Filters.Add(_ => _ != "ignored");
@@ -28,10 +28,5 @@ public class UsingTestBase :
         Assert.EndsWith("src", Context.SolutionDirectory);
         Assert.True(Directory.Exists(Context.SolutionDirectory));
         Assert.EndsWith("UsingTestBase.CurrentTest", Context.UniqueTestName);
-    }
-
-    public UsingTestBase(ITestOutputHelper testOutput) :
-        base(testOutput)
-    {
     }
 }

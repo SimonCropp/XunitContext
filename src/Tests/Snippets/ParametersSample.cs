@@ -1,6 +1,6 @@
 ﻿
-public class ParametersSample :
-    XunitContextBase
+public class ParametersSample(ITestOutputHelper output) :
+    XunitContextBase(output)
 {
     [Theory]
     [MemberData(nameof(GetData))]
@@ -16,10 +16,5 @@ public class ParametersSample :
     {
         yield return new object[] {"Value1"};
         yield return new object[] {"Value2"};
-    }
-
-    public ParametersSample(ITestOutputHelper output) :
-        base(output)
-    {
     }
 }

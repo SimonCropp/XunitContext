@@ -42,8 +42,8 @@ static class ClassBeingTested
 <!-- snippet: TestBaseSample.cs -->
 <a id='snippet-TestBaseSample.cs'></a>
 ```cs
-public class TestBaseSample  :
-    XunitContextBase
+public class TestBaseSample(ITestOutputHelper output) :
+    XunitContextBase(output)
 {
     [Fact]
     public void Write_lines()
@@ -59,14 +59,9 @@ public class TestBaseSample  :
         Assert.Contains("From Console", logs);
         Assert.Contains("From Console Error", logs);
     }
-
-    public TestBaseSample(ITestOutputHelper output) :
-        base(output)
-    {
-    }
 }
 ```
-<sup><a href='/src/Tests/Snippets/TestBaseSample.cs#L1-L23' title='Snippet source file'>snippet source</a> | <a href='#snippet-TestBaseSample.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/TestBaseSample.cs#L1-L18' title='Snippet source file'>snippet source</a> | <a href='#snippet-TestBaseSample.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -77,13 +72,10 @@ In addition to `XunitContextBase` class approach, one is also possible to use  `
 <!-- snippet: FixtureSample.cs -->
 <a id='snippet-FixtureSample.cs'></a>
 ```cs
-public class FixtureSample :
+public class FixtureSample(ITestOutputHelper helper, ContextFixture ctxFixture) :
     IContextFixture
 {
-    Context context;
-
-    public FixtureSample(ITestOutputHelper helper, ContextFixture ctxFixture) =>
-        context = ctxFixture.Start(helper);
+    Context context = ctxFixture.Start(helper);
 
     [Fact]
     public void Usage()
@@ -93,7 +85,7 @@ public class FixtureSample :
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/FixtureSample.cs#L1-L15' title='Snippet source file'>snippet source</a> | <a href='#snippet-FixtureSample.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/FixtureSample.cs#L1-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-FixtureSample.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -462,18 +454,13 @@ public static class GlobalSetup
 }
 
 [Trait("Category", "Integration")]
-public class TestExceptionSample :
-    XunitContextBase
+public class TestExceptionSample(ITestOutputHelper output) :
+    XunitContextBase(output)
 {
     [Fact]
     public void Usage() =>
         //This tests will fail
         Assert.False(true);
-
-    public TestExceptionSample(ITestOutputHelper output) :
-        base(output)
-    {
-    }
 
     public override void Dispose()
     {
@@ -484,7 +471,7 @@ public class TestExceptionSample :
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/TestExceptionSample.cs#L1-L33' title='Snippet source file'>snippet source</a> | <a href='#snippet-testexceptionsample' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/TestExceptionSample.cs#L1-L28' title='Snippet source file'>snippet source</a> | <a href='#snippet-testexceptionsample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -495,18 +482,12 @@ When creating a custom base class for other tests, it is necessary to pass throu
 <!-- snippet: XunitContextCustomBase -->
 <a id='snippet-xunitcontextcustombase'></a>
 ```cs
-public class CustomBase :
-    XunitContextBase
-{
-    public CustomBase(
-        ITestOutputHelper testOutput,
-        [CallerFilePath] string sourceFile = "") :
-        base(testOutput, sourceFile)
-    {
-    }
-}
+public class CustomBase(ITestOutputHelper testOutput,
+        [CallerFilePath] string sourceFile = "")
+    :
+        XunitContextBase(testOutput, sourceFile);
 ```
-<sup><a href='/src/Tests/Snippets/CustomBase.cs#L1-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitcontextcustombase' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/CustomBase.cs#L1-L6' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitcontextcustombase' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -524,8 +505,8 @@ Usage:
 <!-- snippet: ParametersSample.cs -->
 <a id='snippet-ParametersSample.cs'></a>
 ```cs
-public class ParametersSample :
-    XunitContextBase
+public class ParametersSample(ITestOutputHelper output) :
+    XunitContextBase(output)
 {
     [Theory]
     [MemberData(nameof(GetData))]
@@ -542,14 +523,9 @@ public class ParametersSample :
         yield return new object[] {"Value1"};
         yield return new object[] {"Value2"};
     }
-
-    public ParametersSample(ITestOutputHelper output) :
-        base(output)
-    {
-    }
 }
 ```
-<sup><a href='/src/Tests/Snippets/ParametersSample.cs#L1-L25' title='Snippet source file'>snippet source</a> | <a href='#snippet-ParametersSample.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/ParametersSample.cs#L1-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-ParametersSample.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Implementation:
@@ -604,8 +580,8 @@ To use complex types override the parameter resolution using `XunitContextBase.U
 <!-- snippet: ComplexParameterSample.cs -->
 <a id='snippet-ComplexParameterSample.cs'></a>
 ```cs
-public class ComplexParameterSample :
-    XunitContextBase
+public class ComplexParameterSample(ITestOutputHelper output) :
+    XunitContextBase(output)
 {
     [Theory]
     [MemberData(nameof(GetData))]
@@ -624,21 +600,13 @@ public class ComplexParameterSample :
         yield return new object[] {new ComplexClass("Value2")};
     }
 
-    public ComplexParameterSample(ITestOutputHelper output) :
-        base(output)
+    public class ComplexClass(string value)
     {
-    }
-
-    public class ComplexClass
-    {
-        public string Value { get; }
-
-        public ComplexClass(string value) =>
-            Value = value;
+        public string Value { get; } = value;
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/ComplexParameterSample.cs#L1-L33' title='Snippet source file'>snippet source</a> | <a href='#snippet-ComplexParameterSample.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/ComplexParameterSample.cs#L1-L25' title='Snippet source file'>snippet source</a> | <a href='#snippet-ComplexParameterSample.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -651,8 +619,8 @@ Usage:
 <!-- snippet: UniqueTestNameSample.cs -->
 <a id='snippet-UniqueTestNameSample.cs'></a>
 ```cs
-public class UniqueTestNameSample :
-    XunitContextBase
+public class UniqueTestNameSample(ITestOutputHelper output) :
+    XunitContextBase(output)
 {
     [Fact]
     public void Usage()
@@ -661,14 +629,9 @@ public class UniqueTestNameSample :
 
         Context.WriteLine(testName);
     }
-
-    public UniqueTestNameSample(ITestOutputHelper output) :
-        base(output)
-    {
-    }
 }
 ```
-<sup><a href='/src/Tests/Snippets/UniqueTestNameSample.cs#L1-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-UniqueTestNameSample.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/UniqueTestNameSample.cs#L1-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-UniqueTestNameSample.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Implementation:

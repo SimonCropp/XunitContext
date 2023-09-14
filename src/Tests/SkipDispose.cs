@@ -1,6 +1,6 @@
 ﻿[UsesVerify]
-public class SkipDispose :
-    XunitContextBase
+public class SkipDispose(ITestOutputHelper testOutput) :
+    XunitContextBase(testOutput)
 {
     [Fact]
     public Task Dispose_should_flush()
@@ -18,11 +18,6 @@ public class SkipDispose :
         var exception = Assert.Throws<Exception>(WriteLine);
 
         return Verify(exception);
-    }
-
-    public SkipDispose(ITestOutputHelper testOutput) :
-        base(testOutput)
-    {
     }
 
     public override void Dispose()

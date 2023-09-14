@@ -1,10 +1,7 @@
-﻿public class FixtureSample :
+﻿public class FixtureSample(ITestOutputHelper helper, ContextFixture ctxFixture) :
     IContextFixture
 {
-    Context context;
-
-    public FixtureSample(ITestOutputHelper helper, ContextFixture ctxFixture) =>
-        context = ctxFixture.Start(helper);
+    Context context = ctxFixture.Start(helper);
 
     [Fact]
     public void Usage()
