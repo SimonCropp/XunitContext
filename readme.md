@@ -362,7 +362,6 @@ public partial class Context
 {
     ITest? test;
 
-    static FieldInfo? cachedTestMember;
 
     public ITest Test
     {
@@ -400,28 +399,38 @@ public partial class Context
         {
             return;
         }
-        test = (ITest) GetTestMethod().GetValue(TestOutput)!;
+
+        if (TestOutput == null)
+        {
+            throw new(MissingTestOutput);
+        }
+
+#if NET8_0_OR_GREATER
+        [UnsafeAccessor(UnsafeAccessorKind.Field, Name = "test")]
+        static extern ref ITest GetTest(TestOutputHelper? c);
+        test = GetTest((TestOutputHelper) TestOutput);
+#else
+        test = (ITest) GetTestMethod(TestOutput).GetValue(TestOutput)!;
+#endif
         var method = (ReflectionMethodInfo) test.TestCase.TestMethod.Method;
         var type = (ReflectionTypeInfo) test.TestCase.TestMethod.TestClass.Class;
         methodInfo = method.MethodInfo;
         testType = type.Type;
     }
 
-    public static string MissingTestOutput = "ITestOutputHelper has not been set. It is possible that the call to `XunitContext.Register()` is missing, or the current test does not inherit from `XunitContextBase`.";
+    public const string MissingTestOutput = "ITestOutputHelper has not been set. It is possible that the call to `XunitContext.Register()` is missing, or the current test does not inherit from `XunitContextBase`.";
 
-    FieldInfo GetTestMethod()
+#if !NET8_0_OR_GREATER
+    static FieldInfo? cachedTestMember;
+
+    static FieldInfo GetTestMethod(ITestOutputHelper testOutput)
     {
-        if (TestOutput == null)
-        {
-            throw new(MissingTestOutput);
-        }
-
         if (cachedTestMember != null)
         {
             return cachedTestMember;
         }
 
-        var testOutputType = TestOutput.GetType();
+        var testOutputType = testOutput.GetType();
         cachedTestMember = testOutputType.GetField("test", BindingFlags.Instance | BindingFlags.NonPublic);
         if (cachedTestMember == null)
         {
@@ -430,9 +439,10 @@ public partial class Context
 
         return cachedTestMember;
     }
+#endif
 }
 ```
-<sup><a href='/src/XunitContext/Context_CurrentTest.cs#L1-L77' title='Snippet source file'>snippet source</a> | <a href='#snippet-Context_CurrentTest.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/XunitContext/Context_CurrentTest.cs#L1-L87' title='Snippet source file'>snippet source</a> | <a href='#snippet-Context_CurrentTest.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
