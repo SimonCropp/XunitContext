@@ -9,6 +9,8 @@ Redirects [Trace.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagn
 
 Uses [AsyncLocal](https://docs.microsoft.com/en-us/dotnet/api/system.threading.asynclocal-1) to track state.
 
+**See [Milestones](../../milestones?state=closed) for release notes.**
+
 
 ## NuGet package
 
