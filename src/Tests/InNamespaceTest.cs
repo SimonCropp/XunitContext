@@ -1,5 +1,4 @@
-﻿
-namespace MyNamespace.Bar;
+﻿namespace MyNamespace.Bar;
 
 public class InNamespaceTest(ITestOutputHelper output) :
     XunitContextBase(output)
