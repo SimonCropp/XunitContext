@@ -562,7 +562,7 @@ static List<Parameter> GetParameters(ITestCase testCase, object[] arguments)
         throw NewNoArgumentsDetectedException();
     }
 
-    List<Parameter> items = new();
+    List<Parameter> items = [];
 
     for (var index = 0; index < infos.Count; index++)
     {
