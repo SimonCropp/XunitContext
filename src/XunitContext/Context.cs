@@ -26,7 +26,7 @@ public partial class Context
     /// </summary>
     public string SolutionDirectory => solutionDirectory ??= SolutionDirectoryFinder.Find(SourceDirectory);
 
-    List<string> logMessages = new();
+    List<string> logMessages = [];
     object locker = new();
 
     /// <summary>

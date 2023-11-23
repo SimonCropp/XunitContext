@@ -2,7 +2,7 @@
 
 public static class Filters
 {
-    static ConcurrentBag<Func<string?, bool>> items = new();
+    static ConcurrentBag<Func<string?, bool>> items = [];
 
     public static void Add(Func<string?, bool> filter)
     {

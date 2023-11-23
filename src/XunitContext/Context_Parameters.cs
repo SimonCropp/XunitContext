@@ -15,7 +15,7 @@ public partial class Context
         this.parameters = GetParameters(Test.TestCase, parameters);
     }
 
-    static List<Parameter> empty = new();
+    static List<Parameter> empty = [];
 
     #region Parameters
     static List<Parameter> GetParameters(ITestCase testCase) =>
@@ -35,7 +35,7 @@ public partial class Context
             throw NewNoArgumentsDetectedException();
         }
 
-        List<Parameter> items = new();
+        List<Parameter> items = [];
 
         for (var index = 0; index < infos.Count; index++)
         {
