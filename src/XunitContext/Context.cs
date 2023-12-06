@@ -5,7 +5,7 @@ namespace Xunit;
 public partial class Context
 {
     /// <summary>
-    /// The current <see cref="ITestOutputHelper"/>.
+    /// The current <see cref="ITestOutputHelper" />.
     /// </summary>
     public ITestOutputHelper? TestOutput { get; internal set; }
 
@@ -22,7 +22,7 @@ public partial class Context
     string? solutionDirectory;
 
     /// <summary>
-    /// The current solution directory. Obtained by walking up the directory tree from <see cref="SourceDirectory"/>.
+    /// The current solution directory. Obtained by walking up the directory tree from <see cref="SourceDirectory" />.
     /// </summary>
     public string SolutionDirectory => solutionDirectory ??= SolutionDirectoryFinder.Find(SourceDirectory);
 
@@ -30,14 +30,14 @@ public partial class Context
     object locker = new();
 
     /// <summary>
-    /// All log message that have been written to the current <see cref="ITestOutputHelper"/>.
+    /// All log message that have been written to the current <see cref="ITestOutputHelper" />.
     /// </summary>
     public IReadOnlyList<string> LogMessages => logMessages;
 
     internal Exception? Exception;
 
     /// <summary>
-    /// The <see cref="Exception"/> for the current test if it failed.
+    /// The <see cref="Exception" /> for the current test if it failed.
     /// </summary>
     public Exception? TestException
     {
@@ -104,7 +104,7 @@ public partial class Context
         Builder ??= new();
 
     /// <summary>
-    /// Writes a value to the current <see cref="ITestOutputHelper"/>.
+    /// Writes a value to the current <see cref="ITestOutputHelper" />.
     /// </summary>
     public void Write(object? value)
     {
@@ -117,7 +117,7 @@ public partial class Context
     }
 
     /// <summary>
-    /// Writes a string to the current <see cref="ITestOutputHelper"/>.
+    /// Writes a string to the current <see cref="ITestOutputHelper" />.
     /// </summary>
     public void Write(string? value)
     {
@@ -168,7 +168,7 @@ public partial class Context
     }
 
     /// <summary>
-    /// Writes a <see cref="char"/> to the current <see cref="ITestOutputHelper"/>.
+    /// Writes a <see cref="char" /> to the current <see cref="ITestOutputHelper" />.
     /// </summary>
     public void Write(char value)
     {
@@ -194,7 +194,7 @@ public partial class Context
     }
 
     /// <summary>
-    /// Writes a line to the current <see cref="ITestOutputHelper"/>.
+    /// Writes a line to the current <see cref="ITestOutputHelper" />.
     /// </summary>
     public void WriteLine()
     {
@@ -239,7 +239,7 @@ public partial class Context
     }
 
     /// <summary>
-    /// Writes a line to the current <see cref="ITestOutputHelper"/>.
+    /// Writes a line to the current <see cref="ITestOutputHelper" />.
     /// </summary>
     public void WriteLine(object value)
     {
@@ -248,7 +248,7 @@ public partial class Context
     }
 
     /// <summary>
-    /// Writes a line to the current <see cref="ITestOutputHelper"/>.
+    /// Writes a line to the current <see cref="ITestOutputHelper" />.
     /// </summary>
     public void WriteLine(string? value)
     {

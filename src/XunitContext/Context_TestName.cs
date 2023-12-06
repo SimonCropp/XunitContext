@@ -1,4 +1,5 @@
 ﻿// ReSharper disable ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+
 namespace Xunit;
 
 public partial class Context
@@ -23,6 +24,7 @@ public partial class Context
     }
 
     #region UniqueTestName
+
     string GetUniqueTestName(ITestCase testCase)
     {
         var method = testCase.TestMethod;
@@ -82,5 +84,6 @@ public partial class Context
             yield return toString;
         }
     }
+
     #endregion
 }

@@ -18,6 +18,7 @@ public partial class Context
     }
 
     MethodInfo? methodInfo;
+
     public MethodInfo MethodInfo
     {
         get
@@ -28,6 +29,7 @@ public partial class Context
     }
 
     Type? testType;
+
     public Type TestType
     {
         get
@@ -54,7 +56,8 @@ public partial class Context
         static extern ref ITest GetTest(TestOutputHelper? c);
         test = GetTest((TestOutputHelper) TestOutput);
 #else
-        test = (ITest) GetTestMethod(TestOutput).GetValue(TestOutput)!;
+        test = (ITest) GetTestMethod(TestOutput)
+            .GetValue(TestOutput)!;
 #endif
         var method = (ReflectionMethodInfo) test.TestCase.TestMethod.Method;
         var type = (ReflectionTypeInfo) test.TestCase.TestMethod.TestClass.Class;

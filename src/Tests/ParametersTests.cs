@@ -26,8 +26,14 @@
 
     public static IEnumerable<object[]> GetData()
     {
-        yield return new object[] {"Value1"};
-        yield return new object[] {"Value2"};
+        yield return new object[]
+        {
+            "Value1"
+        };
+        yield return new object[]
+        {
+            "Value2"
+        };
     }
 
     [Theory]
@@ -37,7 +43,16 @@
 
     public static IEnumerable<object?[]> GetEnumerableData()
     {
-        yield return new object?[] {"Value1", new[] {"Value2","Value3", null}};
+        yield return new object?[]
+        {
+            "Value1",
+            new[]
+            {
+                "Value2",
+                "Value3",
+                null
+            }
+        };
     }
 
     [Theory]
@@ -59,10 +74,15 @@
         File.Delete(md);
         using var writer = File.CreateText(md);
         await writer.WriteLineAsync();
-        foreach (var line in exception.Message.Split(new[]{ '\r', '\n'},StringSplitOptions.RemoveEmptyEntries))
+        foreach (var line in exception.Message.Split(new[]
+                 {
+                     '\r',
+                     '\n'
+                 }, StringSplitOptions.RemoveEmptyEntries))
         {
             await writer.WriteLineAsync($"> {line}");
         }
+
         await writer.WriteLineAsync();
     }
 
@@ -79,8 +99,14 @@
 
     public static IEnumerable<object[]> GetDataComplex()
     {
-        yield return new object[] {new ComplexClass("Value1")};
-        yield return new object[] {new ComplexClass("Value2")};
+        yield return new object[]
+        {
+            new ComplexClass("Value1")
+        };
+        yield return new object[]
+        {
+            new ComplexClass("Value2")
+        };
     }
 }
 

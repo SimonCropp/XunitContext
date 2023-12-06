@@ -18,13 +18,16 @@ public partial class Context
     static List<Parameter> empty = [];
 
     #region Parameters
+
     static List<Parameter> GetParameters(ITestCase testCase) =>
         GetParameters(testCase, testCase.TestMethodArguments);
 
     static List<Parameter> GetParameters(ITestCase testCase, object[] arguments)
     {
         var method = testCase.TestMethod;
-        var infos = method.Method.GetParameters().ToList();
+        var infos = method
+            .Method.GetParameters()
+            .ToList();
         if (arguments == null || !arguments.Any())
         {
             if (infos.Count == 0)
@@ -44,6 +47,7 @@ public partial class Context
 
         return items;
     }
+
     #endregion
 
     static Exception NewNoArgumentsDetectedException() =>

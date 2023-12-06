@@ -1,4 +1,5 @@
 ﻿// ReSharper disable UnusedVariable
+
 public class ContextStaticSample(ITestOutputHelper output) :
     XunitContextBase(output)
 {
