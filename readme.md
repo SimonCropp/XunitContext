@@ -224,6 +224,7 @@ For every tests there is a contextual API to perform several operations.
 <a id='snippet-ContextSample.cs'></a>
 ```cs
 // ReSharper disable UnusedVariable
+
 public class ContextSample(ITestOutputHelper output) :
     XunitContextBase(output)
 {
@@ -248,7 +249,7 @@ public class ContextSample(ITestOutputHelper output) :
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/ContextSample.cs#L1-L24' title='Snippet source file'>snippet source</a> | <a href='#snippet-ContextSample.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/ContextSample.cs#L1-L25' title='Snippet source file'>snippet source</a> | <a href='#snippet-ContextSample.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Some members are pushed down to the be accessible directly from `XunitContextBase`:
@@ -257,6 +258,7 @@ Some members are pushed down to the be accessible directly from `XunitContextBas
 <a id='snippet-ContextPushedDownSample.cs'></a>
 ```cs
 // ReSharper disable UnusedVariable
+
 public class ContextPushedDownSample(ITestOutputHelper output) :
     XunitContextBase(output)
 {
@@ -279,7 +281,7 @@ public class ContextPushedDownSample(ITestOutputHelper output) :
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/ContextPushedDownSample.cs#L1-L22' title='Snippet source file'>snippet source</a> | <a href='#snippet-ContextPushedDownSample.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/ContextPushedDownSample.cs#L1-L23' title='Snippet source file'>snippet source</a> | <a href='#snippet-ContextPushedDownSample.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Context can accessed via a static API:
@@ -288,6 +290,7 @@ Context can accessed via a static API:
 <a id='snippet-ContextStaticSample.cs'></a>
 ```cs
 // ReSharper disable UnusedVariable
+
 public class ContextStaticSample(ITestOutputHelper output) :
     XunitContextBase(output)
 {
@@ -312,7 +315,7 @@ public class ContextStaticSample(ITestOutputHelper output) :
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/ContextStaticSample.cs#L1-L24' title='Snippet source file'>snippet source</a> | <a href='#snippet-ContextStaticSample.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/ContextStaticSample.cs#L1-L25' title='Snippet source file'>snippet source</a> | <a href='#snippet-ContextStaticSample.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -328,6 +331,7 @@ Usage:
 <a id='snippet-CurrentTestSample.cs'></a>
 ```cs
 // ReSharper disable UnusedVariable
+
 public class CurrentTestSample(ITestOutputHelper output) :
     XunitContextBase(output)
 {
@@ -348,7 +352,7 @@ public class CurrentTestSample(ITestOutputHelper output) :
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/CurrentTestSample.cs#L1-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-CurrentTestSample.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/CurrentTestSample.cs#L1-L21' title='Snippet source file'>snippet source</a> | <a href='#snippet-CurrentTestSample.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Implementation:
@@ -376,6 +380,7 @@ public partial class Context
     }
 
     MethodInfo? methodInfo;
+
     public MethodInfo MethodInfo
     {
         get
@@ -386,6 +391,7 @@ public partial class Context
     }
 
     Type? testType;
+
     public Type TestType
     {
         get
@@ -412,7 +418,8 @@ public partial class Context
         static extern ref ITest GetTest(TestOutputHelper? c);
         test = GetTest((TestOutputHelper) TestOutput);
 #else
-        test = (ITest) GetTestMethod(TestOutput).GetValue(TestOutput)!;
+        test = (ITest) GetTestMethod(TestOutput)
+            .GetValue(TestOutput)!;
 #endif
         var method = (ReflectionMethodInfo) test.TestCase.TestMethod.Method;
         var type = (ReflectionTypeInfo) test.TestCase.TestMethod.TestClass.Class;
@@ -444,7 +451,7 @@ public partial class Context
 #endif
 }
 ```
-<sup><a href='/src/XunitContext/Context_CurrentTest.cs#L1-L87' title='Snippet source file'>snippet source</a> | <a href='#snippet-Context_CurrentTest.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/XunitContext/Context_CurrentTest.cs#L1-L90' title='Snippet source file'>snippet source</a> | <a href='#snippet-Context_CurrentTest.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -483,7 +490,7 @@ public class TestExceptionSample(ITestOutputHelper output) :
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/TestExceptionSample.cs#L1-L28' title='Snippet source file'>snippet source</a> | <a href='#snippet-testexceptionsample' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/TestExceptionSample.cs#L1-L29' title='Snippet source file'>snippet source</a> | <a href='#snippet-testexceptionsample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -494,12 +501,13 @@ When creating a custom base class for other tests, it is necessary to pass throu
 <!-- snippet: XunitContextCustomBase -->
 <a id='snippet-xunitcontextcustombase'></a>
 ```cs
-public class CustomBase(ITestOutputHelper testOutput,
-        [CallerFilePath] string sourceFile = "")
+public class CustomBase(
+    ITestOutputHelper testOutput,
+    [CallerFilePath] string sourceFile = "")
     :
         XunitContextBase(testOutput, sourceFile);
 ```
-<sup><a href='/src/Tests/Snippets/CustomBase.cs#L1-L6' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitcontextcustombase' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/CustomBase.cs#L1-L9' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitcontextcustombase' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -532,12 +540,18 @@ public class ParametersSample(ITestOutputHelper output) :
 
     public static IEnumerable<object[]> GetData()
     {
-        yield return new object[] {"Value1"};
-        yield return new object[] {"Value2"};
+        yield return new object[]
+        {
+            "Value1"
+        };
+        yield return new object[]
+        {
+            "Value2"
+        };
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/ParametersSample.cs#L1-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-ParametersSample.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/ParametersSample.cs#L1-L25' title='Snippet source file'>snippet source</a> | <a href='#snippet-ParametersSample.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Implementation:
@@ -551,7 +565,9 @@ static List<Parameter> GetParameters(ITestCase testCase) =>
 static List<Parameter> GetParameters(ITestCase testCase, object[] arguments)
 {
     var method = testCase.TestMethod;
-    var infos = method.Method.GetParameters().ToList();
+    var infos = method
+        .Method.GetParameters()
+        .ToList();
     if (arguments == null || !arguments.Any())
     {
         if (infos.Count == 0)
@@ -572,7 +588,7 @@ static List<Parameter> GetParameters(ITestCase testCase, object[] arguments)
     return items;
 }
 ```
-<sup><a href='/src/XunitContext/Context_Parameters.cs#L20-L47' title='Snippet source file'>snippet source</a> | <a href='#snippet-parameters' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/XunitContext/Context_Parameters.cs#L20-L51' title='Snippet source file'>snippet source</a> | <a href='#snippet-parameters' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -608,8 +624,14 @@ public class ComplexParameterSample(ITestOutputHelper output) :
 
     public static IEnumerable<object[]> GetData()
     {
-        yield return new object[] {new ComplexClass("Value1")};
-        yield return new object[] {new ComplexClass("Value2")};
+        yield return new object[]
+        {
+            new ComplexClass("Value1")
+        };
+        yield return new object[]
+        {
+            new ComplexClass("Value2")
+        };
     }
 
     public class ComplexClass(string value)
@@ -618,7 +640,7 @@ public class ComplexParameterSample(ITestOutputHelper output) :
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/ComplexParameterSample.cs#L1-L25' title='Snippet source file'>snippet source</a> | <a href='#snippet-ComplexParameterSample.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/ComplexParameterSample.cs#L1-L31' title='Snippet source file'>snippet source</a> | <a href='#snippet-ComplexParameterSample.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -711,7 +733,7 @@ static IEnumerable<string> SplitParams(object? parameter)
     }
 }
 ```
-<sup><a href='/src/XunitContext/Context_TestName.cs#L25-L85' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniquetestname' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/XunitContext/Context_TestName.cs#L26-L88' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniquetestname' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

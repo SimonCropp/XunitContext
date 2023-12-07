@@ -14,8 +14,14 @@
 
     public static IEnumerable<object[]> GetData()
     {
-        yield return new object[] {new ComplexClass("Value1")};
-        yield return new object[] {new ComplexClass("Value2")};
+        yield return new object[]
+        {
+            new ComplexClass("Value1")
+        };
+        yield return new object[]
+        {
+            new ComplexClass("Value2")
+        };
     }
 
     public class ComplexClass(string value)

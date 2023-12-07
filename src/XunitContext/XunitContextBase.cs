@@ -4,7 +4,7 @@ public abstract class XunitContextBase :
     IDisposable
 {
     /// <summary>
-    /// The current <see cref="ITestOutputHelper"/>.
+    /// The current <see cref="ITestOutputHelper" />.
     /// </summary>
     public ITestOutputHelper Output { get; }
 
@@ -22,43 +22,43 @@ public abstract class XunitContextBase :
     }
 
     /// <summary>
-    /// Writes a value to the current <see cref="ITestOutputHelper"/>.
+    /// Writes a value to the current <see cref="ITestOutputHelper" />.
     /// </summary>
     public void WriteLine(object value) =>
         Context.WriteLine(value);
 
     /// <summary>
-    /// Writes a line to the current <see cref="ITestOutputHelper"/>.
+    /// Writes a line to the current <see cref="ITestOutputHelper" />.
     /// </summary>
     public void WriteLine(string value) =>
         Context.WriteLine(value);
 
     /// <summary>
-    /// Writes a <see cref="char"/> to the current <see cref="ITestOutputHelper"/>.
+    /// Writes a <see cref="char" /> to the current <see cref="ITestOutputHelper" />.
     /// </summary>
     public void Write(char value) =>
         Context.Write(value);
 
     /// <summary>
-    /// Writes a line to the current <see cref="ITestOutputHelper"/>.
+    /// Writes a line to the current <see cref="ITestOutputHelper" />.
     /// </summary>
     public void WriteLine() =>
         Context.WriteLine();
 
     /// <summary>
-    /// Writes a value to the current <see cref="ITestOutputHelper"/>.
+    /// Writes a value to the current <see cref="ITestOutputHelper" />.
     /// </summary>
     public void Write(object value) =>
         Context.Write(value);
 
     /// <summary>
-    /// Writes a string to the current <see cref="ITestOutputHelper"/>.
+    /// Writes a string to the current <see cref="ITestOutputHelper" />.
     /// </summary>
     public void Write(string value) =>
         Context.Write(value);
 
     /// <summary>
-    /// All log message that have been written to the current <see cref="ITestOutputHelper"/>.
+    /// All log message that have been written to the current <see cref="ITestOutputHelper" />.
     /// </summary>
     public IReadOnlyList<string> Logs => Context.LogMessages;
 
@@ -66,7 +66,7 @@ public abstract class XunitContextBase :
         Context.Flush();
 
     /// <summary>
-    /// The <see cref="Exception"/> for the current test if it failed.
+    /// The <see cref="Exception" /> for the current test if it failed.
     /// </summary>
     public Exception? TestException => Context.TestException;
 
@@ -81,7 +81,7 @@ public abstract class XunitContextBase :
     public string SourceDirectory => Context.SourceDirectory;
 
     /// <summary>
-    /// The current solution directory. Obtained by walking up the directory tree from <see cref="SourceDirectory"/>.
+    /// The current solution directory. Obtained by walking up the directory tree from <see cref="SourceDirectory" />.
     /// </summary>
     public string SolutionDirectory => Context.SolutionDirectory;
 

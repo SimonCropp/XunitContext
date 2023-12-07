@@ -38,7 +38,7 @@ public static class XunitContext
         Trace.UseGlobalLock = useGlobalLock;
     }
 
-    private static void InnerInit()
+    static void InnerInit()
     {
         #region writeRedirects
 

@@ -17,7 +17,9 @@ static class SolutionDirectoryFinder
         var currentDirectory = testDirectory;
         do
         {
-            if (Directory.GetFiles(currentDirectory, "*.sln").Any())
+            if (Directory
+                .GetFiles(currentDirectory, "*.sln")
+                .Any())
             {
                 path = currentDirectory;
                 return true;

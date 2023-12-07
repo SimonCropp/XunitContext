@@ -1,5 +1,4 @@
-﻿
-public class ParametersSample(ITestOutputHelper output) :
+﻿public class ParametersSample(ITestOutputHelper output) :
     XunitContextBase(output)
 {
     [Theory]
@@ -14,7 +13,13 @@ public class ParametersSample(ITestOutputHelper output) :
 
     public static IEnumerable<object[]> GetData()
     {
-        yield return new object[] {"Value1"};
-        yield return new object[] {"Value2"};
+        yield return new object[]
+        {
+            "Value1"
+        };
+        yield return new object[]
+        {
+            "Value2"
+        };
     }
 }
