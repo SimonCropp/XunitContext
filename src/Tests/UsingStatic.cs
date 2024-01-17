@@ -1,5 +1,4 @@
-﻿[UsesVerify]
-public class UsingStatic
+﻿public class UsingStatic
 {
     [Fact]
     public Task Overwrites()

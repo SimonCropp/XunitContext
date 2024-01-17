@@ -1,4 +1,3 @@
-[UsesVerify]
 public class UsingClassFixture(ITestOutputHelper helper, ContextFixture fixture) :
     IContextFixture
 {

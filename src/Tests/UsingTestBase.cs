@@ -1,5 +1,4 @@
-﻿[UsesVerify]
-public class UsingTestBase(ITestOutputHelper testOutput) :
+﻿public class UsingTestBase(ITestOutputHelper testOutput) :
     XunitContextBase(testOutput)
 {
     static UsingTestBase() =>

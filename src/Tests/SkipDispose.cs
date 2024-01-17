@@ -1,5 +1,4 @@
-﻿[UsesVerify]
-public class SkipDispose(ITestOutputHelper testOutput) :
+﻿public class SkipDispose(ITestOutputHelper testOutput) :
     XunitContextBase(testOutput)
 {
     [Fact]
