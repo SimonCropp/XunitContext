@@ -4,7 +4,7 @@
     <Version>3.3.1</Version>
     <LangVersion>preview</LangVersion>
     <AssemblyVersion>1.0.0</AssemblyVersion>
-    <NoWarn>CS1591;xUnit1026</NoWarn>
+    <NoWarn>CS1591;xUnit1026;CA2255</NoWarn>
     <Nullable>enable</Nullable>
     <ResolveAssemblyReferencesSilent>true</ResolveAssemblyReferencesSilent>
   </PropertyGroup>
