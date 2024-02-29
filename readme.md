@@ -624,14 +624,8 @@ public class ComplexParameterSample(ITestOutputHelper output) :
 
     public static IEnumerable<object[]> GetData()
     {
-        yield return new object[]
-        {
-            new ComplexClass("Value1")
-        };
-        yield return new object[]
-        {
-            new ComplexClass("Value2")
-        };
+        yield return [new ComplexClass("Value1")];
+        yield return [new ComplexClass("Value2")];
     }
 
     public class ComplexClass(string value)
@@ -640,7 +634,7 @@ public class ComplexParameterSample(ITestOutputHelper output) :
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/ComplexParameterSample.cs#L1-L31' title='Snippet source file'>snippet source</a> | <a href='#snippet-ComplexParameterSample.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/ComplexParameterSample.cs#L1-L25' title='Snippet source file'>snippet source</a> | <a href='#snippet-ComplexParameterSample.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
