@@ -26,14 +26,8 @@
 
     public static IEnumerable<object[]> GetData()
     {
-        yield return new object[]
-        {
-            "Value1"
-        };
-        yield return new object[]
-        {
-            "Value2"
-        };
+        yield return ["Value1"];
+        yield return ["Value2"];
     }
 
     [Theory]
@@ -43,8 +37,8 @@
 
     public static IEnumerable<object?[]> GetEnumerableData()
     {
-        yield return new object?[]
-        {
+        yield return
+        [
             "Value1",
             new[]
             {
@@ -52,7 +46,7 @@
                 "Value3",
                 null
             }
-        };
+        ];
     }
 
     [Theory]
@@ -99,14 +93,8 @@
 
     public static IEnumerable<object[]> GetDataComplex()
     {
-        yield return new object[]
-        {
-            new ComplexClass("Value1")
-        };
-        yield return new object[]
-        {
-            new ComplexClass("Value2")
-        };
+        yield return [new ComplexClass("Value1")];
+        yield return [new ComplexClass("Value2")];
     }
 }
 
