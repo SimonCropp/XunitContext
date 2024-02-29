@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net472;netstandard2.0;net5.0;net6.0;net7.0;net8.0;netcoreapp3.1</TargetFrameworks>
+    <TargetFrameworks>net472;net5.0;net6.0;net7.0;net8.0</TargetFrameworks>
     <PackageTags>Context, Logging, xUnit</PackageTags>
     <Description>Extends xUnit to expose extra context and simplify logging.</Description>
   </PropertyGroup>
@@ -13,5 +13,6 @@
     <PackageReference Include="ProjectDefaults" Version="1.0.114" PrivateAssets="all" />
     <PackageReference Include="xunit.assert" Version="2.7.0" />
     <PackageReference Include="xunit.extensibility.execution" Version="2.7.0" />
+    <PackageReference Include="System.Memory" Version="4.5.5" Condition="$(TargetFrameworkIdentifier) == '.NETFramework'" />
   </ItemGroup>
 </Project>
