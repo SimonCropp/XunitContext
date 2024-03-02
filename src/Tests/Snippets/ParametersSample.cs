@@ -13,13 +13,7 @@
 
     public static IEnumerable<object[]> GetData()
     {
-        yield return new object[]
-        {
-            "Value1"
-        };
-        yield return new object[]
-        {
-            "Value2"
-        };
+        yield return ["Value1"];
+        yield return ["Value2"];
     }
 }
