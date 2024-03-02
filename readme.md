@@ -540,18 +540,12 @@ public class ParametersSample(ITestOutputHelper output) :
 
     public static IEnumerable<object[]> GetData()
     {
-        yield return new object[]
-        {
-            "Value1"
-        };
-        yield return new object[]
-        {
-            "Value2"
-        };
+        yield return ["Value1"];
+        yield return ["Value2"];
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/ParametersSample.cs#L1-L25' title='Snippet source file'>snippet source</a> | <a href='#snippet-ParametersSample.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/ParametersSample.cs#L1-L19' title='Snippet source file'>snippet source</a> | <a href='#snippet-ParametersSample.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Implementation:
