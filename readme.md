@@ -562,7 +562,7 @@ static List<Parameter> GetParameters(ITestCase testCase, object[] arguments)
     var infos = method
         .Method.GetParameters()
         .ToList();
-    if (arguments == null || !arguments.Any())
+    if (arguments == null || arguments.Length == 0)
     {
         if (infos.Count == 0)
         {

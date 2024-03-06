@@ -18,8 +18,8 @@ static class SolutionDirectoryFinder
         do
         {
             if (Directory
-                .GetFiles(currentDirectory, "*.sln")
-                .Any())
+                    .GetFiles(currentDirectory, "*.sln")
+                    .Length != 0)
             {
                 path = currentDirectory;
                 return true;
