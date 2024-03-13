@@ -8,7 +8,7 @@
     <None Remove="build\*" />
     <Content Include="build\XunitContext.props" PackagePath="build\XunitContext.props" />
     <Content Include="build\XunitContext.targets" PackagePath="build\XunitContext.targets" />
-    <PackageReference Include="Polyfill" Version="3.0.0" PrivateAssets="all" />
+    <PackageReference Include="Polyfill" Version="4.0.0" PrivateAssets="all" />
     <PackageReference Include="xunit.abstractions" Version="2.0.3" />
     <PackageReference Include="ProjectDefaults" Version="1.0.125" PrivateAssets="all" />
     <PackageReference Include="xunit.assert" Version="2.7.0" />
