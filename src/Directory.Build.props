@@ -7,5 +7,8 @@
     <NoWarn>CS1591;xUnit1026;CA2255</NoWarn>
     <Nullable>enable</Nullable>
     <ResolveAssemblyReferencesSilent>true</ResolveAssemblyReferencesSilent>
+    <NuGetAuditMode>all</NuGetAuditMode>
+    <NuGetAuditLevel>low</NuGetAuditLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 </Project>
