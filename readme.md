@@ -130,7 +130,7 @@ public class XunitLoggerSample :
 `XunitContext` redirects [Trace.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.trace.write), [Console.Write](https://docs.microsoft.com/en-us/dotnet/api/system.console.write), and [Debug.Write](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.debug.write) in its static constructor.
 
 <!-- snippet: writeRedirects -->
-<a id='snippet-writeredirects'></a>
+<a id='snippet-writeRedirects'></a>
 ```cs
 Trace.Listeners.Clear();
 Trace.Listeners.Add(new TraceListener());
@@ -159,7 +159,7 @@ TestWriter writer = new();
 Console.SetOut(writer);
 Console.SetError(writer);
 ```
-<sup><a href='/src/XunitContext/XunitContext.cs#L43-L72' title='Snippet source file'>snippet source</a> | <a href='#snippet-writeredirects' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/XunitContext/XunitContext.cs#L43-L72' title='Snippet source file'>snippet source</a> | <a href='#snippet-writeRedirects' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 These API calls are then routed to the correct xUnit [ITestOutputHelper](https://xunit.net/docs/capturing-output) via a static [AsyncLocal](https://docs.microsoft.com/en-us/dotnet/api/system.threading.asynclocal-1).
@@ -462,7 +462,7 @@ When a test fails it is expressed as an exception. The exception can be viewed b
 One common case is to perform some logic, based on the existence of the exception, in the `Dispose` of a test.
 
 <!-- snippet: TestExceptionSample -->
-<a id='snippet-testexceptionsample'></a>
+<a id='snippet-TestExceptionSample'></a>
 ```cs
 // ReSharper disable UnusedVariable
 public static class GlobalSetup
@@ -490,7 +490,7 @@ public class TestExceptionSample(ITestOutputHelper output) :
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/TestExceptionSample.cs#L1-L29' title='Snippet source file'>snippet source</a> | <a href='#snippet-testexceptionsample' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/TestExceptionSample.cs#L1-L29' title='Snippet source file'>snippet source</a> | <a href='#snippet-TestExceptionSample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -499,7 +499,7 @@ public class TestExceptionSample(ITestOutputHelper output) :
 When creating a custom base class for other tests, it is necessary to pass through the source file path to `XunitContextBase` via the constructor.
 
 <!-- snippet: XunitContextCustomBase -->
-<a id='snippet-xunitcontextcustombase'></a>
+<a id='snippet-XunitContextCustomBase'></a>
 ```cs
 public class CustomBase(
     ITestOutputHelper testOutput,
@@ -507,7 +507,7 @@ public class CustomBase(
     :
         XunitContextBase(testOutput, sourceFile);
 ```
-<sup><a href='/src/Tests/Snippets/CustomBase.cs#L1-L9' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitcontextcustombase' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/CustomBase.cs#L1-L9' title='Snippet source file'>snippet source</a> | <a href='#snippet-XunitContextCustomBase' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -551,7 +551,7 @@ public class ParametersSample(ITestOutputHelper output) :
 Implementation:
 
 <!-- snippet: Parameters -->
-<a id='snippet-parameters'></a>
+<a id='snippet-Parameters'></a>
 ```cs
 static List<Parameter> GetParameters(ITestCase testCase) =>
     GetParameters(testCase, testCase.TestMethodArguments);
@@ -582,7 +582,7 @@ static List<Parameter> GetParameters(ITestCase testCase, object[] arguments)
     return items;
 }
 ```
-<sup><a href='/src/XunitContext/Context_Parameters.cs#L20-L51' title='Snippet source file'>snippet source</a> | <a href='#snippet-parameters' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/XunitContext/Context_Parameters.cs#L20-L51' title='Snippet source file'>snippet source</a> | <a href='#snippet-Parameters' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -659,7 +659,7 @@ public class UniqueTestNameSample(ITestOutputHelper output) :
 Implementation:
 
 <!-- snippet: UniqueTestName -->
-<a id='snippet-uniquetestname'></a>
+<a id='snippet-UniqueTestName'></a>
 ```cs
 string GetUniqueTestName(ITestCase testCase)
 {
@@ -721,7 +721,7 @@ static IEnumerable<string> SplitParams(object? parameter)
     }
 }
 ```
-<sup><a href='/src/XunitContext/Context_TestName.cs#L26-L88' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniquetestname' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/XunitContext/Context_TestName.cs#L26-L88' title='Snippet source file'>snippet source</a> | <a href='#snippet-UniqueTestName' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
