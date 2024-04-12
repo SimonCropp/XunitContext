@@ -12,7 +12,7 @@
     <PackageReference Include="xunit.abstractions" Version="2.0.3" />
     <PackageReference Include="ProjectDefaults" Version="1.0.126" PrivateAssets="all" />
     <PackageReference Include="xunit.assert" Version="2.7.1" />
-    <PackageReference Include="xunit.extensibility.execution" Version="2.7.0" />
+    <PackageReference Include="xunit.extensibility.execution" Version="2.7.1" />
     <PackageReference Include="System.Memory" Version="4.5.5" Condition="$(TargetFrameworkIdentifier) == '.NETFramework'" />
   </ItemGroup>
 </Project>
