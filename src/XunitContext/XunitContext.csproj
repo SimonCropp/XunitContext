@@ -11,7 +11,7 @@
     <PackageReference Include="Polyfill" Version="5.2.2" PrivateAssets="all" />
     <PackageReference Include="xunit.abstractions" Version="2.0.3" />
     <PackageReference Include="ProjectDefaults" Version="1.0.127" PrivateAssets="all" />
-    <PackageReference Include="xunit.assert" Version="2.8.0" />
+    <PackageReference Include="xunit.assert" Version="2.8.1" />
     <PackageReference Include="xunit.extensibility.execution" Version="2.8.0" />
     <PackageReference Include="System.Memory" Version="4.5.5" Condition="$(TargetFrameworkIdentifier) == '.NETFramework'" />
   </ItemGroup>
