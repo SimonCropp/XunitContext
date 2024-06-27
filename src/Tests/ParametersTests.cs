@@ -66,13 +66,9 @@
         });
         var md = Path.Combine(SourceDirectory, "NoArgumentsDetectedException.include.md");
         File.Delete(md);
-        using var writer = File.CreateText(md);
+        await using var writer = File.CreateText(md);
         await writer.WriteLineAsync();
-        foreach (var line in exception.Message.Split(new[]
-                 {
-                     '\r',
-                     '\n'
-                 }, StringSplitOptions.RemoveEmptyEntries))
+        foreach (var line in exception.Message.Split(['\r', '\n'], StringSplitOptions.RemoveEmptyEntries))
         {
             await writer.WriteLineAsync($"> {line}");
         }
