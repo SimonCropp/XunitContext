@@ -85,14 +85,14 @@ public abstract class XunitContextBase :
     /// </summary>
     public string SolutionDirectory => Context.SolutionDirectory;
 
-    public string UniqueTestName => Context.UniqueTestName;
+    //public string UniqueTestName => Context.UniqueTestName;
 
-    /// <summary>
-    /// Override the default parameter resolution.
-    /// </summary>
-    public void UseParameters(params object[] parameters)
-    {
-        Guard.AgainstNull(parameters, nameof(parameters));
-        Context.UseParameters(parameters);
-    }
+    // /// <summary>
+    // /// Override the default parameter resolution.
+    // /// </summary>
+    // public void UseParameters(params object[] parameters)
+    // {
+    //     Guard.AgainstNull(parameters, nameof(parameters));
+    //    // Context.UseParameters(parameters);
+    // }
 }

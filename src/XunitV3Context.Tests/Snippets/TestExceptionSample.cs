@@ -20,7 +20,7 @@ public class TestExceptionSample(ITestOutputHelper output) :
     public override void Dispose()
     {
         var theExceptionThrownByTest = Context.TestException;
-        var testDisplayName = Context.Test.DisplayName;
+        var testDisplayName = Context.Test.TestDisplayName;
         var testCase = Context.Test.TestCase;
         base.Dispose();
     }

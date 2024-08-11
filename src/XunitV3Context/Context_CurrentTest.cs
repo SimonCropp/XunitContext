@@ -1,4 +1,5 @@
 ﻿using Xunit.Sdk;
+using Xunit.v3;
 
 namespace Xunit;
 
@@ -51,18 +52,9 @@ public partial class Context
             throw new(MissingTestOutput);
         }
 
-#if NET8_0_OR_GREATER
-        [UnsafeAccessor(UnsafeAccessorKind.Field, Name = "test")]
-        static extern ref ITest GetTest(TestOutputHelper? c);
-        test = GetTest((TestOutputHelper) TestOutput);
-#else
-        test = (ITest) GetTestMethod(TestOutput)
-            .GetValue(TestOutput)!;
-#endif
-        var method = (ReflectionMethodInfo) test.TestCase.TestMethod.Method;
-        var type = (ReflectionTypeInfo) test.TestCase.TestMethod.TestClass.Class;
-        methodInfo = method.MethodInfo;
-        testType = type.Type;
+        test = TestContext.Current.Test!;
+        methodInfo = ((IXunitTestMethod)test.TestCase.TestMethod!).Method;
+        testType = ((IXunitTestClass)test.TestCase.TestClass!).Class;
     }
 
     public const string MissingTestOutput = "ITestOutputHelper has not been set. It is possible that the call to `XunitContext.Register()` is missing, or the current test does not inherit from `XunitContextBase`.";

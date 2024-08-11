@@ -8,7 +8,7 @@ public class CurrentTestSample(ITestOutputHelper output) :
     {
         var currentTest = Context.Test;
         // DisplayName will be 'CurrentTestSample.Usage'
-        var displayName = currentTest.DisplayName;
+        var displayName = currentTest.TestDisplayName;
     }
 
     [Fact]
@@ -16,6 +16,6 @@ public class CurrentTestSample(ITestOutputHelper output) :
     {
         var currentTest = XunitContext.Context.Test;
         // DisplayName will be 'CurrentTestSample.StaticUsage'
-        var displayName = currentTest.DisplayName;
+        var displayName = currentTest.TestDisplayName;
     }
 }
