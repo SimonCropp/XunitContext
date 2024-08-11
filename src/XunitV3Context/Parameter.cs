@@ -2,10 +2,10 @@
 
 public class Parameter
 {
-    public IParameterInfo Info { get; }
+    public ParameterInfo Info { get; }
     public object? Value { get; }
 
-    public Parameter(IParameterInfo info, object? value)
+    public Parameter(ParameterInfo info, object? value)
     {
         Guard.AgainstNull(info, nameof(info));
         Info = info;

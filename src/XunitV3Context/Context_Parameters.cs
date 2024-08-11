@@ -1,4 +1,6 @@
-﻿namespace Xunit;
+﻿using Xunit.Sdk;
+
+namespace Xunit;
 
 public partial class Context
 {

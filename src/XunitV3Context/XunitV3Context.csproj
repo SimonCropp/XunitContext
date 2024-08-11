@@ -6,13 +6,12 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="build\*" />
-    <Content Include="build\XunitContext.props" PackagePath="build\XunitContext.props" />
-    <Content Include="build\XunitContext.targets" PackagePath="build\XunitContext.targets" />
+    <Content Include="build\XunitV3Context.props" PackagePath="build\XunitV3Context.props" />
+    <Content Include="build\XunitV3Context.targets" PackagePath="build\XunitV3Context.targets" />
     <PackageReference Include="Polyfill" PrivateAssets="all" />
-    <PackageReference Include="xunit.abstractions" />
     <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
-    <PackageReference Include="xunit.assert" />
-    <PackageReference Include="xunit.extensibility.execution" />
+    <PackageReference Include="xunit.v3.assert" />
+    <PackageReference Include="xunit.v3.extensibility.core" />
     <PackageReference Include="System.Memory" Condition="$(TargetFrameworkIdentifier) == '.NETFramework'" />
   </ItemGroup>
 </Project>
