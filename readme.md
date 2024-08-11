@@ -360,8 +360,6 @@ Implementation:
 <!-- snippet: Context_CurrentTest.cs -->
 <a id='snippet-Context_CurrentTest.cs'></a>
 ```cs
-using Xunit.Sdk;
-
 namespace Xunit;
 
 public partial class Context
@@ -451,7 +449,7 @@ public partial class Context
 #endif
 }
 ```
-<sup><a href='/src/XunitContext/Context_CurrentTest.cs#L1-L90' title='Snippet source file'>snippet source</a> | <a href='#snippet-Context_CurrentTest.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/XunitContext/Context_CurrentTest.cs#L1-L88' title='Snippet source file'>snippet source</a> | <a href='#snippet-Context_CurrentTest.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -472,11 +470,10 @@ public static class GlobalSetup
         XunitContext.EnableExceptionCapture();
 }
 
-[Trait("Category", "Integration")]
 public class TestExceptionSample(ITestOutputHelper output) :
     XunitContextBase(output)
 {
-    [Fact]
+    [Fact(Skip = "Will fail")]
     public void Usage() =>
         //This tests will fail
         Assert.False(true);
@@ -490,7 +487,7 @@ public class TestExceptionSample(ITestOutputHelper output) :
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/TestExceptionSample.cs#L1-L29' title='Snippet source file'>snippet source</a> | <a href='#snippet-TestExceptionSample' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/TestExceptionSample.cs#L1-L28' title='Snippet source file'>snippet source</a> | <a href='#snippet-TestExceptionSample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
