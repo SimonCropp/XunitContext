@@ -8,11 +8,10 @@ public static class GlobalSetup
         XunitContext.EnableExceptionCapture();
 }
 
-[Trait("Category", "Integration")]
 public class TestExceptionSample(ITestOutputHelper output) :
     XunitContextBase(output)
 {
-    [Fact]
+    [Fact(Skip = "Will fail")]
     public void Usage() =>
         //This tests will fail
         Assert.False(true);
