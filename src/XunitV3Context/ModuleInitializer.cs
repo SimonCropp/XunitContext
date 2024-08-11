@@ -1,4 +1,5 @@
-﻿static class ModuleInit
+﻿
+static class ModuleInit
 {
     [ModuleInitializer]
     public static void Initialize() =>

@@ -29,3 +29,8 @@
 //         Assert.EndsWith("UsingTestBase.CurrentTest", Context.UniqueTestName);
 //     }
 // }
+
+using XunitV3Context;
+
+//TODO
+[assembly:XunitContext]
