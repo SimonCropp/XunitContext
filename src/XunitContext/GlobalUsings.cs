@@ -1,3 +1,3 @@
 ﻿global using Xunit;
-global using Xunit.Abstractions;
-global using CharSpan = System.ReadOnlySpan<char>;
+global using Xunit.Sdk;
+global using Xunit.v3;
