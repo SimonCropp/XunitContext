@@ -1,4 +1,7 @@
-﻿public class UsingStatic
+﻿using System.Diagnostics.CodeAnalysis;
+
+[SuppressMessage("Usage", "xUnit1051:Calls to methods which accept CancellationToken should use TestContext.Current.CancellationToken")]
+public class UsingStatic
 {
     [Fact]
     public Task Overwrites()
