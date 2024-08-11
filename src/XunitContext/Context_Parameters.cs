@@ -19,14 +19,28 @@ public partial class Context
 
     #region Parameters
 
-    static List<Parameter> GetParameters(ITestCase testCase) =>
-        GetParameters(testCase, testCase.TestMethodArguments);
-
-    static List<Parameter> GetParameters(ITestCase testCase, object[] arguments)
+    static List<Parameter> GetParameters(ITestCase testCase)
     {
         var method = testCase.TestMethod;
-        var infos = method
-            .Method.GetParameters()
+        var baseTestMethod = method;
+        if (baseTestMethod == null)
+        {
+            throw new("TestContext.TestMethod is null");
+        }
+        var testMethod = (IXunitTestMethod) baseTestMethod;
+        return GetParameters(testCase, testMethod.TestMethodArguments);
+    }
+
+    static List<Parameter> GetParameters(ITestCase testCase, object?[] arguments)
+    {
+        var method = testCase.TestMethod;
+        var baseTestMethod = method;
+        if (baseTestMethod == null)
+        {
+            throw new("TestContext.TestMethod is null");
+        }
+        var testMethod = (IXunitTestMethod) baseTestMethod;
+        var infos = testMethod.Parameters
             .ToList();
         if (arguments == null || arguments.Length == 0)
         {

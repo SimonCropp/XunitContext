@@ -6,7 +6,13 @@ public partial class Context
 {
     string? uniqueTestName;
 
-    public string ClassName => Test.TestCase.TestMethod.TestClass.Class.ClassName();
+    public string ClassName
+    {
+        get
+        {
+            return Test.TestCase.TestMethod.TestClass.Class.ClassName();
+        }
+    }
 
     public string MethodName => Test.TestCase.TestMethod.Method.Name;
 
