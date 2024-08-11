@@ -339,7 +339,7 @@ public class CurrentTestSample(ITestOutputHelper output) :
     public void Usage()
     {
         var currentTest = Context.Test;
-        // DisplayName will be 'TestNameSample.Usage'
+        // DisplayName will be 'CurrentTestSample.Usage'
         var displayName = currentTest.DisplayName;
     }
 
@@ -347,7 +347,7 @@ public class CurrentTestSample(ITestOutputHelper output) :
     public void StaticUsage()
     {
         var currentTest = XunitContext.Context.Test;
-        // DisplayName will be 'TestNameSample.StaticUsage'
+        // DisplayName will be 'CurrentTestSample.StaticUsage'
         var displayName = currentTest.DisplayName;
     }
 }
