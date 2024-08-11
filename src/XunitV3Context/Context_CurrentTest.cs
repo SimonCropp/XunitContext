@@ -58,25 +58,4 @@ public partial class Context
     }
 
     public const string MissingTestOutput = "ITestOutputHelper has not been set. It is possible that the call to `XunitContext.Register()` is missing, or the current test does not inherit from `XunitContextBase`.";
-
-#if !NET8_0_OR_GREATER
-    static FieldInfo? cachedTestMember;
-
-    static FieldInfo GetTestMethod(ITestOutputHelper testOutput)
-    {
-        if (cachedTestMember != null)
-        {
-            return cachedTestMember;
-        }
-
-        var testOutputType = testOutput.GetType();
-        cachedTestMember = testOutputType.GetField("test", BindingFlags.Instance | BindingFlags.NonPublic);
-        if (cachedTestMember == null)
-        {
-            throw new($"Unable to find 'test' field on {testOutputType.FullName}");
-        }
-
-        return cachedTestMember;
-    }
-#endif
 }
