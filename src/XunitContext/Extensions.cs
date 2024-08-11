@@ -63,9 +63,9 @@ static class Extensions
         throw new("TestCase.TestClass is not IXunitTestClass");
     }
 
-    public static string ClassName(this ITypeInfo value)
+    public static string ClassName(this ITestClass value)
     {
-        var name = value.Name;
+        var name = value.TestClassName;
         var indexOf = name.LastIndexOf('.');
         if (indexOf == -1)
         {
