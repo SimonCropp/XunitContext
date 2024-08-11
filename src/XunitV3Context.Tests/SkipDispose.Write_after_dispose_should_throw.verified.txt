@@ -1,0 +1,9 @@
+﻿{
+  Type: Exception,
+  Message: Context has been flushed. Could not write the string: Environment.NewLine,
+  StackTrace:
+at Xunit.Context.ThrowIfFlushed(String logText)
+at Xunit.Context.WriteLine()
+at Xunit.XunitContextBase.WriteLine()
+at Xunit.Assert.RecordException(Action testCode)
+}

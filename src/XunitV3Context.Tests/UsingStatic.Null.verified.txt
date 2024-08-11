@@ -1,0 +1,12 @@
+﻿[
+  XunitLogger.WriteLine,
+  ,
+  Console.WriteLine(null),
+  ,
+  Debug.WriteLine(null),
+  ,
+  Debug.Write(null),
+  Trace.WriteLine(null),
+  ,
+  Trace.Write(null)
+]
