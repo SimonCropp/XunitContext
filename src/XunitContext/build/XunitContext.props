@@ -1,6 +1,5 @@
 ﻿<Project>
   <ItemGroup Condition="$(Language) == 'C#' and ($(ImplicitUsings) == 'enable' or $(ImplicitUsings) == 'true')">
-    <Using Include="Xunit.Abstractions" />
     <Using Include="Xunit" />
   </ItemGroup>
 </Project>
