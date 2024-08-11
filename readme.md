@@ -339,16 +339,16 @@ public class CurrentTestSample(ITestOutputHelper output) :
     public void Usage()
     {
         var currentTest = Context.Test;
-        // DisplayName will be 'TestNameSample.Usage'
-        var displayName = currentTest.TestDisplayName;
+        // DisplayName will be 'CurrentTestSample.Usage'
+        var displayName = currentTest.DisplayName;
     }
 
     [Fact]
     public void StaticUsage()
     {
         var currentTest = XunitContext.Context.Test;
-        // DisplayName will be 'TestNameSample.StaticUsage'
-        var displayName = currentTest.TestDisplayName;
+        // DisplayName will be 'CurrentTestSample.StaticUsage'
+        var displayName = currentTest.DisplayName;
     }
 }
 ```
@@ -361,13 +361,13 @@ Implementation:
 <a id='snippet-Context_CurrentTest.cs'></a>
 ```cs
 using Xunit.Sdk;
-using Xunit.v3;
 
 namespace Xunit;
 
 public partial class Context
 {
     ITest? test;
+
 
     public ITest Test
     {
@@ -413,21 +413,18 @@ public partial class Context
             throw new(MissingTestOutput);
         }
 
-        test = TestContext.Current.Test!;
-        var baseTestMethod = test.TestCase.TestMethod;
-        if (baseTestMethod == null)
-        {
-            throw new("TestContext.TestMethod is null");
-        }
-        var baseTestClass = test.TestCase.TestClass;
-        if (baseTestClass == null)
-        {
-            throw new("TestContext.TestClass is null");
-        }
-        var testMethod = (IXunitTestMethod) baseTestMethod;
-        var testClass = (IXunitTestClass) baseTestClass;
-        methodInfo = testMethod.Method;
-        testType = testClass.Class;
+#if NET8_0_OR_GREATER
+        [UnsafeAccessor(UnsafeAccessorKind.Field, Name = "test")]
+        static extern ref ITest GetTest(TestOutputHelper? c);
+        test = GetTest((TestOutputHelper) TestOutput);
+#else
+        test = (ITest) GetTestMethod(TestOutput)
+            .GetValue(TestOutput)!;
+#endif
+        var method = (ReflectionMethodInfo) test.TestCase.TestMethod.Method;
+        var type = (ReflectionTypeInfo) test.TestCase.TestMethod.TestClass.Class;
+        methodInfo = method.MethodInfo;
+        testType = type.Type;
     }
 
     public const string MissingTestOutput = "ITestOutputHelper has not been set. It is possible that the call to `XunitContext.Register()` is missing, or the current test does not inherit from `XunitContextBase`.";
@@ -454,7 +451,7 @@ public partial class Context
 #endif
 }
 ```
-<sup><a href='/src/XunitContext/Context_CurrentTest.cs#L1-L93' title='Snippet source file'>snippet source</a> | <a href='#snippet-Context_CurrentTest.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/XunitContext/Context_CurrentTest.cs#L1-L90' title='Snippet source file'>snippet source</a> | <a href='#snippet-Context_CurrentTest.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -487,7 +484,7 @@ public class TestExceptionSample(ITestOutputHelper output) :
     public override void Dispose()
     {
         var theExceptionThrownByTest = Context.TestException;
-        var testDisplayName = Context.Test.TestDisplayName;
+        var testDisplayName = Context.Test.DisplayName;
         var testCase = Context.Test.TestCase;
         base.Dispose();
     }
@@ -556,28 +553,14 @@ Implementation:
 <!-- snippet: Parameters -->
 <a id='snippet-Parameters'></a>
 ```cs
-static List<Parameter> GetParameters(ITestCase testCase)
-{
-    var method = testCase.TestMethod;
-    var baseTestMethod = method;
-    if (baseTestMethod == null)
-    {
-        throw new("TestContext.TestMethod is null");
-    }
-    var testMethod = (IXunitTestMethod) baseTestMethod;
-    return GetParameters(testCase, testMethod.TestMethodArguments);
-}
+static List<Parameter> GetParameters(ITestCase testCase) =>
+    GetParameters(testCase, testCase.TestMethodArguments);
 
-static List<Parameter> GetParameters(ITestCase testCase, object?[] arguments)
+static List<Parameter> GetParameters(ITestCase testCase, object[] arguments)
 {
     var method = testCase.TestMethod;
-    var baseTestMethod = method;
-    if (baseTestMethod == null)
-    {
-        throw new("TestContext.TestMethod is null");
-    }
-    var testMethod = (IXunitTestMethod) baseTestMethod;
-    var infos = testMethod.Parameters
+    var infos = method
+        .Method.GetParameters()
         .ToList();
     if (arguments == null || arguments.Length == 0)
     {
@@ -599,7 +582,7 @@ static List<Parameter> GetParameters(ITestCase testCase, object?[] arguments)
     return items;
 }
 ```
-<sup><a href='/src/XunitContext/Context_Parameters.cs#L23-L68' title='Snippet source file'>snippet source</a> | <a href='#snippet-Parameters' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/XunitContext/Context_Parameters.cs#L20-L51' title='Snippet source file'>snippet source</a> | <a href='#snippet-Parameters' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -680,8 +663,8 @@ Implementation:
 ```cs
 string GetUniqueTestName(ITestCase testCase)
 {
-    var method = testCase.TestMethod!;
-    var name = $"{method.TestClass.TestClassName}.{method.MethodName}";
+    var method = testCase.TestMethod;
+    var name = $"{method.TestClass.Class.ClassName()}.{method.Method.Name}";
     if (!Parameters.Any())
     {
         return name;
@@ -738,7 +721,7 @@ static IEnumerable<string> SplitParams(object? parameter)
     }
 }
 ```
-<sup><a href='/src/XunitContext/Context_TestName.cs#L28-L90' title='Snippet source file'>snippet source</a> | <a href='#snippet-UniqueTestName' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/XunitContext/Context_TestName.cs#L26-L88' title='Snippet source file'>snippet source</a> | <a href='#snippet-UniqueTestName' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
