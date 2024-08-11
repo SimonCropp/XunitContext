@@ -15,5 +15,9 @@
     <PackageVersion Include="xunit.assert" Version="2.9.0" />
     <PackageVersion Include="xunit.extensibility.execution" Version="2.9.0" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.0.0-pre.24" />
+    <PackageVersion Include="Verify.XunitV3" Version="26.2.0-beta.1" />
+    <PackageVersion Include="xunit.v3" Version="0.2.0-pre.69" />
+    <PackageVersion Include="xunit.v3.assert" Version="0.2.0-pre.69" />
+    <PackageVersion Include="xunit.v3.extensibility.core" Version="0.2.0-pre.69" />
   </ItemGroup>
 </Project>
