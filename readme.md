@@ -360,14 +360,11 @@ Implementation:
 <!-- snippet: Context_CurrentTest.cs -->
 <a id='snippet-Context_CurrentTest.cs'></a>
 ```cs
-using Xunit.Sdk;
-
 namespace Xunit;
 
 public partial class Context
 {
     ITest? test;
-
 
     public ITest Test
     {
@@ -413,19 +410,18 @@ public partial class Context
             throw new(MissingTestOutput);
         }
 
-#if NET8_0_OR_GREATER
-        [UnsafeAccessor(UnsafeAccessorKind.Field, Name = "test")]
-        static extern ref ITest GetTest(TestOutputHelper? c);
-        test = GetTest((TestOutputHelper) TestOutput);
-#else
-        test = (ITest) GetTestMethod(TestOutput)
-            .GetValue(TestOutput)!;
-#endif
-        var method = (ReflectionMethodInfo) test.TestCase.TestMethod.Method;
-        var type = (ReflectionTypeInfo) test.TestCase.TestMethod.TestClass.Class;
-        methodInfo = method.MethodInfo;
-        testType = type.Type;
+        test = TestContext.Current.Test;
+        if (test == null)
+        {
+            throw new("TestContext.Current.Test is null");
+        }
+
+        var testMethod = test.TestMethod();
+        var testClass = test.TestClass();
+        methodInfo = testMethod.Method;
+        testType = testClass.Class;
     }
+
 
     public const string MissingTestOutput = "ITestOutputHelper has not been set. It is possible that the call to `XunitContext.Register()` is missing, or the current test does not inherit from `XunitContextBase`.";
 
@@ -451,7 +447,7 @@ public partial class Context
 #endif
 }
 ```
-<sup><a href='/src/XunitContext/Context_CurrentTest.cs#L1-L90' title='Snippet source file'>snippet source</a> | <a href='#snippet-Context_CurrentTest.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/XunitContext/Context_CurrentTest.cs#L1-L86' title='Snippet source file'>snippet source</a> | <a href='#snippet-Context_CurrentTest.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -484,7 +480,7 @@ public class TestExceptionSample(ITestOutputHelper output) :
     public override void Dispose()
     {
         var theExceptionThrownByTest = Context.TestException;
-        var testDisplayName = Context.Test.DisplayName;
+        var testDisplayName = Context.Test.TestDisplayName;
         var testCase = Context.Test.TestCase;
         base.Dispose();
     }
@@ -553,14 +549,28 @@ Implementation:
 <!-- snippet: Parameters -->
 <a id='snippet-Parameters'></a>
 ```cs
-static List<Parameter> GetParameters(ITestCase testCase) =>
-    GetParameters(testCase, testCase.TestMethodArguments);
-
-static List<Parameter> GetParameters(ITestCase testCase, object[] arguments)
+static List<Parameter> GetParameters(ITestCase testCase)
 {
     var method = testCase.TestMethod;
-    var infos = method
-        .Method.GetParameters()
+    var baseTestMethod = method;
+    if (baseTestMethod == null)
+    {
+        throw new("TestContext.TestMethod is null");
+    }
+    var testMethod = (IXunitTestMethod) baseTestMethod;
+    return GetParameters(testCase, testMethod.TestMethodArguments);
+}
+
+static List<Parameter> GetParameters(ITestCase testCase, object?[] arguments)
+{
+    var method = testCase.TestMethod;
+    var baseTestMethod = method;
+    if (baseTestMethod == null)
+    {
+        throw new("TestContext.TestMethod is null");
+    }
+    var testMethod = (IXunitTestMethod) baseTestMethod;
+    var infos = testMethod.Parameters
         .ToList();
     if (arguments == null || arguments.Length == 0)
     {
@@ -582,7 +592,7 @@ static List<Parameter> GetParameters(ITestCase testCase, object[] arguments)
     return items;
 }
 ```
-<sup><a href='/src/XunitContext/Context_Parameters.cs#L20-L51' title='Snippet source file'>snippet source</a> | <a href='#snippet-Parameters' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/XunitContext/Context_Parameters.cs#L20-L65' title='Snippet source file'>snippet source</a> | <a href='#snippet-Parameters' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -721,7 +731,7 @@ static IEnumerable<string> SplitParams(object? parameter)
     }
 }
 ```
-<sup><a href='/src/XunitContext/Context_TestName.cs#L26-L88' title='Snippet source file'>snippet source</a> | <a href='#snippet-UniqueTestName' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/XunitContext/Context_TestName.cs#L32-L94' title='Snippet source file'>snippet source</a> | <a href='#snippet-UniqueTestName' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
