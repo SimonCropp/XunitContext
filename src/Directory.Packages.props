@@ -6,14 +6,14 @@
   <ItemGroup>
     <PackageVersion Include="MarkdownSnippets.MsBuild" Version="27.0.2" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
-    <PackageVersion Include="Polyfill" Version="7.7.0" />
+    <PackageVersion Include="Polyfill" Version="7.7.1" />
     <PackageVersion Include="ProjectDefaults" Version="1.0.147" />
     <PackageVersion Include="System.Memory" Version="4.6.0" />
-    <PackageVersion Include="Verify.Xunit" Version="28.5.0" />
+    <PackageVersion Include="Verify.Xunit" Version="28.6.0" />
     <PackageVersion Include="Xunit" Version="2.9.2" />
     <PackageVersion Include="xunit.abstractions" Version="2.0.3" />
     <PackageVersion Include="xunit.assert" Version="2.9.2" />
     <PackageVersion Include="xunit.extensibility.execution" Version="2.9.2" />
-    <PackageVersion Include="xunit.runner.visualstudio" Version="3.0.0-pre.49" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="3.0.0" />
   </ItemGroup>
 </Project>
