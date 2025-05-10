@@ -15,5 +15,6 @@
     <PackageVersion Include="xunit.assert" Version="2.9.3" />
     <PackageVersion Include="xunit.extensibility.execution" Version="2.9.3" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.0" />
+    <PackageVersion Include="Microsoft.Sbom.Targets" Version="3.1.0" />
   </ItemGroup>
 </Project>
