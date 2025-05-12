@@ -13,6 +13,7 @@
     <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
     <PackageReference Include="xunit.assert" />
     <PackageReference Include="xunit.extensibility.execution" />
+    <PackageReference Include="Microsoft.Sbom.Targets" PrivateAssets="all" />
     <PackageReference Include="System.Memory" Condition="$(TargetFrameworkIdentifier) == '.NETFramework'" />
   </ItemGroup>
 </Project>
