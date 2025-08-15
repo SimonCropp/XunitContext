@@ -9,7 +9,7 @@
     <PackageVersion Include="Polyfill" Version="8.7.4" />
     <PackageVersion Include="ProjectDefaults" Version="1.0.157" />
     <PackageVersion Include="System.Memory" Version="4.6.3" />
-    <PackageVersion Include="Verify.Xunit" Version="30.7.1" />
+    <PackageVersion Include="Verify.Xunit" Version="30.7.2" />
     <PackageVersion Include="Xunit" Version="2.9.3" />
     <PackageVersion Include="xunit.abstractions" Version="2.0.3" />
     <PackageVersion Include="xunit.assert" Version="2.9.3" />
