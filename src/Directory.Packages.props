@@ -6,10 +6,10 @@
   <ItemGroup>
     <PackageVersion Include="MarkdownSnippets.MsBuild" Version="28.0.0-beta.2" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
-    <PackageVersion Include="Polyfill" Version="8.8.1" />
+    <PackageVersion Include="Polyfill" Version="8.9.0" />
     <PackageVersion Include="ProjectDefaults" Version="1.0.158" />
     <PackageVersion Include="System.Memory" Version="4.6.3" />
-    <PackageVersion Include="Verify.Xunit" Version="30.13.0" />
+    <PackageVersion Include="Verify.Xunit" Version="30.17.0" />
     <PackageVersion Include="Xunit" Version="2.9.3" />
     <PackageVersion Include="xunit.abstractions" Version="2.0.3" />
     <PackageVersion Include="xunit.assert" Version="2.9.3" />
