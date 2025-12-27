@@ -1,6 +1,6 @@
 # <img src="/src/icon.png" height="30px"> XunitContext
 
-[![Build status](https://ci.appveyor.com/api/projects/status/sdg2ni2jhe2o33le/branch/main?svg=true)](https://ci.appveyor.com/project/SimonCropp/XunitContext)
+[![Build status](https://img.shields.io/appveyor/build/SimonCropp/XunitContext)](https://ci.appveyor.com/project/SimonCropp/XunitContext)
 [![NuGet Status](https://img.shields.io/nuget/v/XunitContext.svg)](https://www.nuget.org/packages/XunitContext/)
 
 Extends [xUnit](https://xunit.net/) to expose extra context and simplify logging.
